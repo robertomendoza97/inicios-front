@@ -3,7 +3,6 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { BsTrash } from "react-icons/bs";
 import { GrUpdate } from "react-icons/gr";
 import { Tooltip } from "@/src/components";
-import { formatNumberToPrice } from "@/src/utils";
 import Link from "next/link";
 
 interface ProductTable extends Record<string, string | number> {
@@ -11,14 +10,14 @@ interface ProductTable extends Record<string, string | number> {
   cod: number;
   name: string;
   stock: number;
-  retailCost: string;
+  retailCost: number;
   actions: string;
   currency: string;
 }
 
 const DetailCell = ({ value }: { value: string | number }) => {
   return (
-    <div className="flex gap-5 h-full relative">
+    <div className="flex justify-center gap-5 h-full relative">
       <Tooltip
         content={
           <Link href={`/dashboard/product/details/${value}`}>
@@ -56,7 +55,7 @@ export const formatProducts = (products: SingleProduct[]): ProductTable[] => {
     cod: data.systemCode,
     name: data.name,
     stock: data.quantity,
-    retailCost: formatNumberToPrice(data.retailPrice),
+    retailCost: data.retailPrice,
     currency: data.currency,
     actions: data.id
   }));

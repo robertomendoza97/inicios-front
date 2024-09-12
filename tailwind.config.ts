@@ -18,7 +18,12 @@ const config: Config = {
         paletteColor2: "var(--palette-color2)",
         paletteColor3: "var(--palette-color3)",
         paletteColor4: "var(--palette-color4)",
-        paletteColor5: "var(--palette-color5)"
+        paletteColor5: "var(--palette-color5)",
+        secondary1: "var(--secondary1)",
+        secondary2: "var(--secondary2)",
+        secondary3: "var(--secondary3)",
+        secondary4: "var(--secondary4)",
+        secondary5: "var(--secondary5)"
       }
     }
   },

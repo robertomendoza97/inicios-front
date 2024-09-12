@@ -1,6 +1,4 @@
-import { BaseWithId } from "@/src/components/CustomTable";
-
-export interface SingleProduct extends BaseWithId {
+export interface SingleProduct {
   id: string;
   name: string;
   description: string;

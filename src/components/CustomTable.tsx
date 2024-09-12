@@ -2,28 +2,50 @@
 
 import { ChangeEvent, ReactElement, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { TableHeadCell } from "./";
+import Link from "next/link";
 
 export interface Column {
   key: string;
   name: string;
-  f?: (value: string | number) => ReactElement;
+  component?: (value: string | number) => ReactElement;
+  sort?: boolean;
+  index?: boolean;
 }
 
 interface Props {
   column: Column[];
   data: Record<string, string | number>[];
   title: string;
+  path: string;
 }
 
-export const CustomTable = ({ column, data, title }: Props) => {
+export const CustomTable = ({ column, data, title, path }: Props) => {
   const [rows, setRows] = useState(data);
   const [search, setSearch] = useState("");
 
-  console.log();
+  const indexColumns = column.reduce<string[]>((acc, column) => {
+    if (column.index) {
+      acc.push(column.key);
+    }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-    // setRows(data.filter(d => d.));
+    return acc;
+  }, []);
+
+  const handleChange = ({
+    target: { value }
+  }: ChangeEvent<HTMLInputElement>) => {
+    setSearch(value);
+
+    if (Boolean(indexColumns.length)) {
+      setRows(
+        data.filter(d =>
+          indexColumns.some(cs =>
+            d[cs]?.toString().toLowerCase().includes(value.toLowerCase())
+          )
+        )
+      );
+    }
   };
 
   return (
@@ -45,15 +67,16 @@ export const CustomTable = ({ column, data, title }: Props) => {
           </header>
           <div className="p-3">
             <div className="overflow-x-auto">
-              <table className="table-auto w-full">
+              <table className="table-auto w-full border-b-[1px]">
                 <thead className="text-m font-semibold uppercase text-white bg-paletteColor1 rounded">
                   <tr>
                     {column.map(col => (
-                      <th key={col.key} className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">
-                          {col.name}
-                        </div>
-                      </th>
+                      <TableHeadCell
+                        key={col.key}
+                        rows={rows}
+                        col={col}
+                        setRows={setRows}
+                      />
                     ))}
                   </tr>
                 </thead>
@@ -61,14 +84,28 @@ export const CustomTable = ({ column, data, title }: Props) => {
                   {rows.map(row => (
                     <tr key={row.id}>
                       {column.map(col => (
-                        <td key={col.key} className="p-2 whitespace-nowrap">
-                          {col.f ? col.f(row[col.key] as string) : row[col.key]}
+                        <td
+                          key={col.key}
+                          className="p-2 whitespace-nowrap text-center"
+                        >
+                          {col.component
+                            ? col.component(row[col.key] as string)
+                            : row[col.key]}
                         </td>
                       ))}
                     </tr>
                   ))}
                 </tbody>
               </table>
+              <div className="flex justify-between w-full mt-2 items-center">
+                <Link
+                  href={path}
+                  className="px-4 py-2 bg-paletteColor5 rounded  text-lg"
+                >
+                  Crear registro
+                </Link>
+                <div>paginador</div>
+              </div>
             </div>
           </div>
         </div>

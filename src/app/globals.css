@@ -10,6 +10,11 @@
   --palette-color3: #061d25;
   --palette-color4: #737a7c;
   --palette-color5: #e5e5e5;
+  --secondary1: #3b4e55;
+  --secondary2: #51656c;
+  --secondary3: #687c83;
+  --secondary4: #7e929a;
+  --secondary5: #94a9b1;
 }
 
 /* @media (prefers-color-scheme: dark) {
