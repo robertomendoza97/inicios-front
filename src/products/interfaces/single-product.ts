@@ -1,10 +1,12 @@
-export interface SingleProduct {
+import { BaseWithId } from "@/src/components/CustomTable";
+
+export interface SingleProduct extends BaseWithId {
   id: string;
   name: string;
   description: string;
   state: string;
   tags: string[];
-  barCode: null;
+  barCode: string | null;
   systemCode: number;
   costPrice: number;
   retailPrice: number;
@@ -12,7 +14,7 @@ export interface SingleProduct {
   quantity: number;
   created_at: Date;
   update_at: Date;
-  deletedAt: null;
+  deletedAt: string | null;
   subCategory: SubCategory;
   images: Image[];
 }
