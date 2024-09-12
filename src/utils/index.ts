@@ -1,0 +1,1 @@
+export { formatNumberToPrice } from "./formatNumbersToPrice";

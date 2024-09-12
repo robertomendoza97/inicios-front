@@ -14,6 +14,7 @@ export interface SingleProduct extends BaseWithId {
   quantity: number;
   created_at: Date;
   update_at: Date;
+  currency: string;
   deletedAt: string | null;
   subCategory: SubCategory;
   images: Image[];

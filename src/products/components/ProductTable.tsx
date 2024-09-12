@@ -1,29 +1,33 @@
+"use client";
+
 import { CustomTable } from "@/src/components";
-import { IProductsResponse } from "@/src/products/";
 import { SingleProduct } from "@/src/products/";
+import { actionsFunction, formatProducts } from "../utils/formatProducts";
 
-const getProducts = async (): Promise<SingleProduct[]> => {
-  const { data }: IProductsResponse = await fetch(
-    `http://localhost:3333/administration-system/api/product`
-  ).then(resp => resp.json());
-
-  return data;
-};
-
+interface Props {
+  products: SingleProduct[];
+}
 const tableColumns = [
   { key: "cod", name: "Codigo" },
   { key: "name", name: "Nombre" },
   { key: "stock", name: "Cantidad" },
   { key: "retailCost", name: "Precio" },
-  { key: "details", name: "Detalles" }
+  { key: "currency", name: "Moneda" },
+  {
+    key: "actions",
+    name: "Acciones",
+    f: actionsFunction
+  }
 ];
 
-export const ProductTable = async () => {
-  const products = await getProducts();
-
+export const ProductTable = ({ products }: Props) => {
   return (
-    <div>
-      <CustomTable column={tableColumns} data={products} />
+    <div className="h-full">
+      <CustomTable
+        title="Productos"
+        column={tableColumns}
+        data={formatProducts(products)}
+      />
     </div>
   );
 };
