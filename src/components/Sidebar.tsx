@@ -10,7 +10,7 @@ import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { MdOutlineInventory } from "react-icons/md";
 
 const menuOptions = [
-  { title: "Dashboard", path: "/dashboard/main", icon: <IoHomeOutline /> },
+  { title: "Home", path: "/dashboard/main", icon: <IoHomeOutline /> },
   { title: "Clientes", path: "/dashboard/clients", icon: <LuUsers /> },
   {
     title: "Productos",
@@ -39,7 +39,7 @@ export const Sidebar = () => {
     <div
       id="menu"
       style={{ width: "270px" }}
-      className="bg-gray-900 min-h-screen z-10 text-slate-300 left-0 h-screen w-min"
+      className="bg-paletteColor3 min-h-screen z-10 text-slate-300 left-0 h-screen w-min"
     >
       <div
         id="logo"

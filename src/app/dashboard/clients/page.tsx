@@ -1,5 +1,11 @@
-const Client = () => {
-  return <div>Client</div>;
+import { ClientTable } from "../../../clients/components/ClientTable";
+
+const ClientsPage = () => {
+  return (
+    <>
+      <ClientTable />
+    </>
+  );
 };
 
-export default Client;
+export default ClientsPage;

@@ -5,18 +5,23 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --palette-color1: #6cbfc7;
+  --palette-color2: #99e0da;
+  --palette-color3: #061d25;
+  --palette-color4: #737a7c;
+  --palette-color5: #e5e5e5;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: var(--palette-color5);
   font-family: Arial, Helvetica, sans-serif;
 }
 

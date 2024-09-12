@@ -16,7 +16,7 @@ export const SidebarMenuItem = ({ path, title, icon }: props) => {
     <Link
       href={`${path}`}
       className={`px-2 inline-flex space-x-2 items-center py-3 font-medium hover:bg-white/5 transition ease-linear duration-150  w-full
-         ${path === currentPath ? "border-b" : ""}
+         ${path === currentPath ? "border-b pl-5 transition-all" : ""}
         `}
     >
       <div>{icon}</div>
