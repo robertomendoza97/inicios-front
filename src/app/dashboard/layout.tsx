@@ -1,4 +1,4 @@
-import { Header, Sidebar } from "../../components";
+import { Header, Modal, Sidebar } from "../../components";
 
 export default function DashboardLayout({
   children
@@ -6,7 +6,8 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased text-slate-300 selection:bg-blue-600 selection:text-white">
+    <div className="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased relative text-slate-300 selection:bg-blue-600 selection:text-white">
+      <Modal />
       <div className="flex">
         <Sidebar />
         <div className="text-slate-900 w-full relative flex flex-col h-screen overflow-y-scroll">

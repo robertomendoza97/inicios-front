@@ -1,2 +1,10 @@
-export type { IProductsResponse } from "./interfaces/products-response";
-export type { SingleProduct } from "./interfaces/single-product";
+export { NewProperty } from "./components/NewProperty";
+export { PropertiesSection } from "./components/PropertiesSection";
+export { validateData } from "./utils/validateData";
+export { CreateUserForm } from "./components/CreateUserForm";
+export { ProductTable } from "./components/ProductTable";
+export type { ProductProperty } from "./interfaces/product-property.interace";
+export type { CreateProductFormValues } from "./interfaces/form-values.interface";
+export type { IProductsResponse } from "./interfaces/products-response.interface";
+export type { SingleProduct } from "./interfaces/single-product.interface";
+export { CREATE_PRODUCT_LABELS } from "./utils/const";

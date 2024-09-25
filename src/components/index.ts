@@ -1,7 +1,13 @@
-export { TableHeadCell } from "./TableHeadCell";
+export { Modal } from "./modal";
+export { Divider } from "./Divider";
+export { CustomError } from "./Error";
+export { CustomSelect } from "./inputs/CustomSelect";
+export { CustomRadioInput } from "./inputs/CustomRadioInput";
+export { CustomInput } from "./inputs/CustomInput";
+export { TableHeadCell } from "./table/TableHeadCell";
 export { Tooltip } from "./Tooltip";
-export { Sidebar } from "./Sidebar";
-export { SidebarMenuItem } from "./SidebarMenuItem";
+export { Sidebar } from "./sidebar/Sidebar";
+export { SidebarMenuItem } from "./sidebar/SidebarMenuItem";
 export { Header } from "./Header";
-export { CustomTable } from "./CustomTable";
-export type { Column } from "./CustomTable";
+export { CustomTable } from "./table/CustomTable";
+export type { Column } from "./table/CustomTable";

@@ -1,5 +1,4 @@
-import { IProductsResponse, SingleProduct } from "@/src/products";
-import { ProductTable } from "@/src/products/components/ProductTable";
+import { IProductsResponse, ProductTable, SingleProduct } from "@/src/products";
 
 const getProducts = async (): Promise<SingleProduct[]> => {
   const { data }: IProductsResponse = await fetch(

@@ -2,7 +2,7 @@
 
 import { ChangeEvent, ReactElement, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { TableHeadCell } from "./";
+import { TableHeadCell } from "../";
 import Link from "next/link";
 
 export interface Column {

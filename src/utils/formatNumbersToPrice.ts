@@ -1,9 +1,12 @@
-export const formatNumberToPrice = (numero: number): string => {
+export const formatNumberToPrice = (number: string | number): string => {
+  // return number.toString();
   // Convertimos el número a una cadena para manipular los caracteres
-  const numeroStr = numero.toString();
+  let numberStr = number.toString();
+
+  numberStr = numberStr.replaceAll(".", "").replace(",", ".");
 
   // Separamos la parte entera y decimal
-  const partes = numeroStr.split(".");
+  const partes = numberStr.split(".");
   const parteEntera = partes[0];
   const parteDecimal = partes.length > 1 ? "," + partes[1] : "";
 
@@ -14,5 +17,7 @@ export const formatNumberToPrice = (numero: number): string => {
   );
 
   // Combinamos ambas partes
-  return parteEnteraFormateada + parteDecimal;
+  const final = parteEnteraFormateada + parteDecimal;
+
+  return final === "0" ? "" : final;
 };

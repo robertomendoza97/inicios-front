@@ -1,4 +1,4 @@
 export const PATHS = {
   HOME: "/dashboard",
-  ADD_USER: "/dashboard/product/add"
+  ADD_USER: "/dashboard/products/new_one"
 };
