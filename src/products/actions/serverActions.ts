@@ -1,8 +1,8 @@
 "use server";
 
-import { SingleProduct } from "..";
+import { ProductToCreate } from "..";
 
-export const postActions = async (body: SingleProduct) => {
+export const createProductAction = async (body: ProductToCreate) => {
   const data = await fetch(
     "http://localhost:3333/administration-system/api/product",
     {

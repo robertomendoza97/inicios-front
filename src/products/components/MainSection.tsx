@@ -3,6 +3,7 @@ import { CREATE_PRODUCT_LABELS, CreateProductFormValues } from "../";
 import { GENERAL_LABELS } from "@/src/utils";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { SingleCategory } from "@/src/categories";
+import { Label } from "flowbite-react";
 
 interface Props {
   setFormValues: Dispatch<SetStateAction<CreateProductFormValues>>;
@@ -82,7 +83,7 @@ export const MainSection = ({
       />
       <div>
         <div className="flex items-center gap-4 py-2 border-b-2 border-gray-100">
-          <p className="text-paletteColor3 font-semibold">Estado:</p>
+          <Label>Estado:</Label>
           <CustomRadioInput
             onChange={handleChange}
             name="state"
@@ -111,6 +112,7 @@ export const MainSection = ({
           placeholder={CREATE_PRODUCT_LABELS.PLACEHOLDER.COST_PRICE}
           value={formValues.costPrice}
           name="costPrice"
+          allowDecimals
           onChange={handleChange}
           errorMessaje={GENERAL_LABELS.VALIDATE_INPUTS.NOT_EMPTY}
         />
@@ -122,6 +124,7 @@ export const MainSection = ({
           thousandFormat
           value={formValues.retailPrice}
           name="retailPrice"
+          allowDecimals
           onChange={handleChange}
           errorMessaje={GENERAL_LABELS.VALIDATE_INPUTS.NOT_EMPTY}
         />

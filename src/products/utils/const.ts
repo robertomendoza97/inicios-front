@@ -24,6 +24,7 @@ export const CREATE_PRODUCT_LABELS = {
     TITLE: "Nueva propiedad",
     NAME: "Nombre",
     VALUE: "Valor",
+    SAVE: "Guardar",
     PLACEHOLDER: {
       NAME: "Memoria RAM",
       VALUE: "8 GB"
@@ -32,3 +33,6 @@ export const CREATE_PRODUCT_LABELS = {
   PROPERTIES: "Caracteristicas:",
   ADD_PROPERTY_BUTTON: "Agregar"
 };
+
+export const CREATE_PRODUCT_PREVIEW = "create-product-preview";
+export const PRODUCT_PROPERTIES_PREVIEW = "product-properties-preview";

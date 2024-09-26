@@ -5,7 +5,7 @@ interface Properties {
   compare?: boolean;
 }
 
-export interface SingleProduct {
+export interface SingleProductFromAPI {
   id: string;
   name: string;
   descripcion: string;

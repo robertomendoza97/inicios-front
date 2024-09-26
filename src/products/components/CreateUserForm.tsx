@@ -2,17 +2,34 @@
 
 import {
   CREATE_PRODUCT_LABELS,
+  CREATE_PRODUCT_PREVIEW,
+  createProductAction,
   CreateProductFormValues,
+  PRODUCT_PROPERTIES_PREVIEW,
   ProductProperty,
+  ProductToCreate,
   PropertiesSection,
   validateData
 } from "../";
-
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { SingleCategory } from "@/src/categories";
 import { MainSection } from "./MainSection";
 import { Divider } from "@/src/components";
-import { stringThousandToNumber } from "@/src/utils/prepareNumber";
+import { stringThousandToNumber } from "@/src/utils/";
+import { Button } from "flowbite-react";
+import { getFromLocalStorage } from "@/src/utils/get-from-local-storage";
+
+const INITIAL_STATE = {
+  name: "",
+  description: "",
+  state: "",
+  category: "",
+  retailPrice: "",
+  costPrice: "",
+  quantity: "",
+  subCategory: "",
+  barCode: ""
+};
 
 export const CreateUserForm = ({
   categories
@@ -20,17 +37,8 @@ export const CreateUserForm = ({
   categories: SingleCategory[];
 }) => {
   const [showErrors, setShowErrors] = useState(false);
-  const [formValues, setFormValues] = useState<CreateProductFormValues>({
-    name: "",
-    description: "",
-    state: "",
-    category: "",
-    retailPrice: "",
-    costPrice: "",
-    quantity: "",
-    subCategory: "",
-    barCode: ""
-  });
+  const [formValues, setFormValues] =
+    useState<CreateProductFormValues>(INITIAL_STATE);
 
   const [tags] = useState<string[]>([]);
 
@@ -39,23 +47,50 @@ export const CreateUserForm = ({
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (validateData(formValues)) {
+    if (!validateData(formValues)) {
       setShowErrors(true);
       return;
     }
 
-    const objToSend = {
-      ...formValues,
+    const objToSend: ProductToCreate = {
       costPrice: stringThousandToNumber(formValues.costPrice),
       retailPrice: stringThousandToNumber(formValues.retailPrice),
       properties,
-      tags
+      quantity: Number(formValues.quantity),
+      fkSubcategory: Number(formValues.subCategory),
+      tags,
+      images: [],
+      name: formValues.name,
+      description: formValues.description,
+      state: formValues.state
     };
 
-    console.log(objToSend);
+    await createProductAction(objToSend);
 
-    // const data = await postActions({...formValues});
+    setFormValues(INITIAL_STATE);
+    setShowErrors(false);
   };
+
+  useEffect(() => {
+    if (JSON.stringify(formValues) !== JSON.stringify(INITIAL_STATE))
+      localStorage.setItem(CREATE_PRODUCT_PREVIEW, JSON.stringify(formValues));
+
+    if (properties.length > 0)
+      localStorage.setItem(
+        PRODUCT_PROPERTIES_PREVIEW,
+        JSON.stringify(properties)
+      );
+  }, [formValues, properties]);
+
+  useEffect(() => {
+    const productPreview = getFromLocalStorage(CREATE_PRODUCT_PREVIEW, "{}");
+    const propertiesPreview = getFromLocalStorage(
+      PRODUCT_PROPERTIES_PREVIEW,
+      "[]"
+    );
+    setFormValues(productPreview);
+    setProperties(propertiesPreview);
+  }, []);
 
   return (
     <form
@@ -79,14 +114,14 @@ export const CreateUserForm = ({
           setProperties={setProperties}
         />
       </div>
-      <button
+      <Button
         type="submit"
-        className={`bg-secondary3 rounded p-2 w-full font-semibold text-white ${
+        className={` w-full ${
           validateData(formValues) ? "" : "opacity-50 cursor-not-allowed"
         } `}
       >
         {CREATE_PRODUCT_LABELS.SEND}
-      </button>
+      </Button>
     </form>
   );
 };

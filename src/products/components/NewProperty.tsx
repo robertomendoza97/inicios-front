@@ -5,6 +5,7 @@ import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { CREATE_PRODUCT_LABELS, ProductProperty } from "../";
 import { AiOutlineSave } from "react-icons/ai";
 import { useUIStore } from "@/src/store/ui-store";
+import { Button } from "flowbite-react";
 
 interface Props {
   setProperties: Dispatch<SetStateAction<ProductProperty[]>>;
@@ -77,12 +78,10 @@ export const NewProperty = ({ setProperties }: Props) => {
         />
       </div>
 
-      <button
-        type="submit"
-        className="bg-paletteColor1 rounded text-white w-fit ml-auto px-6 py-1 font-semibold flex gap-3"
-      >
-        <AiOutlineSave size={25} />
-      </button>
+      <Button type="submit" className="bg-secondary5 hover:!bg-secondary1">
+        {CREATE_PRODUCT_LABELS.MODAL.SAVE}
+        <AiOutlineSave size={25} className="ml-2 h-5 w-5" />
+      </Button>
     </form>
   );
 };

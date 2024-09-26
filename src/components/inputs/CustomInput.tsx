@@ -2,6 +2,8 @@
 
 import { allowOnlyNumbers, formatNumberToPrice } from "@/src/utils";
 import { ChangeEvent, useCallback, useEffect, useId, useState } from "react";
+import { Label, Textarea, TextInput } from "flowbite-react";
+import { CustomError } from "../Error";
 
 interface Props {
   placeholder?: string;
@@ -14,6 +16,7 @@ interface Props {
   textArea?: boolean;
   thousandFormat?: boolean;
   onChange: (name: string, value: string) => void;
+  allowDecimals?: boolean;
 }
 
 export function CustomInput({
@@ -26,7 +29,8 @@ export function CustomInput({
   name,
   thousandFormat,
   onChange,
-  textArea
+  textArea,
+  allowDecimals
 }: Props) {
   const [isValid, setIsValid] = useState(true);
   const id = useId();
@@ -71,6 +75,10 @@ export function CustomInput({
       value = formatNumberToPrice(value);
     }
 
+    if (type === "number" && !allowDecimals) {
+      value = value.split(",")[0];
+    }
+
     return value;
   };
 
@@ -81,34 +89,31 @@ export function CustomInput({
   }, [showErrorMessage, validateValue]);
 
   return (
-    <div className="flex flex-col gap-1 w-full">
-      <label className="text-paletteColor3 font-semibold" htmlFor={id}>
-        {label}
-      </label>
+    <div className="flex flex-col gap-1 w-full p-[1px]">
+      <Label htmlFor={id}>{label}</Label>
       {textArea ? (
-        <textarea
+        <Textarea
           id={id}
           placeholder={placeholder}
-          className="p-2 outline-none bg-gray-100 rounded resize-y max-h-32 min-h-14"
           name={name}
           onChange={middlewareOnChange}
           value={valueFormat(value)}
+          className="max-h-32 min-h-14"
+          helperText={!isValid && <CustomError message={errorMessaje || ""} />}
         />
       ) : (
-        <input
+        <TextInput
           autoComplete="off"
           name={name}
           type={type === "number" ? "text" : type}
           id={id}
           onChange={middlewareOnChange}
-          className="p-2 outline-none bg-gray-100 rounded"
           value={valueFormat(value)}
           placeholder={placeholder}
           onKeyDown={type === "number" ? allowOnlyNumbers : () => true}
+          helperText={!isValid && <CustomError message={errorMessaje || ""} />}
         />
       )}
-
-      {!isValid && <p className="text-red-500 text-sm">* {errorMessaje}</p>}
     </div>
   );
 }

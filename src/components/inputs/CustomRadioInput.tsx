@@ -1,3 +1,4 @@
+import { Label, Radio } from "flowbite-react";
 import { ChangeEvent, useId } from "react";
 
 interface Props {
@@ -16,17 +17,8 @@ export const CustomRadioInput = ({ name, value, label, onChange }: Props) => {
 
   return (
     <div className="flex items-center gap-2">
-      <input
-        type="radio"
-        name={name}
-        id={id}
-        value={value}
-        className="cursor-pointer"
-        onChange={handleChange}
-      />
-      <label htmlFor={id} className="cursor-pointer">
-        {label}
-      </label>
+      <Radio name={name} id={id} value={value} onChange={handleChange} />
+      <Label htmlFor={id}>{label}</Label>
     </div>
   );
 };

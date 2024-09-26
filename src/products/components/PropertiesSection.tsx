@@ -4,6 +4,7 @@ import { useUIStore } from "@/src/store/ui-store";
 import { FaRegCircleDot } from "react-icons/fa6";
 import { BsTrash } from "react-icons/bs";
 import { FaRegListAlt } from "react-icons/fa";
+import { Button } from "flowbite-react";
 
 interface Props {
   properties: ProductProperty[];
@@ -40,7 +41,7 @@ export const PropertiesSection = ({ properties, setProperties }: Props) => {
         {properties.map(prop => (
           <div
             key={prop.key}
-            className="flex gap-2 items-center text-nowrap justify-between"
+            className="flex gap-2 items-center text-sm text-nowrap justify-between"
           >
             <FaRegCircleDot size={13} />
             <div className="flex w-full gap-2">
@@ -48,18 +49,19 @@ export const PropertiesSection = ({ properties, setProperties }: Props) => {
               <p>{prop.value}</p>
             </div>
             <BsTrash
+              size={20}
               className="cursor-pointer text-red-700"
               onClick={() => handleDeleteProperty(prop.key)}
             />
           </div>
         ))}
       </div>
-      <button
-        className="bg-paletteColor1 px-5 rounded text-white py-2 font-semibold"
+      <Button
+        className="bg-secondary5 hover:!bg-secondary1"
         onClick={handleOpenModal}
       >
         {CREATE_PRODUCT_LABELS.ADD_PROPERTY_BUTTON}
-      </button>
+      </Button>
     </div>
   );
 };

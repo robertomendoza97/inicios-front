@@ -8,6 +8,7 @@ import React, {
   useState
 } from "react";
 import { CustomError } from "../";
+import { Label, Select } from "flowbite-react";
 
 interface Props {
   name: string;
@@ -51,26 +52,18 @@ export const CustomSelect = ({
   }, [showErrorMessage, validateSelect]);
 
   return (
-    <div className="flex flex-col  gap-1 w-full text-gray-500">
-      <label className="font-semibold text-paletteColor3" htmlFor={id}>
-        {label}
-      </label>
-      <select
-        name={name}
-        id={id}
-        className="p-2 outline-none bg-gray-100 rounded cursor-pointer"
-        onChange={handleChange}
-        value={value}
-      >
-        <option className="" value="" disabled>
+    <div className="flex flex-col gap-1 w-full p-[1px]">
+      <Label htmlFor={id}>{label}</Label>
+      <Select name={name} id={id} onChange={handleChange} value={value}>
+        <option value="" disabled>
           Seleccione una opcion
         </option>
         {options.map(op => (
-          <option className="" key={op.key} value={op.key}>
+          <option key={op.key} value={op.key}>
             {op.value}
           </option>
         ))}
-      </select>
+      </Select>
       {!isValid && <CustomError message={errorMessage} />}
     </div>
   );

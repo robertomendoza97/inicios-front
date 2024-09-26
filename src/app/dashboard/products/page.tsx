@@ -1,6 +1,10 @@
-import { IProductsResponse, ProductTable, SingleProduct } from "@/src/products";
+import {
+  IProductsResponse,
+  ProductTable,
+  SingleProductFromAPI
+} from "@/src/products";
 
-const getProducts = async (): Promise<SingleProduct[]> => {
+const getProducts = async (): Promise<SingleProductFromAPI[]> => {
   const { data }: IProductsResponse = await fetch(
     `http://localhost:3333/administration-system/api/product`
   ).then(resp => resp.json());
