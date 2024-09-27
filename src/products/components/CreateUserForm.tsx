@@ -41,7 +41,6 @@ export const CreateUserForm = ({
     useState<CreateProductFormValues>(INITIAL_STATE);
 
   const [tags] = useState<string[]>([]);
-
   const [properties, setProperties] = useState<ProductProperty[]>([]);
 
   const onSubmit = async (e: FormEvent) => {
@@ -68,7 +67,18 @@ export const CreateUserForm = ({
     await createProductAction(objToSend);
 
     setFormValues(INITIAL_STATE);
+    setProperties([]);
     setShowErrors(false);
+    localStorage.removeItem(CREATE_PRODUCT_PREVIEW);
+    localStorage.removeItem(PRODUCT_PROPERTIES_PREVIEW);
+  };
+
+  const handleReset = () => {
+    setFormValues(INITIAL_STATE);
+    setProperties([]);
+    setShowErrors(false);
+    localStorage.removeItem(CREATE_PRODUCT_PREVIEW);
+    localStorage.removeItem(PRODUCT_PROPERTIES_PREVIEW);
   };
 
   useEffect(() => {
@@ -83,7 +93,10 @@ export const CreateUserForm = ({
   }, [formValues, properties]);
 
   useEffect(() => {
-    const productPreview = getFromLocalStorage(CREATE_PRODUCT_PREVIEW, "{}");
+    const productPreview = getFromLocalStorage(
+      CREATE_PRODUCT_PREVIEW,
+      JSON.stringify(INITIAL_STATE)
+    );
     const propertiesPreview = getFromLocalStorage(
       PRODUCT_PROPERTIES_PREVIEW,
       "[]"
@@ -114,14 +127,19 @@ export const CreateUserForm = ({
           setProperties={setProperties}
         />
       </div>
-      <Button
-        type="submit"
-        className={` w-full ${
-          validateData(formValues) ? "" : "opacity-50 cursor-not-allowed"
-        } `}
-      >
-        {CREATE_PRODUCT_LABELS.SEND}
-      </Button>
+      <div className="flex w-full gap-4">
+        <Button color="failure" type="reset" onClick={handleReset}>
+          {CREATE_PRODUCT_LABELS.RESET}
+        </Button>
+        <Button
+          type="submit"
+          className={` w-full ${
+            validateData(formValues) ? "" : "opacity-50 cursor-not-allowed"
+          } `}
+        >
+          {CREATE_PRODUCT_LABELS.SEND}
+        </Button>
+      </div>
     </form>
   );
 };

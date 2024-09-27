@@ -6,9 +6,16 @@ interface Props {
   value: string;
   label: string;
   onChange: (name: string, value: string) => void;
+  checked: boolean;
 }
 
-export const CustomRadioInput = ({ name, value, label, onChange }: Props) => {
+export const CustomRadioInput = ({
+  name,
+  value,
+  label,
+  onChange,
+  checked
+}: Props) => {
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     onChange(target.name, target.value);
   };
@@ -17,7 +24,13 @@ export const CustomRadioInput = ({ name, value, label, onChange }: Props) => {
 
   return (
     <div className="flex items-center gap-2">
-      <Radio name={name} id={id} value={value} onChange={handleChange} />
+      <Radio
+        name={name}
+        id={id}
+        value={value}
+        checked={checked}
+        onChange={handleChange}
+      />
       <Label htmlFor={id}>{label}</Label>
     </div>
   );

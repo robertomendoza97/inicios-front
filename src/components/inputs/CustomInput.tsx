@@ -85,6 +85,8 @@ export function CustomInput({
   useEffect(() => {
     if (showErrorMessage) {
       validateValue();
+    } else {
+      setIsValid(true);
     }
   }, [showErrorMessage, validateValue]);
 
@@ -111,7 +113,10 @@ export function CustomInput({
           value={valueFormat(value)}
           placeholder={placeholder}
           onKeyDown={type === "number" ? allowOnlyNumbers : () => true}
-          helperText={!isValid && <CustomError message={errorMessaje || ""} />}
+          helperText={
+            !isValid &&
+            errorMessaje && <CustomError message={errorMessaje || ""} />
+          }
         />
       )}
     </div>

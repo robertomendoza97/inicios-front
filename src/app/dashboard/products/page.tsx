@@ -6,7 +6,8 @@ import {
 
 const getProducts = async (): Promise<SingleProductFromAPI[]> => {
   const { data }: IProductsResponse = await fetch(
-    `http://localhost:3333/administration-system/api/product`
+    `http://localhost:3333/administration-system/api/product`,
+    { cache: "no-cache" }
   ).then(resp => resp.json());
 
   return data;

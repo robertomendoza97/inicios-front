@@ -11,6 +11,7 @@ export const CREATE_PRODUCT_LABELS = {
   STOCK: "Stock",
   SEND: "ENVIAR",
   BAR_CODE: "Codigo de barras",
+  RESET: "Reset",
   PLACEHOLDER: {
     NAME: "Iphone 15 PRO MAX",
     DESCRIPTION:
@@ -31,7 +32,11 @@ export const CREATE_PRODUCT_LABELS = {
     }
   },
   PROPERTIES: "Caracteristicas:",
-  ADD_PROPERTY_BUTTON: "Agregar"
+  ADD_PROPERTY_BUTTON: "Agregar",
+  ERROR: {
+    CATEGORY: "Debe seleccionar una categoria",
+    SUBCATEGORY: "Debe seleccionar una subcategoria"
+  }
 };
 
 export const CREATE_PRODUCT_PREVIEW = "create-product-preview";

@@ -1,3 +1,5 @@
+"use client";
+
 import { CustomInput, CustomRadioInput, CustomSelect } from "@/src/components";
 import { CREATE_PRODUCT_LABELS, CreateProductFormValues } from "../";
 import { GENERAL_LABELS } from "@/src/utils";
@@ -70,7 +72,7 @@ export const MainSection = ({
           value: c.name
         }))}
         showErrorMessage={showErrors}
-        errorMessage="Debe seleccionar una categoria."
+        errorMessage={CREATE_PRODUCT_LABELS.ERROR.CATEGORY}
       />
       <CustomSelect
         value={formValues.subCategory}
@@ -79,22 +81,24 @@ export const MainSection = ({
         label="Sub Categoria"
         options={getSubCategories()}
         showErrorMessage={showErrors}
-        errorMessage="Debe seleccionar una sub categoria."
+        errorMessage={CREATE_PRODUCT_LABELS.ERROR.SUBCATEGORY}
       />
       <div>
         <div className="flex items-center gap-4 py-2 border-b-2 border-gray-100">
           <Label>Estado:</Label>
           <CustomRadioInput
+            checked={formValues.state === "new"}
             onChange={handleChange}
             name="state"
             value="new"
             label={CREATE_PRODUCT_LABELS.NEW}
           />
           <CustomRadioInput
+            checked={formValues.state === "second_hand"}
             onChange={handleChange}
             name="state"
-            value={CREATE_PRODUCT_LABELS.SECOND_HAND}
-            label="Usado"
+            value="second_hand"
+            label={CREATE_PRODUCT_LABELS.SECOND_HAND}
           />
         </div>
         {showErrors && formValues.state === "" && (
@@ -149,7 +153,6 @@ export const MainSection = ({
           value={formValues.barCode}
           name="barCode"
           onChange={handleChange}
-          errorMessaje={GENERAL_LABELS.VALIDATE_INPUTS.NOT_EMPTY}
         />
       </div>
     </section>
