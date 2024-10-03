@@ -1,7 +1,14 @@
 "use client";
 
 import { CustomInput } from "@/src/components";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 import { CREATE_PRODUCT_LABELS, ProductProperty } from "../";
 import { AiOutlineSave } from "react-icons/ai";
 import { useUIStore } from "@/src/store/ui-store";
@@ -18,7 +25,7 @@ const INITIAL_STATE = {
   name: ""
 };
 export const NewProperty = ({ setProperties }: Props) => {
-  const closeModal = useUIStore(state => state.toggleModal);
+  const isModalOpen = useUIStore(state => state.isModalOpen);
 
   const [values, setValues] = useState<ProductProperty>(INITIAL_STATE);
 
@@ -52,8 +59,6 @@ export const NewProperty = ({ setProperties }: Props) => {
     });
 
     setValues(INITIAL_STATE);
-
-    closeModal();
   };
 
   return (
@@ -63,6 +68,7 @@ export const NewProperty = ({ setProperties }: Props) => {
       </h2>
       <div className="flex gap-5 ">
         <CustomInput
+          autoFocus={isModalOpen}
           label={CREATE_PRODUCT_LABELS.MODAL.NAME}
           value={values.name}
           name="name"

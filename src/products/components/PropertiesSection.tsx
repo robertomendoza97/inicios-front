@@ -25,7 +25,7 @@ export const PropertiesSection = ({ properties, setProperties }: Props) => {
   };
 
   return (
-    <div className="flex flex-col gap-5 items-stretch">
+    <div className="flex flex-col gap-5 items-stretch max-w-full overflow-x-auto">
       <h3 className="text-lg font-semibold">
         {CREATE_PRODUCT_LABELS.PROPERTIES}
       </h3>
@@ -41,7 +41,7 @@ export const PropertiesSection = ({ properties, setProperties }: Props) => {
         {properties.map(prop => (
           <div
             key={prop.key}
-            className="flex gap-2 items-center text-sm text-nowrap justify-between"
+            className="flex gap-2 items-center text-sm justify-between"
           >
             <FaRegCircleDot size={13} />
             <div className="flex w-full gap-2">

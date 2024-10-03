@@ -1,7 +1,15 @@
 "use client";
 
 import { allowOnlyNumbers, formatNumberToPrice } from "@/src/utils";
-import { ChangeEvent, useCallback, useEffect, useId, useState } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState
+} from "react";
 import { Label, Textarea, TextInput } from "flowbite-react";
 import { CustomError } from "../Error";
 
@@ -17,6 +25,7 @@ interface Props {
   thousandFormat?: boolean;
   onChange: (name: string, value: string) => void;
   allowDecimals?: boolean;
+  autoFocus?: boolean;
 }
 
 export function CustomInput({
@@ -30,10 +39,12 @@ export function CustomInput({
   thousandFormat,
   onChange,
   textArea,
-  allowDecimals
+  allowDecimals,
+  autoFocus
 }: Props) {
   const [isValid, setIsValid] = useState(true);
   const id = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const validateValue = useCallback(() => {
     if (showErrorMessage) {
@@ -43,7 +54,7 @@ export function CustomInput({
         !textArea
       ) {
         setIsValid(false);
-      } else if (textArea && value.split(" ").length < 5) {
+      } else if (textArea && value.trim().split(" ").length < 5) {
         setIsValid(false);
       } else if (thousandFormat && type === "number" && value === "") {
         setIsValid(false);
@@ -90,6 +101,14 @@ export function CustomInput({
     }
   }, [showErrorMessage, validateValue]);
 
+  useEffect(() => {
+    if (inputRef && autoFocus) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 500);
+    }
+  }, [autoFocus]);
+
   return (
     <div className="flex flex-col gap-1 w-full p-[1px]">
       <Label htmlFor={id}>{label}</Label>
@@ -105,6 +124,7 @@ export function CustomInput({
         />
       ) : (
         <TextInput
+          ref={inputRef}
           autoComplete="off"
           name={name}
           type={type === "number" ? "text" : type}

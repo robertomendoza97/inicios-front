@@ -15,8 +15,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { SingleCategory } from "@/src/categories";
 import { MainSection } from "./MainSection";
 import { Divider } from "@/src/components";
-import { stringThousandToNumber } from "@/src/utils/";
-import { Button } from "flowbite-react";
+import { stringThousandToNumber, useNotificationStore } from "@/src/utils/";
+import { Button, Spinner } from "flowbite-react";
 import { getFromLocalStorage } from "@/src/utils/get-from-local-storage";
 
 const INITIAL_STATE = {
@@ -36,6 +36,10 @@ export const CreateUserForm = ({
 }: {
   categories: SingleCategory[];
 }) => {
+  const [loading, setLoading] = useState(false);
+  const showNotification = useNotificationStore(
+    state => state.showNotification
+  );
   const [showErrors, setShowErrors] = useState(false);
   const [formValues, setFormValues] =
     useState<CreateProductFormValues>(INITIAL_STATE);
@@ -50,6 +54,10 @@ export const CreateUserForm = ({
       setShowErrors(true);
       return;
     }
+
+    if (loading) return;
+
+    setLoading(true);
 
     const objToSend: ProductToCreate = {
       costPrice: stringThousandToNumber(formValues.costPrice),
@@ -71,6 +79,9 @@ export const CreateUserForm = ({
     setShowErrors(false);
     localStorage.removeItem(CREATE_PRODUCT_PREVIEW);
     localStorage.removeItem(PRODUCT_PROPERTIES_PREVIEW);
+
+    showNotification({ text: "Producto creado correctamente.", icon: "" });
+    setLoading(false);
   };
 
   const handleReset = () => {
@@ -113,7 +124,7 @@ export const CreateUserForm = ({
       <h1 className="text-3xl font-semibold">
         {CREATE_PRODUCT_LABELS.CREATE_PRODUCT}
       </h1>
-      <div className="flex overflow-y-auto max-w-full">
+      <div className="grid grid-cols-[1fr_auto_1fr] overflow-y-auto max-w-full">
         <MainSection
           formValues={formValues}
           setFormValues={setFormValues}
@@ -137,7 +148,7 @@ export const CreateUserForm = ({
             validateData(formValues) ? "" : "opacity-50 cursor-not-allowed"
           } `}
         >
-          {CREATE_PRODUCT_LABELS.SEND}
+          {loading ? <Spinner /> : CREATE_PRODUCT_LABELS.SEND}
         </Button>
       </div>
     </form>

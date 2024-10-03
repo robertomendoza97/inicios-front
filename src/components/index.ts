@@ -1,3 +1,4 @@
+export { Notifications } from "./notifications";
 export { Modal } from "./modal";
 export { Divider } from "./Divider";
 export { CustomError } from "./Error";

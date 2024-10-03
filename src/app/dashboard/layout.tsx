@@ -1,4 +1,4 @@
-import { Header, Modal, Sidebar } from "../../components";
+import { Header, Modal, Notifications, Sidebar } from "../../components";
 
 export default function DashboardLayout({
   children
@@ -12,7 +12,10 @@ export default function DashboardLayout({
         <Sidebar />
         <div className="text-slate-900 w-full relative flex flex-col h-screen overflow-y-scroll">
           <Header />
-          <div className="flex-grow overflow-y-scroll">{children}</div>
+          <div className="flex-grow overflow-y-scroll relative overflow-x-hidden">
+            <Notifications />
+            {children}
+          </div>
         </div>
       </div>
     </div>

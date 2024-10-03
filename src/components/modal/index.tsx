@@ -1,6 +1,6 @@
 "use client";
 
-import { useUIStore } from "@/src/store/ui-store";
+import { useUIStore } from "@/src/utils";
 import { MouseEvent, useEffect, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 

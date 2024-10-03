@@ -13,7 +13,7 @@ export const validateData = ({
     name === "" ||
     name.length < 5 ||
     description === "" ||
-    description.split(" ").length < 5 ||
+    description.trim().split(" ").length < 5 ||
     quantity === "" ||
     costPrice === "" ||
     retailPrice === "" ||

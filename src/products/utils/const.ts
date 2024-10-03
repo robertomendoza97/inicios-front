@@ -9,7 +9,7 @@ export const CREATE_PRODUCT_LABELS = {
   COST_PRICE: "Precio de costo",
   RETAIL_PRICE: "Precio de venta",
   STOCK: "Stock",
-  SEND: "ENVIAR",
+  SEND: "Enviar",
   BAR_CODE: "Codigo de barras",
   RESET: "Reset",
   PLACEHOLDER: {
