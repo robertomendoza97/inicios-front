@@ -8,23 +8,24 @@ import Link from "next/link";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { MdOutlineInventory } from "react-icons/md";
+import { PATHS } from "@/src/utils";
 
 const menuOptions = [
-  { title: "Home", path: "/dashboard/main", icon: <IoHomeOutline /> },
-  { title: "Clientes", path: "/dashboard/clients", icon: <LuUsers /> },
+  { title: "Home", path: PATHS.HOME, icon: <IoHomeOutline /> },
+  { title: "Clientes", path: PATHS.CLIENTS, icon: <LuUsers /> },
   {
     title: "Productos",
-    path: "/dashboard/products",
+    path: PATHS.PRODUCTS,
     icon: <IoIosPhonePortrait />
   },
   {
     title: "Ventas",
-    path: "/dashboard/sales",
+    path: PATHS.SALES,
     icon: <FaRegMoneyBillAlt />
   },
   {
     title: "Prestamos",
-    path: "/dashboard/loans",
+    path: PATHS.LOANS,
     icon: <FaMoneyBillTransfer />
   },
   {
@@ -45,7 +46,7 @@ export const Sidebar = () => {
         id="logo"
         className="my-4 px-6 h-16 flex items-center justify-center"
       >
-        <Link href="/dashboard/main" className="h-full">
+        <Link href={PATHS.HOME} className="h-full">
           <CompanyLogoIcon color="#FFF" className="h-full" />
         </Link>
       </div>
