@@ -1,8 +1,10 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { Column } from "./";
+
 import { TiArrowUnsorted } from "react-icons/ti";
+import { Column } from "./CustomTable";
+import { IoIosArrowDown } from "react-icons/io";
 
 interface Props {
   col: Column;
@@ -35,14 +37,18 @@ export const TableHeadCell = ({ col, setRows, rows }: Props) => {
   };
 
   return (
-    <th key={col.key} className="p-2 whitespace-nowrap">
+    <th key={col.key} className="p-2 whitespace-nowrap text-white">
       <div
         onClick={() => col.sort && handleSort(col.key)}
         className={`font-semibold flex items-center justify-center gap-1  ${
           col.sort && "cursor-pointer"
         }`}
       >
-        {col.sort && <TiArrowUnsorted />}
+        {col.sort && (
+          <IoIosArrowDown
+            className={`transition-[transform] ${sorted ? "scale-[-1]" : ""}`}
+          />
+        )}
         {col.name}
       </div>
     </th>

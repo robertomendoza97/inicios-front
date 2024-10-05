@@ -1,26 +1,42 @@
 "use client";
 
 import { CustomTable } from "@/src/components";
-import { SingleProduct } from "@/src/products/";
+
 import { actionsFunction, formatProducts } from "../utils/formatProducts";
 import { formatNumberToPrice } from "@/src/utils";
 import { PATHS } from "@/src/utils/paths";
+import { SingleProductFromAPI } from "../interfaces/single-product.interface";
 
 interface Props {
-  products: SingleProduct[];
+  products: SingleProductFromAPI[];
 }
 
 const tableColumns = [
-  { key: "cod", name: "Codigo" },
+  { key: "cod", name: "Codigo", index: true },
   { key: "name", name: "Nombre", sort: true, index: true },
   { key: "stock", name: "Cantidad", sort: true, index: true },
   {
-    key: "retailCost",
-    name: "Precio",
+    key: "costPrice",
+    name: "Precio de costo",
     sort: true,
-    component: (value: string | number) => <>{formatNumberToPrice(+value)}</>
+    component: (value: string | number) => (
+      <>{formatNumberToPrice(+value, "$")}</>
+    )
   },
-  { key: "currency", name: "Moneda", index: true },
+  {
+    key: "retailPrice",
+    name: "Precio de venta",
+    sort: true,
+    component: (value: string | number) => (
+      <>{formatNumberToPrice(+value, "$")}</>
+    )
+  },
+  {
+    key: "subCategory",
+    name: "Categoria",
+    sort: true,
+    index: true
+  },
   {
     key: "actions",
     name: "Acciones",

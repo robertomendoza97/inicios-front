@@ -1,10 +1,11 @@
 "use client";
 
-import { ChangeEvent, ReactElement, useState } from "react";
+import { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { TableHeadCell } from "../";
+import { COMPONENTS_LABELS, TABLE_COUNT_OPTIONS, TableHeadCell } from "../";
 import Link from "next/link";
-
+import { Button, Pagination, Select, Table, TextInput } from "flowbite-react";
+import "./styles.css";
 export interface Column {
   key: string;
   name: string;
@@ -21,7 +22,12 @@ interface Props {
 }
 
 export const CustomTable = ({ column, data, title, path }: Props) => {
-  const [rows, setRows] = useState(data);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [count, setCount] = useState(TABLE_COUNT_OPTIONS[0]);
+  const [allRows, setAllRows] = useState(data);
+  const [rowsPerPage, setRowsPerPage] = useState(
+    data.slice(0, TABLE_COUNT_OPTIONS[0])
+  );
   const [search, setSearch] = useState("");
 
   const indexColumns = column.reduce<string[]>((acc, column) => {
@@ -38,15 +44,37 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
     setSearch(value);
 
     if (Boolean(indexColumns.length)) {
-      setRows(
-        data.filter(d =>
-          indexColumns.some(cs =>
-            d[cs]?.toString().toLowerCase().includes(value.toLowerCase())
-          )
+      const newRows = data.filter(d =>
+        indexColumns.some(cs =>
+          d[cs]?.toString().toLowerCase().includes(value.toLowerCase())
         )
       );
+      setAllRows(newRows);
+
+      setRowsPerPage(newRows.slice(0, count));
     }
   };
+
+  const onPageChange = (page: number) => setCurrentPage(page);
+
+  const handleCount = (event: ChangeEvent<HTMLSelectElement>) => {
+    setCount(+event.target.value);
+  };
+
+  useEffect(() => {
+    const newRows = allRows.slice(0, count);
+    setRowsPerPage(newRows);
+    setCurrentPage(1);
+  }, [count]);
+
+  useEffect(() => {
+    const newRows = allRows.slice(
+      (currentPage - 1) * count,
+      currentPage * count
+    );
+
+    setRowsPerPage(newRows);
+  }, [currentPage]);
 
   return (
     <section className="antialiased text-gray-600 h-full px-4">
@@ -54,57 +82,66 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
         <div className="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
           <header className="px-5 flex items-center justify-between py-4 border-b border-gray-100">
             <h2 className="font-semibold text-xl text-gray-800">{title}</h2>
-            <div className="flex border-b-[1px] border-paletteColor3 gap-2 items-center px-4 py-2 rounded ">
-              <input
-                placeholder="Buscar"
-                type="text"
-                value={search}
-                onChange={handleChange}
-                className="outline-none bg-transparent"
-              />
-              <FaMagnifyingGlass className="text-paletteColor3" />
-            </div>
+            <TextInput
+              rightIcon={FaMagnifyingGlass}
+              placeholder={COMPONENTS_LABELS.SEARCH}
+              type="text"
+              value={search}
+              onChange={handleChange}
+            />
           </header>
           <div className="p-3">
-            <div className="overflow-x-auto">
-              <table className="table-auto w-full border-b-[1px]">
-                <thead className="text-m font-semibold uppercase text-white bg-paletteColor1 rounded">
-                  <tr>
-                    {column.map(col => (
-                      <TableHeadCell
-                        key={col.key}
-                        rows={rows}
-                        col={col}
-                        setRows={setRows}
-                      />
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="text-lg divide-y divide-gray-100">
-                  {rows.map(row => (
-                    <tr key={row.id}>
+            <div className="overflow-x-auto flex flex-col gap-5">
+              <Table striped>
+                <Table.Head className="bg-paletteColor1">
+                  {column.map(col => (
+                    <TableHeadCell
+                      key={col.key}
+                      rows={rowsPerPage}
+                      col={col}
+                      setRows={setRowsPerPage}
+                    />
+                  ))}
+                </Table.Head>
+                <Table.Body>
+                  {rowsPerPage.map(row => (
+                    <Table.Row key={row.id}>
                       {column.map(col => (
-                        <td
+                        <Table.Cell
                           key={col.key}
                           className="p-2 whitespace-nowrap text-center"
                         >
                           {col.component
                             ? col.component(row[col.key] as string)
                             : row[col.key]}
-                        </td>
+                        </Table.Cell>
                       ))}
-                    </tr>
+                    </Table.Row>
                   ))}
-                </tbody>
-              </table>
+                </Table.Body>
+              </Table>
               <div className="flex justify-between w-full mt-2 items-center">
-                <Link
-                  href={path}
-                  className="px-4 py-2 bg-paletteColor5 rounded  text-lg"
-                >
-                  Crear registro
+                <Link href={path}>
+                  <Button>{COMPONENTS_LABELS.CREATE_RECORD}</Button>
                 </Link>
-                <div>paginador</div>
+                <div className="flex items-center gap-5">
+                  <Select defaultValue={count} onChange={handleCount}>
+                    {TABLE_COUNT_OPTIONS.map(option => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </Select>
+                  <Pagination
+                    className="paginator"
+                    currentPage={currentPage}
+                    totalPages={Math.ceil(allRows.length / count)}
+                    showIcons
+                    onPageChange={onPageChange}
+                    nextLabel={COMPONENTS_LABELS.NEXT}
+                    previousLabel={COMPONENTS_LABELS.PREVIOUS}
+                  />
+                </div>
               </div>
             </div>
           </div>

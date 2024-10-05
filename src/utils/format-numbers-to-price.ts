@@ -1,4 +1,7 @@
-export const formatNumberToPrice = (number: string | number): string => {
+export const formatNumberToPrice = (
+  number: string | number,
+  currency = ""
+): string => {
   // return number.toString();
   // Convertimos el número a una cadena para manipular los caracteres
   let numberStr = number.toString();
@@ -17,7 +20,7 @@ export const formatNumberToPrice = (number: string | number): string => {
   );
 
   // Combinamos ambas partes
-  const final = parteEnteraFormateada + parteDecimal;
+  const final = parteEnteraFormateada + parteDecimal + ` ${currency}`;
 
   return final === "0" ? "" : final;
 };

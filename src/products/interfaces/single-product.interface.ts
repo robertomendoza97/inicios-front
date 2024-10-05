@@ -1,3 +1,5 @@
+import { SubCategory } from "./../../categories/interfaces/interfaces";
+
 interface Properties {
   key: string;
   name: string;
@@ -15,9 +17,10 @@ export interface SingleProductFromAPI {
   barCode?: string;
   systemCode: number;
   currency: string;
-  costPrice: string;
+  costPrice: number;
   retailPrice: number;
   properties: Properties[];
   images: string[];
   quantity: number;
+  subCategory: SubCategory;
 }

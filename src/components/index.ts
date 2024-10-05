@@ -1,3 +1,5 @@
+export { TABLE_COUNT_OPTIONS } from "./const";
+export { COMPONENTS_LABELS } from "./const";
 export { Notifications } from "./notifications";
 export { Modal } from "./modal";
 export { Divider } from "./Divider";

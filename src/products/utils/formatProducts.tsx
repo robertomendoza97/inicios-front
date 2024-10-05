@@ -1,4 +1,4 @@
-import { SingleProduct } from "@/src/products";
+import { SingleProductFromAPI } from "@/src/products";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { BsTrash } from "react-icons/bs";
 import { GrUpdate } from "react-icons/gr";
@@ -10,9 +10,10 @@ interface ProductTable extends Record<string, string | number> {
   cod: number;
   name: string;
   stock: number;
-  retailCost: number;
+  costPrice: number;
+  retailPrice: number;
   actions: string;
-  currency: string;
+  subCategory: string;
 }
 
 const DetailCell = ({ value }: { value: string | number }) => {
@@ -23,7 +24,8 @@ const DetailCell = ({ value }: { value: string | number }) => {
           <Link href={`/dashboard/product/details/${value}`}>
             <MdOutlineRemoveRedEye
               onClick={() => console.log(value)}
-              className="cursor-pointer w-5 h-5 hover:scale-125 transition-transform"
+              size={15}
+              className="cursor-pointer hover:scale-125 transition-transform"
             />
           </Link>
         }
@@ -31,13 +33,19 @@ const DetailCell = ({ value }: { value: string | number }) => {
       />
       <Tooltip
         content={
-          <GrUpdate className="cursor-pointer w-5 h-5 hover:scale-125 transition-transform" />
+          <GrUpdate
+            size={15}
+            className="cursor-pointer hover:scale-125 transition-transform"
+          />
         }
         text="Actualizar"
       />
       <Tooltip
         content={
-          <BsTrash className="cursor-pointer w-5 h-5 hover:scale-125 transition-transform" />
+          <BsTrash
+            size={15}
+            className="cursor-pointer hover:scale-125 transition-transform"
+          />
         }
         text="Elminar"
       />
@@ -49,15 +57,18 @@ export const actionsFunction = (value: string | number) => {
   return <DetailCell value={value} />;
 };
 
-export const formatProducts = (products: SingleProduct[]): ProductTable[] => {
+export const formatProducts = (
+  products: SingleProductFromAPI[]
+): ProductTable[] => {
   const product = products.map(data => ({
     id: data.id,
     cod: data.systemCode,
     name: data.name,
     stock: data.quantity,
-    retailCost: data.retailPrice,
-    currency: data.currency,
-    actions: data.id
+    costPrice: data.costPrice,
+    retailPrice: data.retailPrice,
+    actions: data.id,
+    subCategory: data.subCategory.name
   }));
 
   return product;
