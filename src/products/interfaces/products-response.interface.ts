@@ -1,5 +1,5 @@
-import { SingleProduct } from "./single-product.interface";
+import { SingleProductFromAPI } from "./single-product.interface";
 
 export interface IProductsResponse {
-  data: SingleProduct[];
+  data: SingleProductFromAPI[];
 }

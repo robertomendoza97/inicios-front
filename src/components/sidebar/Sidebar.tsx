@@ -15,7 +15,7 @@ const menuOptions = [
   { title: "Clientes", path: PATHS.CLIENTS, icon: <LuUsers /> },
   {
     title: "Productos",
-    path: PATHS.PRODUCTS,
+    path: PATHS.PRODUCTS.MAIN,
     icon: <IoIosPhonePortrait />
   },
   {

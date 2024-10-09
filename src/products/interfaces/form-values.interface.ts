@@ -3,10 +3,8 @@ export interface CreateProductFormValues {
   description: string;
   state: string;
   category: string;
-  // tags: string[];
   retailPrice: string;
   costPrice: string;
-  // properties: string[];
   quantity: string;
   subCategory: string;
   barCode: string;

@@ -8,7 +8,6 @@ export { CustomSelect } from "./inputs/CustomSelect";
 export { CustomRadioInput } from "./inputs/CustomRadioInput";
 export { CustomInput } from "./inputs/CustomInput";
 export { TableHeadCell } from "./table/TableHeadCell";
-export { Tooltip } from "./Tooltip";
 export { Sidebar } from "./sidebar/Sidebar";
 export { SidebarMenuItem } from "./sidebar/SidebarMenuItem";
 export { Header } from "./Header";

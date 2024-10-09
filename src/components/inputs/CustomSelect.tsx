@@ -55,9 +55,7 @@ export const CustomSelect = ({
     <div className="flex flex-col gap-1 w-full p-[1px]">
       <Label htmlFor={id}>{label}</Label>
       <Select name={name} id={id} onChange={handleChange} value={value}>
-        <option value="" disabled>
-          Seleccione una opcion
-        </option>
+        <option value="">Seleccione una opcion</option>
         {options.map(op => (
           <option key={op.key} value={op.key}>
             {op.value}

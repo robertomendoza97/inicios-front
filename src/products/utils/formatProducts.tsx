@@ -1,9 +1,10 @@
-import { SingleProductFromAPI } from "@/src/products";
+import { CREATE_PRODUCT_LABELS, SingleProductFromAPI } from "@/src/products";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { BsTrash } from "react-icons/bs";
 import { GrUpdate } from "react-icons/gr";
-import { Tooltip } from "@/src/components";
 import Link from "next/link";
+import { Tooltip } from "flowbite-react";
+import { PATHS } from "@/src/utils";
 
 interface ProductTable extends Record<string, string | number> {
   id: string;
@@ -16,45 +17,38 @@ interface ProductTable extends Record<string, string | number> {
   subCategory: string;
 }
 
-const DetailCell = ({ value }: { value: string | number }) => {
+const DetailCell = ({ id }: { id: string | number }) => {
   return (
     <div className="flex justify-center gap-5 h-full relative">
-      <Tooltip
-        content={
-          <Link href={`/dashboard/product/details/${value}`}>
-            <MdOutlineRemoveRedEye
-              onClick={() => console.log(value)}
-              size={15}
-              className="cursor-pointer hover:scale-125 transition-transform"
-            />
-          </Link>
-        }
-        text="Ver detalles"
-      />
-      <Tooltip
-        content={
+      <Tooltip content={CREATE_PRODUCT_LABELS.ACTIONS.DETAILS}>
+        <Link href={`${PATHS.PRODUCTS.DETAILS}${id}`}>
+          <MdOutlineRemoveRedEye
+            onClick={() => console.log(id)}
+            size={15}
+            className="cursor-pointer hover:scale-125 transition-transform"
+          />
+        </Link>
+      </Tooltip>
+      <Tooltip content={CREATE_PRODUCT_LABELS.ACTIONS.UPDATE}>
+        <Link href={`${PATHS.PRODUCTS.UPDATE}${id}`}>
           <GrUpdate
             size={15}
             className="cursor-pointer hover:scale-125 transition-transform"
           />
-        }
-        text="Actualizar"
-      />
-      <Tooltip
-        content={
-          <BsTrash
-            size={15}
-            className="cursor-pointer hover:scale-125 transition-transform"
-          />
-        }
-        text="Elminar"
-      />
+        </Link>
+      </Tooltip>
+      <Tooltip content={CREATE_PRODUCT_LABELS.ACTIONS.DELETE}>
+        <BsTrash
+          size={15}
+          className="cursor-pointer hover:scale-125 transition-transform"
+        />
+      </Tooltip>
     </div>
   );
 };
 
 export const actionsFunction = (value: string | number) => {
-  return <DetailCell value={value} />;
+  return <DetailCell id={value} />;
 };
 
 export const formatProducts = (

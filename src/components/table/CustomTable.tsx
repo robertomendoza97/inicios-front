@@ -65,7 +65,7 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
     const newRows = allRows.slice(0, count);
     setRowsPerPage(newRows);
     setCurrentPage(1);
-  }, [count]);
+  }, [count, allRows]);
 
   useEffect(() => {
     const newRows = allRows.slice(
@@ -74,7 +74,7 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
     );
 
     setRowsPerPage(newRows);
-  }, [currentPage]);
+  }, [currentPage, allRows, count]);
 
   return (
     <section className="antialiased text-gray-600 h-full px-4">

@@ -7,7 +7,8 @@ export const validateData = ({
   category,
   costPrice,
   state,
-  retailPrice
+  retailPrice,
+  subCategory
 }: CreateProductFormValues) => {
   return !(
     name === "" ||
@@ -18,6 +19,7 @@ export const validateData = ({
     costPrice === "" ||
     retailPrice === "" ||
     state === "" ||
-    category === ""
+    category === "" ||
+    subCategory === ""
   );
 };

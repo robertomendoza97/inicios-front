@@ -20,7 +20,7 @@ const tableColumns = [
     name: "Precio de costo",
     sort: true,
     component: (value: string | number) => (
-      <>{formatNumberToPrice(+value, "$")}</>
+      <>{formatNumberToPrice(+value, "$", true)}</>
     )
   },
   {
@@ -28,7 +28,7 @@ const tableColumns = [
     name: "Precio de venta",
     sort: true,
     component: (value: string | number) => (
-      <>{formatNumberToPrice(+value, "$")}</>
+      <>{formatNumberToPrice(+value, "$", true)}</>
     )
   },
   {
@@ -48,7 +48,7 @@ export const ProductTable = ({ products }: Props) => {
   return (
     <div className="h-full">
       <CustomTable
-        path={PATHS.ADD_USER}
+        path={PATHS.PRODUCTS.CREATE}
         title="Productos"
         column={tableColumns}
         data={formatProducts(products)}

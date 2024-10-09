@@ -11,8 +11,6 @@ interface props {
 }
 
 const ClientRow = ({ details, email, id, name, phone, state }: props) => {
-  console.log(details);
-
   return (
     <tr>
       <td className="p-2 whitespace-nowrap">

@@ -1,5 +1,5 @@
 import { SingleCategory } from "@/src/categories";
-import { CreateUserForm } from "@/src/products";
+import { CreateProductForm } from "@/src/products";
 
 const getCategories = async (): Promise<SingleCategory[]> => {
   const { data } = await fetch(
@@ -15,7 +15,7 @@ const page = async () => {
 
   return (
     <div className="w-full flex flex-col h-full items-center justify-center">
-      <CreateUserForm categories={categories} />
+      <CreateProductForm categories={categories} />
     </div>
   );
 };

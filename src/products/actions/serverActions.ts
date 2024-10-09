@@ -18,3 +18,23 @@ export const createProductAction = async (body: ProductToCreate) => {
 
   return data;
 };
+
+export const updateProductAction = async (
+  id: string,
+  body: ProductToCreate
+) => {
+  const data = await fetch(
+    `http://localhost:3333/administration-system/api/product/${id}`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  )
+    .then(resp => resp.json())
+    .catch(err => err);
+
+  return data;
+};

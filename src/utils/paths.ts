@@ -1,7 +1,11 @@
 export const PATHS = {
   HOME: "/dashboard/main",
-  ADD_USER: "/dashboard/products/new_one",
-  PRODUCTS: "/dashboard/products",
+  PRODUCTS: {
+    MAIN: "/dashboard/products",
+    UPDATE: "/dashboard/product/update/",
+    DETAILS: "/dashboard/product/details/",
+    CREATE: "/dashboard/product/new_one"
+  },
   CLIENTS: "/dashboard/clients",
   SALES: "/dashboard/sales",
   LOANS: "/dashboard/loans"

@@ -1,6 +1,7 @@
 export const CREATE_PRODUCT_LABELS = {
   CREATE_USER: "Crear usuario",
   CREATE_PRODUCT: "Nuevo producto",
+  UPDATE_PRODUCT: "Actualizar producto",
   NAME: "Nombre",
   DESCRIPTION: "Descripción",
   STATE: "Estado",
@@ -36,6 +37,15 @@ export const CREATE_PRODUCT_LABELS = {
   ERROR: {
     CATEGORY: "Debe seleccionar una categoria",
     SUBCATEGORY: "Debe seleccionar una subcategoria"
+  },
+  NOTIFICATIONS: {
+    CREATED: "Producto creado correctamente",
+    UPDATED: "Producto actualizado correctamente"
+  },
+  ACTIONS: {
+    DETAILS: "Ver detalles",
+    UPDATE: "Actualizar",
+    DELETE: "Eliminar"
   }
 };
 
