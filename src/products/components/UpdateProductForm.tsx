@@ -3,6 +3,7 @@
 import React, { FormEvent, useEffect, useMemo, useState } from "react";
 import { CREATE_PRODUCT_LABELS } from "../utils/const";
 import {
+  ImagesSection,
   MainSection,
   OneProductDetails,
   PropertiesSection,
@@ -37,14 +38,19 @@ export const UpdateProductForm = ({
     properties,
     setFormValues,
     setProperties,
-    showErrors
+    showErrors,
+    images,
+    handleAddImages,
+    handleDeleteImages,
+    loadingImages
   } = useProductForm(
     updateProductAction,
     updateProductData,
     CREATE_PRODUCT_LABELS.NOTIFICATIONS.UPDATED,
     "update",
     details.id,
-    details.properties
+    details.properties,
+    details.images
   );
 
   const handleSubmit = (e: FormEvent) => {
@@ -59,13 +65,21 @@ export const UpdateProductForm = ({
   useEffect(() => {
     if (
       JSON.stringify(updateProductData) !== JSON.stringify(formValues) ||
-      JSON.stringify(properties) !== JSON.stringify(details.properties)
+      JSON.stringify(properties) !== JSON.stringify(details.properties) ||
+      JSON.stringify(images) !== JSON.stringify(details.images)
     ) {
       setModified(true);
     } else {
       setModified(false);
     }
-  }, [formValues, properties, updateProductData, details.properties]);
+  }, [
+    formValues,
+    properties,
+    updateProductData,
+    details.properties,
+    details.images,
+    images
+  ]);
 
   return (
     <form
@@ -83,10 +97,18 @@ export const UpdateProductForm = ({
           categories={categories}
         />
         <Divider vertical />
-        <PropertiesSection
-          properties={properties}
-          setProperties={setProperties}
-        />
+        <div className="flex flex-col max-h-full overflow-y-auto">
+          <PropertiesSection
+            properties={properties}
+            setProperties={setProperties}
+          />
+          <ImagesSection
+            images={images}
+            handleAddImages={handleAddImages}
+            handleDeleteImages={handleDeleteImages}
+            loadingImages={loadingImages}
+          />
+        </div>
       </div>
       <div className="flex w-full gap-4">
         <Button color="failure" type="reset" onClick={handleReset}>

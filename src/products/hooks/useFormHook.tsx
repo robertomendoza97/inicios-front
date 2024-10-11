@@ -41,9 +41,12 @@ export const useProductForm = (
   initialProperties: ProductProperty[] = [],
   initialImages: string[] = []
 ) => {
+  const [imagesToDeleteWhenUpdate, setImagesToDeleteWhenUpdate] = useState<
+    string[]
+  >([]);
   const [firstTime, setFirstTime] = useState(true);
   const [loadingImages, setLoadingImages] = useState(false);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<string[]>(initialImages);
   const [formValues, setFormValues] =
     useState<CreateProductFormValues>(initialFormValues);
   const [properties, setProperties] =
@@ -73,7 +76,7 @@ export const useProductForm = (
       quantity: Number(formValues.quantity),
       fkSubcategory: Number(formValues.subCategory),
       tags: [],
-      images: [],
+      images,
       name: formValues.name,
       description: formValues.description,
       state: formValues.state
@@ -86,6 +89,21 @@ export const useProductForm = (
       setProperties(initialProperties);
     } else if (type === "update" && id) {
       const newProduct = await (action as UpdateActionInterface)(id, objToSend);
+
+      for (const imageToDelete of imagesToDeleteWhenUpdate) {
+        const key = imageToDelete.split(".com/")[1];
+
+        try {
+          await fetch(`/api/deleteImage?key=${key}`, {
+            method: "DELETE"
+          });
+        } catch (error) {
+          showNotification({
+            type: "error",
+            text: CREATE_PRODUCT_LABELS.ERROR.DELETE_IMAGE
+          });
+        }
+      }
 
       const formattedNewProduct = new UpdateProductDTO(newProduct);
       setFormValues(formattedNewProduct);
@@ -118,7 +136,9 @@ export const useProductForm = (
     }
 
     if (images.length > 0) {
-      for (const image of images) {
+      for (const image of images.filter(
+        img => !initialImages.some(initialImage => initialImage === img)
+      )) {
         const key = image.split(".com/")[1];
 
         try {
@@ -136,22 +156,27 @@ export const useProductForm = (
   };
 
   const handleDeleteImages = async (url: string) => {
-    const key = url.split(".com/")[1];
+    if (type === "create") {
+      const key = url.split(".com/")[1];
 
-    try {
-      const response = await fetch(`/api/deleteImage?key=${key}`, {
-        method: "DELETE"
-      });
-      await response.json();
+      try {
+        const response = await fetch(`/api/deleteImage?key=${key}`, {
+          method: "DELETE"
+        });
+        await response.json();
 
-      const newImages = images.filter(image => image !== url);
+        const newImages = images.filter(image => image !== url);
 
-      setImages(newImages);
-    } catch (error) {
-      showNotification({
-        type: "error",
-        text: CREATE_PRODUCT_LABELS.ERROR.DELETE_IMAGE
-      });
+        setImages(newImages);
+      } catch (error) {
+        showNotification({
+          type: "error",
+          text: CREATE_PRODUCT_LABELS.ERROR.DELETE_IMAGE
+        });
+      }
+    } else if (type === "update") {
+      setImagesToDeleteWhenUpdate([...imagesToDeleteWhenUpdate, url]);
+      setImages(images.filter(img => img !== url));
     }
   };
 
