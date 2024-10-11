@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import {
   CreateProductFormValues,
   ProductProperty,
@@ -10,7 +10,8 @@ import {
   PRODUCT_PROPERTIES_PREVIEW,
   CreateActionInterface,
   UpdateActionInterface,
-  PRODUCT_IMAGES_PREVIEW
+  PRODUCT_IMAGES_PREVIEW,
+  CREATE_PRODUCT_LABELS
 } from "..";
 import {
   stringThousandToNumber,
@@ -37,8 +38,11 @@ export const useProductForm = (
   successMessage: string,
   type: "create" | "update",
   id?: string,
-  initialProperties: ProductProperty[] = []
+  initialProperties: ProductProperty[] = [],
+  initialImages: string[] = []
 ) => {
+  const [firstTime, setFirstTime] = useState(true);
+  const [loadingImages, setLoadingImages] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [formValues, setFormValues] =
     useState<CreateProductFormValues>(initialFormValues);
@@ -105,29 +109,117 @@ export const useProductForm = (
     setFormValues(initialFormValues);
     setProperties(initialProperties);
     setShowErrors(false);
+    setImages(initialImages);
 
     if (type === "create") {
       localStorage.removeItem(CREATE_PRODUCT_PREVIEW);
       localStorage.removeItem(PRODUCT_PROPERTIES_PREVIEW);
+      localStorage.removeItem(PRODUCT_IMAGES_PREVIEW);
+    }
+
+    if (images.length > 0) {
+      for (const image of images) {
+        const key = image.split(".com/")[1];
+
+        try {
+          fetch(`/api/deleteImage?key=${key}`, {
+            method: "DELETE"
+          });
+        } catch (error) {
+          showNotification({
+            type: "error",
+            text: CREATE_PRODUCT_LABELS.ERROR.DELETE_IMAGE
+          });
+        }
+      }
+    }
+  };
+
+  const handleDeleteImages = async (url: string) => {
+    const key = url.split(".com/")[1];
+
+    try {
+      const response = await fetch(`/api/deleteImage?key=${key}`, {
+        method: "DELETE"
+      });
+      await response.json();
+
+      const newImages = images.filter(image => image !== url);
+
+      setImages(newImages);
+    } catch (error) {
+      showNotification({
+        type: "error",
+        text: CREATE_PRODUCT_LABELS.ERROR.DELETE_IMAGE
+      });
+    }
+  };
+
+  const handleAddImages = async ({
+    target: { files }
+  }: ChangeEvent<HTMLInputElement>) => {
+    setLoadingImages(true);
+    if (files) {
+      const urls = [];
+      for (const file of Array.from(files)) {
+        if (!file.type.match(/image\/jpeg/)) {
+          showNotification({
+            type: "error",
+            text: CREATE_PRODUCT_LABELS.ERROR.TYPE
+          });
+          continue;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+          showNotification({
+            type: "error",
+            text: CREATE_PRODUCT_LABELS.ERROR.SIZE
+          });
+          continue;
+        }
+
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+          const response = await fetch("/api/uploadImage", {
+            method: "POST",
+            body: formData
+          });
+          const { url } = await response.json();
+          urls.push(url);
+        } catch (error) {
+          showNotification({
+            type: "error",
+            text: CREATE_PRODUCT_LABELS.ERROR.UPLOAD_IMAGE
+          });
+        }
+      }
+      setLoadingImages(false);
+      setImages([...images, ...urls]);
     }
   };
 
   useEffect(() => {
-    if (
-      JSON.stringify(formValues) !== JSON.stringify(INITIAL_STATE) &&
-      type === "create"
-    )
-      localStorage.setItem(CREATE_PRODUCT_PREVIEW, JSON.stringify(formValues));
+    if (!firstTime) {
+      if (
+        JSON.stringify(formValues) !== JSON.stringify(INITIAL_STATE) &&
+        type === "create"
+      )
+        localStorage.setItem(
+          CREATE_PRODUCT_PREVIEW,
+          JSON.stringify(formValues)
+        );
 
-    if (type === "create")
-      localStorage.setItem(
-        PRODUCT_PROPERTIES_PREVIEW,
-        JSON.stringify(properties)
-      );
+      if (type === "create")
+        localStorage.setItem(
+          PRODUCT_PROPERTIES_PREVIEW,
+          JSON.stringify(properties)
+        );
 
-    if (type === "create")
-      localStorage.setItem(PRODUCT_IMAGES_PREVIEW, JSON.stringify(images));
-  }, [formValues, properties, type, images]);
+      if (type === "create")
+        localStorage.setItem(PRODUCT_IMAGES_PREVIEW, JSON.stringify(images));
+    }
+  }, [formValues, properties, type, images, firstTime]);
 
   useEffect(() => {
     if (type === "create") {
@@ -145,6 +237,8 @@ export const useProductForm = (
       setFormValues(productPreview);
       setProperties(propertiesPreview);
       setImages(imagesPreview);
+
+      setFirstTime(false);
     }
   }, [type]);
 
@@ -158,6 +252,8 @@ export const useProductForm = (
     onSubmit,
     handleReset,
     images,
-    setImages
+    handleDeleteImages,
+    handleAddImages,
+    loadingImages
   };
 };

@@ -30,7 +30,9 @@ export const CreateProductForm = ({
     setProperties,
     showErrors,
     images,
-    setImages
+    handleAddImages,
+    handleDeleteImages,
+    loadingImages
   } = useProductForm(
     createProductAction,
     undefined,
@@ -60,7 +62,12 @@ export const CreateProductForm = ({
             properties={properties}
             setProperties={setProperties}
           />
-          <ImagesSection images={images} setImages={setImages} />
+          <ImagesSection
+            images={images}
+            handleAddImages={handleAddImages}
+            handleDeleteImages={handleDeleteImages}
+            loadingImages={loadingImages}
+          />
         </div>
       </div>
       <div className="flex w-full gap-4">

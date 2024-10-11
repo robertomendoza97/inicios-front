@@ -1,106 +1,52 @@
 import { FileInput } from "flowbite-react";
-import { CREATE_PRODUCT_LABELS } from "../";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import Image from "next/image";
-import { useNotificationStore } from "@/src/utils";
+import { CREATE_PRODUCT_LABELS, ProductImage } from "../";
+
 import { CiImageOn } from "react-icons/ci";
+import { ChangeEvent } from "react";
 
 interface Props {
   images: string[];
-  setImages: Dispatch<SetStateAction<string[]>>;
+  handleAddImages: (e: ChangeEvent<HTMLInputElement>) => Promise<void>;
+  handleDeleteImages: (url: string) => Promise<void>;
+  loadingImages: boolean;
 }
-export const ImagesSection = ({ images, setImages }: Props) => {
-  const showNotification = useNotificationStore(
-    state => state.showNotification
-  );
-  const handleImages = async ({
-    target: { files }
-  }: ChangeEvent<HTMLInputElement>) => {
-    if (files) {
-      const urls = [];
-      for (const file of Array.from(files)) {
-        if (!file.type.match(/image\/jpeg/)) {
-          showNotification({
-            type: "error",
-            text: "Tipo de archivo no permitido. Solo se aceptan JPG y JPEG."
-          });
-          continue;
-        }
-
-        if (file.size > 5 * 1024 * 1024) {
-          showNotification({
-            type: "error",
-            text: "El tamaño del archivo no debe exceder 5 MB."
-          });
-          continue;
-        }
-
-        try {
-          const formData = new FormData();
-          formData.append("file", file);
-          const response = await fetch("/api/uploadImage", {
-            method: "POST",
-            body: formData
-          });
-          const { url } = await response.json();
-          urls.push(url);
-        } catch (error) {
-          showNotification({
-            type: "error",
-            text: "Ocurrio un error al subir la imagen."
-          });
-        }
-      }
-
-      setImages([...images, ...urls]);
-    }
-  };
-
-  const handleDelete = async (url: string) => {
-    const key = url.split(".com/")[1];
-
-    try {
-      const response = await fetch(`/api/deleteImage?key=${key}`, {
-        method: "DELETE"
-      });
-      await response.json();
-
-      const newImages = images.filter(image => image !== url);
-
-      setImages(newImages);
-    } catch (error) {
-      showNotification({
-        type: "error",
-        text: "Ocurrio un error al eliminar la imagen."
-      });
-    }
-  };
-
+export const ImagesSection = ({
+  images,
+  handleDeleteImages,
+  handleAddImages,
+  loadingImages
+}: Props) => {
   return (
     <div className="flex flex-col gap-5 items-stretch justify-between max-w-full overflow-x-auto h-1/2">
-      <h3 className="text-lg font-semibold">{CREATE_PRODUCT_LABELS.IMAGES}</h3>
-      <div className="flex flex-wrap gap-5 overflow-y-auto">
+      <h3 className="text-lg font-semibold">
+        {CREATE_PRODUCT_LABELS.IMAGES.TITLE}{" "}
+        <span className="font-normal text-xs">
+          {" "}
+          {CREATE_PRODUCT_LABELS.IMAGES.ACCEPT}
+        </span>
+      </h3>
+      <div className="flex flex-wrap gap-5 overflow-y-auto relative justify-evenly">
+        {loadingImages && (
+          <div className="absolute top-0 left-0 w-full h-full bg-paletteColor5 opacity-50 rounded flex justify-center items-center z-20">
+            {CREATE_PRODUCT_LABELS.IMAGES.UPLOADING}
+          </div>
+        )}
         {!Boolean(images.length) && (
-          <CiImageOn size={140} className="text-gray-200 m-h" />
+          <CiImageOn size={120} className="text-gray-200 mx-auto" />
         )}
         {images.map(image => (
-          <Image
-            src={image}
-            width={100}
-            height={100}
-            alt={image}
+          <ProductImage
+            image={image}
+            handleDeleteImages={handleDeleteImages}
             key={image}
-            style={{ objectFit: "cover", aspectRatio: "3/4" }}
-            onClick={() => handleDelete(image)}
           />
         ))}
       </div>
       <div>
         <FileInput
-          helperText="jpg, jpeg (5MB MAX)"
           multiple
           sizing="sm"
-          onChange={handleImages}
+          onChange={handleAddImages}
           accept="image/jpeg"
         />
       </div>

@@ -41,7 +41,7 @@ export const MainSection = ({
   }, [formValues.category, categories]);
 
   return (
-    <section className="flex flex-col gap-3 items-stretch">
+    <section className="flex flex-col gap-3 items-stretch overflow-y-auto">
       <CustomInput
         type="text"
         value={formValues.name}

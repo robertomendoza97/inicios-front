@@ -1,3 +1,4 @@
+export { ProductImage } from "./components/ProductImage";
 export { ImagesSection } from "./components/ImagesSection";
 export { MainSection } from "./components/MainSection";
 export { useProductForm } from "./hooks/useFormHook";
