@@ -1,3 +1,4 @@
+export { ImagesSection } from "./components/ImagesSection";
 export { MainSection } from "./components/MainSection";
 export { useProductForm } from "./hooks/useFormHook";
 export { createProductAction } from "./actions/serverActions";
@@ -18,5 +19,6 @@ export type { OneProductDetails } from "./interfaces/detail-one-product";
 export {
   CREATE_PRODUCT_LABELS,
   CREATE_PRODUCT_PREVIEW,
-  PRODUCT_PROPERTIES_PREVIEW
+  PRODUCT_PROPERTIES_PREVIEW,
+  PRODUCT_IMAGES_PREVIEW
 } from "./utils/const";

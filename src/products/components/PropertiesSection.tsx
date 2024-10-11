@@ -25,17 +25,14 @@ export const PropertiesSection = ({ properties, setProperties }: Props) => {
   };
 
   return (
-    <div className="flex flex-col gap-5 items-stretch max-w-full overflow-x-auto">
+    <div className="flex flex-col gap-5 items-stretch overflow-x-auto h-1/2">
       <h3 className="text-lg font-semibold">
         {CREATE_PRODUCT_LABELS.PROPERTIES}
       </h3>
-      <div className="grow overflow-y-auto min-w-80">
+      <div className="grow overflow-y-auto">
         {!Boolean(properties.length) && (
-          <div className="h-full w-full flex items-center justify-center">
-            <FaRegListAlt
-              size={200}
-              className="text-gray-200 relative top-[-25px]"
-            />
+          <div className="flex h-full items-center justify-center">
+            <FaRegListAlt size={140} className="text-gray-200" />
           </div>
         )}
         {properties.map(prop => (

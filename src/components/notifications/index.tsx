@@ -3,11 +3,34 @@
 import { useNotificationStore } from "@/src/utils";
 import { Toast } from "flowbite-react";
 import { useEffect, useRef } from "react";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { MdErrorOutline } from "react-icons/md";
+import { MdInfoOutline } from "react-icons/md";
+import { IoWarningOutline } from "react-icons/io5";
+
+const notificationStyles = {
+  info: {
+    icon: <MdInfoOutline size={30} className="border-cyan-600" />,
+    styles: "border-cyan-600"
+  },
+  success: {
+    icon: <IoMdCheckmarkCircleOutline className="text-green-500" size={30} />,
+    styles: ""
+  },
+  error: {
+    icon: <MdErrorOutline size={30} className="text-red-600" />,
+    styles: "border-red-600"
+  },
+  warning: {
+    icon: <IoWarningOutline size={30} className="border-yellow-600" />,
+    styles: "border-yellow-600"
+  }
+};
 
 export const Notifications = () => {
   const isVisible = useNotificationStore(state => state.isVisible);
 
-  const { text, icon } = useNotificationStore(state => state.notificationInfo);
+  const { text, type } = useNotificationStore(state => state.notificationInfo);
   const hideNotification = useNotificationStore(
     state => state.hideNotification
   );
@@ -37,15 +60,14 @@ export const Notifications = () => {
         isVisible ? "right-0 " : "right-[-100%]"
       }`}
     >
-      <Toast className="text-white bg-paletteColor3 flex gap-4">
+      <Toast
+        className={`flex gap-4 border  ${notificationStyles[type].styles}`}
+      >
         <div className="flex gap-2 items-center">
-          {icon}
+          {notificationStyles[type].icon}
           {text}
         </div>
-        <Toast.Toggle
-          className="bg-paletteColor3 hover:bg-paletteColor3 text-white hover:text-white"
-          onDismiss={handleDissmiss}
-        />
+        <Toast.Toggle onDismiss={handleDissmiss} />
       </Toast>
     </div>
   );

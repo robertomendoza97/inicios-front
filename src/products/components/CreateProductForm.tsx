@@ -3,6 +3,7 @@
 import {
   CREATE_PRODUCT_LABELS,
   createProductAction,
+  ImagesSection,
   PropertiesSection,
   useProductForm,
   validateData
@@ -27,7 +28,9 @@ export const CreateProductForm = ({
     properties,
     setFormValues,
     setProperties,
-    showErrors
+    showErrors,
+    images,
+    setImages
   } = useProductForm(
     createProductAction,
     undefined,
@@ -43,7 +46,7 @@ export const CreateProductForm = ({
       <h1 className="text-3xl font-semibold">
         {CREATE_PRODUCT_LABELS.CREATE_PRODUCT}
       </h1>
-      <div className="grid grid-cols-[1fr_auto_1fr] overflow-y-auto max-w-full">
+      <div className="grid grid-cols-[1fr_auto_1fr] overflow-hidden max-w-full">
         <MainSection
           formValues={formValues}
           setFormValues={setFormValues}
@@ -52,10 +55,13 @@ export const CreateProductForm = ({
         />
         <Divider vertical />
 
-        <PropertiesSection
-          properties={properties}
-          setProperties={setProperties}
-        />
+        <div className="flex flex-col max-h-full overflow-y-auto">
+          <PropertiesSection
+            properties={properties}
+            setProperties={setProperties}
+          />
+          <ImagesSection images={images} setImages={setImages} />
+        </div>
       </div>
       <div className="flex w-full gap-4">
         <Button color="failure" type="reset" onClick={handleReset}>

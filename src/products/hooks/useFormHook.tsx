@@ -9,14 +9,14 @@ import {
   CREATE_PRODUCT_PREVIEW,
   PRODUCT_PROPERTIES_PREVIEW,
   CreateActionInterface,
-  UpdateActionInterface
+  UpdateActionInterface,
+  PRODUCT_IMAGES_PREVIEW
 } from "..";
 import {
   stringThousandToNumber,
   useNotificationStore,
   getFromLocalStorage
 } from "@/src/utils/";
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { UpdateProductDTO } from "../DTO/updateProductDTO";
 
 const INITIAL_STATE = {
@@ -39,6 +39,7 @@ export const useProductForm = (
   id?: string,
   initialProperties: ProductProperty[] = []
 ) => {
+  const [images, setImages] = useState<string[]>([]);
   const [formValues, setFormValues] =
     useState<CreateProductFormValues>(initialFormValues);
   const [properties, setProperties] =
@@ -95,7 +96,7 @@ export const useProductForm = (
 
     showNotification({
       text: successMessage,
-      icon: <IoMdCheckmarkCircleOutline size={30} className="text-green-500" />
+      type: "success"
     });
     setLoading(false);
   };
@@ -118,12 +119,15 @@ export const useProductForm = (
     )
       localStorage.setItem(CREATE_PRODUCT_PREVIEW, JSON.stringify(formValues));
 
-    if (properties.length > 0 && type === "create")
+    if (type === "create")
       localStorage.setItem(
         PRODUCT_PROPERTIES_PREVIEW,
         JSON.stringify(properties)
       );
-  }, [formValues, properties, type]);
+
+    if (type === "create")
+      localStorage.setItem(PRODUCT_IMAGES_PREVIEW, JSON.stringify(images));
+  }, [formValues, properties, type, images]);
 
   useEffect(() => {
     if (type === "create") {
@@ -135,8 +139,12 @@ export const useProductForm = (
         PRODUCT_PROPERTIES_PREVIEW,
         "[]"
       );
+
+      const imagesPreview = getFromLocalStorage(PRODUCT_IMAGES_PREVIEW, "[]");
+
       setFormValues(productPreview);
       setProperties(propertiesPreview);
+      setImages(imagesPreview);
     }
   }, [type]);
 
@@ -148,6 +156,8 @@ export const useProductForm = (
     loading,
     showErrors,
     onSubmit,
-    handleReset
+    handleReset,
+    images,
+    setImages
   };
 };

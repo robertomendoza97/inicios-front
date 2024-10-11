@@ -1,9 +1,8 @@
-import { ReactNode } from "react";
 import { create } from "zustand";
 
 interface NotificationInfo {
   text: string;
-  icon: ReactNode;
+  type: "info" | "success" | "warning" | "error";
 }
 
 interface State {
@@ -17,7 +16,7 @@ export const useNotificationStore = create<State>()(set => ({
   isVisible: false,
   notificationInfo: {
     text: "",
-    icon: undefined
+    type: "error"
   },
   hideNotification: () => set(() => ({ isVisible: false })),
   showNotification: (notiInfo: NotificationInfo) =>

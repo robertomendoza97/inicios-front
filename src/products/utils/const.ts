@@ -33,6 +33,7 @@ export const CREATE_PRODUCT_LABELS = {
     }
   },
   PROPERTIES: "Caracteristicas:",
+  IMAGES: "Imagenes",
   ADD_PROPERTY_BUTTON: "Agregar",
   ERROR: {
     CATEGORY: "Debe seleccionar una categoria",
@@ -51,3 +52,4 @@ export const CREATE_PRODUCT_LABELS = {
 
 export const CREATE_PRODUCT_PREVIEW = "create-product-preview";
 export const PRODUCT_PROPERTIES_PREVIEW = "product-properties-preview";
+export const PRODUCT_IMAGES_PREVIEW = "product-images-preview";
