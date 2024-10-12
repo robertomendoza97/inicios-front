@@ -2,37 +2,48 @@
 
 import { CustomInput } from "@/src/components";
 import {
+  ChangeEvent,
   Dispatch,
   FormEvent,
   SetStateAction,
   useEffect,
-  useRef,
   useState
 } from "react";
 import { CREATE_PRODUCT_LABELS, ProductProperty } from "../";
 import { AiOutlineSave } from "react-icons/ai";
 import { useUIStore } from "@/src/store/ui-store";
-import { Button } from "flowbite-react";
+import { Button, Checkbox, Label } from "flowbite-react";
 
 interface Props {
   setProperties: Dispatch<SetStateAction<ProductProperty[]>>;
+  property?: ProductProperty;
 }
 
 const INITIAL_STATE = {
   key: "",
   value: "",
   compare: false,
-  name: ""
+  name: "",
+  index: false
 };
-export const NewProperty = ({ setProperties }: Props) => {
+export const NewProperty = ({
+  setProperties,
+  property = INITIAL_STATE
+}: Props) => {
   const isModalOpen = useUIStore(state => state.isModalOpen);
 
-  const [values, setValues] = useState<ProductProperty>(INITIAL_STATE);
-
+  const [values, setValues] = useState<ProductProperty>(property);
   const handleChange = (name: string, value: string) => {
     setValues({
       ...values,
       [name]: value
+    });
+  };
+
+  const handleCheckbox = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    setValues({
+      ...values,
+      index: target.checked
     });
   };
 
@@ -44,7 +55,8 @@ export const NewProperty = ({ setProperties }: Props) => {
     const newProperty: ProductProperty = {
       key: values.name.replaceAll(" ", "_").toLowerCase(),
       value: values.value,
-      name: values.name
+      name: values.name,
+      index: values.index
     };
 
     setProperties(prevState => {
@@ -59,14 +71,22 @@ export const NewProperty = ({ setProperties }: Props) => {
     });
 
     setValues(INITIAL_STATE);
+    const input = document.querySelector(
+      ".wrapper_property_inputs > div > div > div > input"
+    ) as HTMLInputElement;
+    input?.focus();
   };
+
+  useEffect(() => {
+    setValues(property);
+  }, [property]);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <h2 className="font-semibold text-paletteColor3 text-lg">
         {CREATE_PRODUCT_LABELS.MODAL.TITLE}
       </h2>
-      <div className="flex gap-5 ">
+      <div className="flex gap-5 wrapper_property_inputs">
         <CustomInput
           autoFocus={isModalOpen}
           label={CREATE_PRODUCT_LABELS.MODAL.NAME}
@@ -82,6 +102,16 @@ export const NewProperty = ({ setProperties }: Props) => {
           onChange={handleChange}
           placeholder={CREATE_PRODUCT_LABELS.MODAL.PLACEHOLDER.VALUE}
         />
+      </div>
+      <div className="flex gap-2 items-center">
+        <Checkbox
+          id="show-in-name"
+          onChange={handleCheckbox}
+          checked={values.index}
+        />
+        <Label htmlFor="show-in-name" className="font-light">
+          {CREATE_PRODUCT_LABELS.MODAL.SHOW_IN_NAME}
+        </Label>
       </div>
 
       <Button type="submit" className="bg-secondary5 hover:!bg-secondary1">

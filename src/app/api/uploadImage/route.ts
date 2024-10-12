@@ -23,7 +23,7 @@ export async function POST(request: Request) {
   if (file && typeof file === "object" && file.name) {
     const Body = (await file.arrayBuffer()) as Buffer;
 
-    const key = `dev/${randomUUID()}_${file.name}`;
+    const key = `${process.env.ENVIRONMENT}/${randomUUID()}_${file.name}`;
     const uploadParams: PutObjectCommandInput = {
       Bucket: bucketName,
       Key: key,

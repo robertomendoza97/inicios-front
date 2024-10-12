@@ -3,4 +3,5 @@ export interface ProductProperty {
   value: string;
   name: string;
   compare?: boolean;
+  index?: boolean;
 }

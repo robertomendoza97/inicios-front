@@ -1,6 +1,5 @@
 import { CREATE_PRODUCT_LABELS, SingleProductFromAPI } from "@/src/products";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { BsTrash } from "react-icons/bs";
 import { GrUpdate } from "react-icons/gr";
 import Link from "next/link";
 import { Tooltip } from "flowbite-react";
@@ -36,12 +35,6 @@ const DetailCell = ({ id }: { id: string | number }) => {
             className="cursor-pointer hover:scale-125 transition-transform"
           />
         </Link>
-      </Tooltip>
-      <Tooltip content={CREATE_PRODUCT_LABELS.ACTIONS.DELETE}>
-        <BsTrash
-          size={15}
-          className="cursor-pointer hover:scale-125 transition-transform"
-        />
       </Tooltip>
     </div>
   );

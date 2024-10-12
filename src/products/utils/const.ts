@@ -27,6 +27,7 @@ export const CREATE_PRODUCT_LABELS = {
     NAME: "Nombre",
     VALUE: "Valor",
     SAVE: "Guardar",
+    SHOW_IN_NAME: "Mostrar en nombre",
     PLACEHOLDER: {
       NAME: "Memoria RAM",
       VALUE: "8 GB"

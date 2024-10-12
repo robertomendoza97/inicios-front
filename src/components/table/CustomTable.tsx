@@ -120,7 +120,7 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
                   ))}
                 </Table.Body>
               </Table>
-              <div className="flex justify-between w-full mt-2 items-center">
+              <div className="flex justify-between w-full mt-2 items-center px-5 pb-5">
                 <Link href={path}>
                   <Button>{COMPONENTS_LABELS.CREATE_RECORD}</Button>
                 </Link>

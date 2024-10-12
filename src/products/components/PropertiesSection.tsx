@@ -5,6 +5,7 @@ import { FaRegCircleDot } from "react-icons/fa6";
 import { BsTrash } from "react-icons/bs";
 import { FaRegListAlt } from "react-icons/fa";
 import { Button } from "flowbite-react";
+import { GrUpdate } from "react-icons/gr";
 
 interface Props {
   properties: ProductProperty[];
@@ -22,6 +23,16 @@ export const PropertiesSection = ({ properties, setProperties }: Props) => {
 
   const handleDeleteProperty = (key: string) => {
     setProperties(properties.filter(prop => prop.key !== key));
+  };
+
+  const handleUpdateProperty = (key: string) => {
+    setModalContent(
+      <NewProperty
+        property={properties.find(p => p.key === key)}
+        setProperties={setProperties}
+      />
+    );
+    openModal();
   };
 
   return (
@@ -45,6 +56,11 @@ export const PropertiesSection = ({ properties, setProperties }: Props) => {
               <p className="font-semibold">{prop.name}:</p>
               <p>{prop.value}</p>
             </div>
+            <GrUpdate
+              size={15}
+              className="cursor-pointer"
+              onClick={() => handleUpdateProperty(prop.key)}
+            />
             <BsTrash
               size={20}
               className="cursor-pointer text-red-700"
