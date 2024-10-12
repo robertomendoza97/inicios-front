@@ -1,17 +1,21 @@
 import { SingleCategory } from "@/src/categories";
+import { ErrorResponsePage } from "@/src/components";
+import { CustomResponse } from "@/src/interfaces/CustomResponse";
 import { CreateProductForm } from "@/src/products";
 
-const getCategories = async (): Promise<SingleCategory[]> => {
+const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
   const { data } = await fetch(
     `${process.env.PROTOCOL}://${process.env.HOST}/category`,
     { cache: "no-cache" }
   ).then(resp => resp.json());
 
-  return data as SingleCategory[];
+  return { data, error: false, success: true };
 };
 
 const page = async () => {
-  const categories = await getCategories();
+  const { data: categories, error } = await getCategories();
+
+  if (error) return <ErrorResponsePage />;
 
   return (
     <div className="w-full flex flex-col h-full items-center justify-center">
