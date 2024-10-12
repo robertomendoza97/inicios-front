@@ -2,7 +2,7 @@
 
 import { CustomTable } from "@/src/components";
 
-import { actionsFunction, formatProducts } from "../utils/formatProducts";
+import { formatProducts, productActionsFunction } from "../";
 import { formatNumberToPrice } from "@/src/utils";
 import { PATHS } from "@/src/utils/paths";
 import { SingleProductFromAPI } from "../interfaces/single-product.interface";
@@ -40,7 +40,7 @@ const tableColumns = [
   {
     key: "actions",
     name: "Acciones",
-    component: actionsFunction
+    component: productActionsFunction
   }
 ];
 

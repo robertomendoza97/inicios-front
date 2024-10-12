@@ -21,5 +21,5 @@ export const formatSubcategoriesRows = (categories: SingleCategory[]) => {
     });
   });
 
-  return newCategories;
+  return newCategories as unknown as Record<string, string | number>[];
 };

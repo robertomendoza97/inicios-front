@@ -30,7 +30,7 @@ const menuOptions = [
   },
   {
     title: "Categorias",
-    path: "/dashboard/categories",
+    path: PATHS.CATEGORIES.MAIN,
     icon: <BiCategoryAlt />
   }
 ];

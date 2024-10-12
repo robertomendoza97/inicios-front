@@ -1,4 +1,4 @@
-import { CategoriesTable, SingleCategory } from "@/src/categories";
+import { SingleCategory, SubAndCategoriesTable } from "@/src/categories";
 import { ErrorResponsePage } from "@/src/components";
 import { CustomResponse } from "@/src/interfaces/CustomResponse";
 
@@ -16,7 +16,7 @@ const Categories = async () => {
 
   if (error) return <ErrorResponsePage />;
 
-  return <CategoriesTable categories={categories} />;
+  return <SubAndCategoriesTable categories={categories} />;
 };
 
 export default Categories;
