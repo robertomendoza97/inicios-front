@@ -9,7 +9,7 @@ interface Props {
 }
 const getCategories = async (): Promise<SingleCategory[]> => {
   const { data } = await fetch(
-    "http://localhost:3333/administration-system/api/category",
+    `${process.env.PROTOCOL}://${process.env.HOST}/category`,
     { cache: "no-cache" }
   ).then(resp => resp.json());
 
@@ -20,7 +20,7 @@ const getProductInformation = async (
   id: string
 ): Promise<OneProductDetails> => {
   const data = await fetch(
-    `http://localhost:3333/administration-system/api/product/${id}`
+    `${process.env.PROTOCOL}://${process.env.HOST}/product/${id}`
   ).then(resp => resp.json());
 
   return data as OneProductDetails;

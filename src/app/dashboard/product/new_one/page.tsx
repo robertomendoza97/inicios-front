@@ -3,7 +3,7 @@ import { CreateProductForm } from "@/src/products";
 
 const getCategories = async (): Promise<SingleCategory[]> => {
   const { data } = await fetch(
-    "http://localhost:3333/administration-system/api/category",
+    `${process.env.PROTOCOL}://${process.env.HOST}/category`,
     { cache: "no-cache" }
   ).then(resp => resp.json());
 

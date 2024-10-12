@@ -1,20 +1,30 @@
+import { ErrorResponsePage } from "@/src/components";
+import { CustomResponse } from "@/src/interfaces/CustomResponse";
 import {
   IProductsResponse,
   ProductTable,
   SingleProductFromAPI
 } from "@/src/products";
 
-const getProducts = async (): Promise<SingleProductFromAPI[]> => {
-  const { data }: IProductsResponse = await fetch(
-    `http://localhost:3333/administration-system/api/product`,
-    { cache: "no-cache" }
-  ).then(resp => resp.json());
+const getProducts = async (): Promise<
+  CustomResponse<SingleProductFromAPI[]>
+> => {
+  try {
+    const { data }: IProductsResponse = await fetch(
+      `${process.env.PROTOCOL}://${process.env.HOST}/product`,
+      { cache: "no-cache" }
+    ).then(resp => resp.json());
 
-  return data;
+    return { data, error: false, success: true };
+  } catch (error) {
+    return { data: [], error: true, success: false };
+  }
 };
 
 const Products = async () => {
-  const products = await getProducts();
+  const { data: products, error } = await getProducts();
+
+  if (error) return <ErrorResponsePage />;
 
   return (
     <div className="flex flex-col py-5">

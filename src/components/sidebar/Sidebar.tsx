@@ -3,11 +3,11 @@ import { SidebarMenuItem } from "./SidebarMenuItem";
 import { IoHomeOutline } from "react-icons/io5";
 import CompanyLogoIcon from "@/src/public/svg/logo";
 import { LuUsers } from "react-icons/lu";
-import { IoIosPhonePortrait } from "react-icons/io";
 import Link from "next/link";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { MdOutlineInventory } from "react-icons/md";
+import { BiCategoryAlt } from "react-icons/bi";
 import { PATHS } from "@/src/utils";
 
 const menuOptions = [
@@ -16,7 +16,7 @@ const menuOptions = [
   {
     title: "Productos",
     path: PATHS.PRODUCTS.MAIN,
-    icon: <IoIosPhonePortrait />
+    icon: <MdOutlineInventory />
   },
   {
     title: "Ventas",
@@ -29,9 +29,9 @@ const menuOptions = [
     icon: <FaMoneyBillTransfer />
   },
   {
-    title: "Inventario",
-    path: "/dashboard/inventory",
-    icon: <MdOutlineInventory />
+    title: "Categorias",
+    path: "/dashboard/categories",
+    icon: <BiCategoryAlt />
   }
 ];
 

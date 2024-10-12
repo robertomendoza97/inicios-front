@@ -4,7 +4,7 @@ import { ProductToCreate } from "..";
 
 export const createProductAction = async (body: ProductToCreate) => {
   const data = await fetch(
-    "http://localhost:3333/administration-system/api/product",
+    `${process.env.PROTOCOL}://${process.env.HOST}/product`,
     {
       method: "POST",
       body: JSON.stringify(body),
@@ -24,7 +24,7 @@ export const updateProductAction = async (
   body: ProductToCreate
 ) => {
   const data = await fetch(
-    `http://localhost:3333/administration-system/api/product/${id}`,
+    `${process.env.PROTOCOL}://${process.env.HOST}/product/${id}`,
     {
       method: "PATCH",
       body: JSON.stringify(body),
