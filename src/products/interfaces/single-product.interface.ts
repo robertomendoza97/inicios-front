@@ -1,11 +1,5 @@
-import { SubCategory } from "./../../categories/interfaces/interfaces";
-
-interface Properties {
-  key: string;
-  name: string;
-  value: string;
-  compare?: boolean;
-}
+import { SubCategory } from "../";
+import { ProductProperty } from "../";
 
 export interface SingleProductFromAPI {
   id: string;
@@ -19,7 +13,7 @@ export interface SingleProductFromAPI {
   currency: string;
   costPrice: number;
   retailPrice: number;
-  properties: Properties[];
+  properties: ProductProperty[];
   images: string[];
   quantity: number;
   subCategory: SubCategory;

@@ -9,6 +9,7 @@ export { PropertiesSection } from "./components/PropertiesSection";
 export { validateData } from "./utils/validateData";
 export { CreateProductForm } from "./components/CreateProductForm";
 export { ProductTable } from "./components/ProductTable";
+export type { SubCategory } from "./../categories/interfaces/interfaces";
 export type { CreateActionInterface } from "./interfaces/actions.interface";
 export type { UpdateActionInterface } from "./interfaces/actions.interface";
 export type { ProductToCreate } from "./interfaces/product-to-create.interface";
