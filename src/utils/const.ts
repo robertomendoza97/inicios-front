@@ -9,5 +9,7 @@ export const GENERAL_LABELS = {
     DELETE: "Eliminar",
     UPDATE: "Actualizar",
     SEE_DETAILS: "Ver detalles"
-  }
+  },
+  SEND: "Enviar",
+  SAVE: "Guardar"
 };

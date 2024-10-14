@@ -3,14 +3,14 @@ export interface AllCategoriesResponse {
 }
 
 export interface SingleCategory {
-  id: number;
+  id?: number;
   name: string;
   subCategories: SubCategory[];
 }
 
 export interface SubCategory {
-  id: number;
+  id?: number;
   name: string;
   fkCategory: number;
-  groups: string[];
+  groups?: string[];
 }

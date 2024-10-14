@@ -1,7 +1,7 @@
 "use client";
 
 import { Tabs } from "flowbite-react";
-import { SingleCategory } from "../interfaces/interfaces";
+import { SingleCategory } from "../interfaces/ category.inaterface";
 import { CategoriesTable } from "../";
 import { SubcategoriesTable } from "./SubcategoriesTable";
 

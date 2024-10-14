@@ -26,6 +26,7 @@ const INITIAL_STATE = {
   name: "",
   index: false
 };
+
 export const NewProperty = ({
   setProperties,
   property = INITIAL_STATE

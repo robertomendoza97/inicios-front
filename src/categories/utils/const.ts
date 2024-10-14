@@ -5,3 +5,13 @@ export const CATEGORIES_LABELS = {
 export const SUBCATEGORIES_LABELS = {
   TABLE: { TITLE: "Sub categorias" }
 };
+
+export const CREATE_CATEGORY_LABELS = {
+  TITLE: "Crear categoria",
+  NAME: "Nombre",
+  PLACEHOLDER: {
+    NAME: "Tecnologia"
+  },
+  SUBCATEGORY: "Subcategorias",
+  ADD_SUBCATEGORY: "Agregar Subcategoria"
+};

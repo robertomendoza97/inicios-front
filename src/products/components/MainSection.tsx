@@ -34,7 +34,7 @@ export const MainSection = ({
 
     return (
       selectedCategory?.subCategories.map(sc => ({
-        key: sc.id.toString(),
+        key: sc.id!.toString(),
         value: sc.name
       })) || []
     );
@@ -68,7 +68,7 @@ export const MainSection = ({
         name="category"
         label="Categoria"
         options={categories.map(c => ({
-          key: c.id.toString(),
+          key: c.id!.toString(),
           value: c.name
         }))}
         showErrorMessage={showErrors}
