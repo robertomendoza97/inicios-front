@@ -3,7 +3,7 @@ export { formatProducts } from "./utils/formatProducts";
 export { ProductImage } from "./components/ProductImage";
 export { ImagesSection } from "./components/ImagesSection";
 export { MainSection } from "./components/MainSection";
-export { useProductForm } from "./hooks/useFormHook";
+export { useCreateProductFormHook } from "./hooks/useCreateProductFormHook";
 export { createProductAction } from "./actions/serverActions";
 export { updateProductAction } from "./actions/serverActions";
 export { NewProperty } from "./components/NewProperty";

@@ -1,3 +1,5 @@
+export { updateCategoryAction } from "./actions/serverActions";
+export { UpdateCategoryForm } from "./components/UpdateCategoryForm";
 export {
   createCategoryAction,
   createSubategoryAction

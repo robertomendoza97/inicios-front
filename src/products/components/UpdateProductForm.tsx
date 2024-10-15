@@ -8,7 +8,7 @@ import {
   OneProductDetails,
   PropertiesSection,
   updateProductAction,
-  useProductForm,
+  useCreateProductFormHook,
   validateData
 } from "..";
 import { Divider } from "@/src/components";
@@ -43,7 +43,7 @@ export const UpdateProductForm = ({
     handleAddImages,
     handleDeleteImages,
     loadingImages
-  } = useProductForm(
+  } = useCreateProductFormHook(
     updateProductAction,
     updateProductData,
     CREATE_PRODUCT_LABELS.NOTIFICATIONS.UPDATED,

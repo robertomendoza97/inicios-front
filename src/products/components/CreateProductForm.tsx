@@ -5,7 +5,7 @@ import {
   createProductAction,
   ImagesSection,
   PropertiesSection,
-  useProductForm,
+  useCreateProductFormHook,
   validateData
 } from "..";
 
@@ -33,7 +33,7 @@ export const CreateProductForm = ({
     handleAddImages,
     handleDeleteImages,
     loadingImages
-  } = useProductForm(
+  } = useCreateProductFormHook(
     createProductAction,
     undefined,
     CREATE_PRODUCT_LABELS.NOTIFICATIONS.CREATED,

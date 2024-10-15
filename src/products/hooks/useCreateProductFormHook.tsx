@@ -32,7 +32,7 @@ const INITIAL_STATE = {
   barCode: ""
 };
 
-export const useProductForm = (
+export const useCreateProductFormHook = (
   action: CreateActionInterface | UpdateActionInterface,
   initialFormValues: CreateProductFormValues = INITIAL_STATE,
   successMessage: string,
@@ -111,7 +111,7 @@ export const useProductForm = (
     }
 
     setShowErrors(false);
-    if (type) {
+    if (type === "create") {
       localStorage.removeItem(CREATE_PRODUCT_PREVIEW);
       localStorage.removeItem(PRODUCT_PROPERTIES_PREVIEW);
     }

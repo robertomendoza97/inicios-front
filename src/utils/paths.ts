@@ -8,7 +8,7 @@ export const PATHS = {
   },
   CATEGORIES: {
     MAIN: "/dashboard/categories",
-    UPDATE: "/dashboard/update/",
+    UPDATE: "/dashboard/category/update/",
     CREATE: "/dashboard/category/new_one"
   },
   SUBCATEGORIES: {

@@ -51,3 +51,18 @@ export const createSubategoryAction = async (
     return { success: false, error: true };
   }
 };
+
+export const updateCategoryAction = async (id: number, name: string) => {
+  const response = await fetch(
+    `${process.env.PROTOCOL}://${process.env.HOST}/category/${id}`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ name }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  ).then(resp => resp.json());
+
+  return response;
+};
