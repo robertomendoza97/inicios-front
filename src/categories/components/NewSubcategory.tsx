@@ -9,7 +9,7 @@ import {
   useEffect,
   useState
 } from "react";
-import { SingleCategory } from "../interfaces/ category.inaterface";
+import { SingleCategory } from "../interfaces/category.interface";
 import { Button } from "flowbite-react";
 import { AiOutlineSave } from "react-icons/ai";
 

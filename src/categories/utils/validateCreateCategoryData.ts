@@ -1,4 +1,4 @@
-import { SingleCategory } from "../interfaces/ category.inaterface";
+import { SingleCategory } from "../interfaces/category.interface";
 
 export const validateCreateCategoryData = (values: SingleCategory) => {
   let isCategoryValid = false;
