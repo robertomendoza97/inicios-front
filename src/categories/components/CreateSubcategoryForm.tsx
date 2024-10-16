@@ -1,10 +1,7 @@
 "use client";
 
 import { CustomSelect, Divider } from "@/src/components";
-import {
-  CREATE_CATEGORY_LABELS,
-  CREATE_SUBCATEGORY_LABELS
-} from "../utils/const";
+import { CREATE_SUBCATEGORY_LABELS } from "../utils/const";
 import { useCreateSubcategoryFormHook } from "../";
 import { SingleCategory } from "../interfaces/category.interface";
 import { SubcategorySection } from "./SubcategorySection";

@@ -2,7 +2,7 @@
 
 import { Tabs } from "flowbite-react";
 import { SingleCategory } from "../interfaces/category.interface";
-import { CategoriesTable } from "../";
+import { CategoriesTable } from "..";
 import { SubcategoriesTable } from "./SubcategoriesTable";
 
 interface Props {

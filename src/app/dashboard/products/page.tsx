@@ -11,7 +11,7 @@ const getProducts = async (): Promise<
 > => {
   try {
     const { data }: IProductsResponse = await fetch(
-      `${process.env.PROTOCOL}://${process.env.HOST}/product`,
+      `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/product`,
       { cache: "no-cache" }
     ).then(resp => resp.json());
 

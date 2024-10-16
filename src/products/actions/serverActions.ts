@@ -4,7 +4,7 @@ import { ProductToCreate } from "..";
 
 export const createProductAction = async (body: ProductToCreate) => {
   const data = await fetch(
-    `${process.env.PROTOCOL}://${process.env.HOST}/product`,
+    `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/product`,
     {
       method: "POST",
       body: JSON.stringify(body),
@@ -24,7 +24,7 @@ export const updateProductAction = async (
   body: ProductToCreate
 ) => {
   const data = await fetch(
-    `${process.env.PROTOCOL}://${process.env.HOST}/product/${id}`,
+    `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/product/${id}`,
     {
       method: "PATCH",
       body: JSON.stringify(body),

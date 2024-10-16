@@ -3,7 +3,7 @@ import { SingleCategory, validateSubcategoryData } from "../";
 
 import { useNotificationStore } from "@/src/utils";
 import { FormEvent, useState } from "react";
-import { createSubcategoryAction, SubCategory } from "../";
+import { createSubcategoryAction } from "../";
 
 const INITIAL_VALUES: SingleCategory = {
   id: 0,

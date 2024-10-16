@@ -2,7 +2,7 @@ interface props {
   params: { id: string };
 }
 
-const ClientPage = ({ params: { id } }: props) => {
+const ClientPage = ({}: props) => {
   return <div>ClientPage</div>;
 };
 

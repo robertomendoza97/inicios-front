@@ -5,7 +5,7 @@ import { CreateProductForm } from "@/src/products";
 
 const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
   const { data } = await fetch(
-    `${process.env.PROTOCOL}://${process.env.HOST}/category`,
+    `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/category`,
     { cache: "no-cache" }
   ).then(resp => resp.json());
 

@@ -1,27 +1,29 @@
 "use client";
 
-import { CustomInput } from "@/src/components";
-import { SingleCategory } from "../interfaces/category.interface";
-import { FormEvent, useEffect, useState } from "react";
-import { updateCategoryAction } from "../actions/serverActions";
-import { GENERAL_LABELS, useNotificationStore } from "@/src/utils";
 import { Button, Spinner } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import { CREATE_CATEGORY_LABELS } from "../utils/const";
+import React, { FormEvent, useEffect, useState } from "react";
+import { SubCategory } from "../interfaces/category.interface";
+import { GENERAL_LABELS, useNotificationStore } from "@/src/utils";
+import { CustomInput } from "@/src/components";
+import { CREATE_SUBCATEGORY_LABELS } from "../utils/const";
+import { updateSubategoryAction } from "../actions/serverActions";
 
 interface Props {
-  categoryToUpdate: SingleCategory;
+  subcategoryToUpdate: SubCategory;
 }
 
-export const UpdateCategoryForm = ({ categoryToUpdate }: Props) => {
-  const [formValues, setFormValues] = useState({ name: categoryToUpdate.name });
+export const UpdateSubcategoryForm = ({ subcategoryToUpdate }: Props) => {
+  const router = useRouter();
+  const [formValues, setFormValues] = useState({
+    name: subcategoryToUpdate.name
+  });
   const [showErrors, setShowErrors] = useState(false);
   const [modified, setModified] = useState(false);
   const [loading, setLoading] = useState(false);
   const showNotification = useNotificationStore(
     state => state.showNotification
   );
-  const router = useRouter();
 
   const handleChange = (_name: string, value: string) => {
     setFormValues({ name: value });
@@ -30,46 +32,53 @@ export const UpdateCategoryForm = ({ categoryToUpdate }: Props) => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
     if (formValues.name === "") {
       setShowErrors(true);
       return;
     }
 
-    try {
-      await updateCategoryAction(categoryToUpdate.id!, formValues.name);
+    const resp = await updateSubategoryAction(
+      subcategoryToUpdate.id!,
+      formValues.name
+    );
+
+    if (resp.error) {
       showNotification({
-        text: "Categoria actualizada con exito",
-        type: "success"
-      });
-    } catch (error) {
-      showNotification({
-        text: "Ocurrio un error al actualizar la categoria",
+        text: "Ocurrio un error al actualizar la subcategoria",
         type: "error"
       });
-    } finally {
       setLoading(false);
+
+      return;
     }
+    showNotification({
+      text: "Subcategoria actualizada con exito",
+      type: "success"
+    });
+
+    setLoading(false);
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (modified) {
-      onSubmit(e);
+      await onSubmit(e);
       router.refresh();
     }
   };
 
   useEffect(() => {
     if (
-      categoryToUpdate.name !== formValues.name.trim() &&
+      subcategoryToUpdate.name !== formValues.name.trim() &&
       formValues.name.trim() !== ""
     ) {
       setModified(true);
     } else {
       setModified(false);
     }
-  }, [categoryToUpdate, formValues]);
+  }, [subcategoryToUpdate, formValues]);
 
   return (
     <form
@@ -77,14 +86,14 @@ export const UpdateCategoryForm = ({ categoryToUpdate }: Props) => {
       className="shadow-lg rounded-sm border border-gray-200 max-w-[90%] p-6 bg-white flex gap-3 flex-col items-center w-1/2 max-h-[90%]"
     >
       <h1 className="text-3xl font-semibold">
-        {CREATE_CATEGORY_LABELS.UPDATE}
+        {CREATE_SUBCATEGORY_LABELS.UPDATE}
       </h1>
       <CustomInput
+        showErrorMessage={showErrors}
         value={formValues.name}
-        label={"Categoria"}
+        label={"Subcategoria"}
         name="name"
         onChange={handleChange}
-        showErrorMessage={showErrors}
       />
       <Button
         type="submit"

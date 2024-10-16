@@ -6,7 +6,7 @@ export const createCategoryAction = async (category: SingleCategory) => {
   const body = { name: category.name };
 
   const response = await fetch(
-    `${process.env.PROTOCOL}://${process.env.HOST}/category`,
+    `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/category`,
     {
       method: "POST",
       body: JSON.stringify(body),
@@ -33,7 +33,7 @@ export const createSubcategoryAction = async (
   try {
     const subcategoriesFetch = subcategoriesWithFK.map(sc => {
       return fetch(
-        `${process.env.PROTOCOL}://${process.env.HOST}/subcategory`,
+        `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/subcategory`,
         {
           method: "POST",
           body: JSON.stringify(sc),
@@ -54,7 +54,24 @@ export const createSubcategoryAction = async (
 
 export const updateCategoryAction = async (id: number, name: string) => {
   const response = await fetch(
-    `${process.env.PROTOCOL}://${process.env.HOST}/category/${id}`,
+    `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/category/${id}`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ name }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  return data;
+};
+
+export const updateSubategoryAction = async (id: number, name: string) => {
+  const response = await fetch(
+    `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/subcategory/${id}`,
     {
       method: "PATCH",
       body: JSON.stringify({ name }),

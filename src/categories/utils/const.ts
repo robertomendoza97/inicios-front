@@ -8,6 +8,7 @@ export const SUBCATEGORIES_LABELS = {
 
 export const CREATE_CATEGORY_LABELS = {
   TITLE: "Crear categoria",
+  UPDATE: "Actualizar categoria",
   NAME: "Nombre",
   PLACEHOLDER: {
     NAME: "Tecnologia"
@@ -17,5 +18,6 @@ export const CREATE_CATEGORY_LABELS = {
 };
 
 export const CREATE_SUBCATEGORY_LABELS = {
-  TITLE: "Crear subcategoria"
+  TITLE: "Crear subcategoria",
+  UPDATE: "Actualizar subcategoria"
 };

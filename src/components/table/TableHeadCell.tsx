@@ -2,7 +2,6 @@
 
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { TiArrowUnsorted } from "react-icons/ti";
 import { Column } from "./CustomTable";
 import { IoIosArrowDown } from "react-icons/io";
 
