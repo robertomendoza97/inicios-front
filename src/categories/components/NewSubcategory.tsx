@@ -16,6 +16,7 @@ import { AiOutlineSave } from "react-icons/ai";
 interface Props {
   subcategory?: { name: string };
   setCategory: Dispatch<SetStateAction<SingleCategory>>;
+  fkCategory?: number;
 }
 
 const INITIAL_STATE = {
@@ -24,7 +25,8 @@ const INITIAL_STATE = {
 
 export const NewSubcategory = ({
   subcategory = INITIAL_STATE,
-  setCategory
+  setCategory,
+  fkCategory = 0
 }: Props) => {
   const isModalOpen = useUIStore(state => state.isModalOpen);
 
@@ -59,7 +61,7 @@ export const NewSubcategory = ({
           ...prevState,
           subCategories: [
             ...newSubcategories,
-            { name: values.name.toLowerCase(), fkCategory: 0 }
+            { name: values.name.toLowerCase(), fkCategory }
           ]
         };
       });
@@ -76,7 +78,7 @@ export const NewSubcategory = ({
           ...prevState,
           subCategories: [
             ...prevState.subCategories,
-            { name: values.name, fkCategory: 0 }
+            { name: values.name, fkCategory }
           ]
         };
       });

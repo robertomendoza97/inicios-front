@@ -5,7 +5,7 @@ import { SingleCategory, SubCategory } from "../";
 export const createCategoryAction = async (category: SingleCategory) => {
   const body = { name: category.name };
 
-  const response = fetch(
+  const response = await fetch(
     `${process.env.PROTOCOL}://${process.env.HOST}/category`,
     {
       method: "POST",
@@ -14,19 +14,19 @@ export const createCategoryAction = async (category: SingleCategory) => {
         "Content-Type": "application/json"
       }
     }
-  )
-    .then(resp => resp.json())
-    .catch(err => err);
+  );
 
-  return response;
+  const data = await response.json();
+
+  return data;
 };
 
-export const createSubategoryAction = async (
-  id: string,
+export const createSubcategoryAction = async (
+  id: number,
   subcategories: SubCategory[]
 ) => {
   const subcategoriesWithFK = subcategories.map(sc => ({
-    fkCategory: id,
+    fkCategory: +id,
     name: sc.name
   }));
 
@@ -62,7 +62,9 @@ export const updateCategoryAction = async (id: number, name: string) => {
         "Content-Type": "application/json"
       }
     }
-  ).then(resp => resp.json());
+  );
 
-  return response;
+  const data = await response.json();
+
+  return data;
 };

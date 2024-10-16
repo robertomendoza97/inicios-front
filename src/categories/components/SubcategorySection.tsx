@@ -16,7 +16,9 @@ export const SubcategorySection = ({ setCategory, category }: Props) => {
   const setModalContent = useUIStore(state => state.setModalContent);
 
   const handleOpenModal = () => {
-    setModalContent(<NewSubcategory setCategory={setCategory} />);
+    setModalContent(
+      <NewSubcategory setCategory={setCategory} fkCategory={category.id} />
+    );
     openModal();
   };
 
@@ -25,6 +27,7 @@ export const SubcategorySection = ({ setCategory, category }: Props) => {
       <NewSubcategory
         setCategory={setCategory}
         subcategory={category.subCategories.find(sc => sc.name === name)}
+        fkCategory={category.id}
       />
     );
     openModal();

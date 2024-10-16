@@ -15,3 +15,7 @@ export const CREATE_CATEGORY_LABELS = {
   SUBCATEGORY: "Subcategorias",
   ADD_SUBCATEGORY: "Agregar Subcategoria"
 };
+
+export const CREATE_SUBCATEGORY_LABELS = {
+  TITLE: "Crear subcategoria"
+};

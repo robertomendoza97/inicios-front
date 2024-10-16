@@ -1,16 +1,18 @@
-import { FormEvent, useState } from "react";
-import { validateCreateCategoryData } from "../utils/validateCreateCategoryData";
-import { SingleCategory } from "../interfaces/category.interface";
-import { createCategoryAction, createSubcategoryAction } from "../";
+"use client";
+import { SingleCategory, validateSubcategoryData } from "../";
+
 import { useNotificationStore } from "@/src/utils";
+import { FormEvent, useState } from "react";
+import { createSubcategoryAction, SubCategory } from "../";
 
 const INITIAL_VALUES: SingleCategory = {
+  id: 0,
   name: "",
   subCategories: []
 };
 
-export const useCreateCategoryFormHook = () => {
-  const [formValues, setFormValues] = useState<SingleCategory>(INITIAL_VALUES);
+export const useCreateSubcategoryFormHook = () => {
+  const [formValues, setFormValues] = useState(INITIAL_VALUES);
   const [loading, setLoading] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
   const showNotification = useNotificationStore(
@@ -25,19 +27,17 @@ export const useCreateCategoryFormHook = () => {
     e.preventDefault();
     setLoading(true);
 
-    if (!validateCreateCategoryData(formValues)) {
+    if (!validateSubcategoryData(formValues.subCategories)) {
       setShowErrors(true);
       setLoading(false);
       return;
     }
 
     try {
-      const { id } = await createCategoryAction(formValues);
-
-      await createSubcategoryAction(id, formValues.subCategories);
+      await createSubcategoryAction(formValues.id!, formValues.subCategories);
 
       showNotification({
-        text: "Categoria creada con exito!",
+        text: "subcategorias creadas con exito!",
         type: "success"
       });
       setFormValues(INITIAL_VALUES);
@@ -48,10 +48,10 @@ export const useCreateCategoryFormHook = () => {
   };
 
   return {
-    formValues,
     handleChange,
-    loading,
     handleSubmit,
+    formValues,
+    loading,
     showErrors,
     setFormValues
   };

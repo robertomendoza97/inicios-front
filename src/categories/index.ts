@@ -1,8 +1,12 @@
+export { useCreateSubcategoryFormHook } from "./hooks/useCreateSubcategoryFormHook";
+export { validateSubcategoryData } from "./utils/validateCreateSubcategoryData";
+export { CREATE_SUBCATEGORY_LABELS } from "./utils/const";
+export { CreateSubcategoryForm } from "./components/CreateSubcategoryForm";
 export { updateCategoryAction } from "./actions/serverActions";
 export { UpdateCategoryForm } from "./components/UpdateCategoryForm";
 export {
   createCategoryAction,
-  createSubategoryAction
+  createSubcategoryAction
 } from "./actions/serverActions";
 export { NewSubcategory } from "./components/NewSubcategory";
 export { SubcategorySection } from "./components/SubcategorySection";
