@@ -8,10 +8,9 @@ interface Props {
   };
 }
 const getCategories = async (): Promise<SingleCategory[]> => {
-  const { data } = await fetch(
-    `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/category`,
-    { cache: "no-cache" }
-  ).then(resp => resp.json());
+  const { data } = await fetch(`${process.env.MY_DFS_HOST}/category`, {
+    cache: "no-cache"
+  }).then(resp => resp.json());
 
   return data as SingleCategory[];
 };
@@ -19,9 +18,9 @@ const getCategories = async (): Promise<SingleCategory[]> => {
 const getProductInformation = async (
   id: string
 ): Promise<OneProductDetails> => {
-  const data = await fetch(
-    `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/product/${id}`
-  ).then(resp => resp.json());
+  const data = await fetch(`${process.env.MY_DFS_HOST}/product/${id}`).then(
+    resp => resp.json()
+  );
 
   return data as OneProductDetails;
 };

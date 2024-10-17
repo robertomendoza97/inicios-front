@@ -6,13 +6,13 @@ import {
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 
-const bucketName = process.env.AWS_BUCKET_NAME;
+const bucketName = process.env.MY_AWS_BUCKET_NAME;
 
 const s3Client = new S3Client({
-  region: process.env.AWS_BUCKET_REGION || "",
+  region: process.env.MY_AWS_BUCKET_REGION || "",
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY || "",
-    secretAccessKey: process.env.AWS_SECRET_KEY || ""
+    accessKeyId: process.env.MY_AWS_ACCESS_KEY || "",
+    secretAccessKey: process.env.MY_AWS_SECRET_KEY || ""
   }
 });
 
@@ -23,7 +23,9 @@ export async function POST(request: Request) {
   if (file && typeof file === "object" && file.name) {
     const Body = (await file.arrayBuffer()) as Buffer;
 
-    const key = `${process.env.AWS_BUCKET_FOLDER}/${randomUUID()}_${file.name}`;
+    const key = `${process.env.MY_AWS_BUCKET_FOLDER}/${randomUUID()}_${
+      file.name
+    }`;
     const uploadParams: PutObjectCommandInput = {
       Bucket: bucketName,
       Key: key,
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
     const command = new PutObjectCommand(uploadParams);
     await s3Client.send(command);
 
-    const url = `https://${bucketName}.s3.${process.env.AWS_BUCKET_REGION}.amazonaws.com/${key}`;
+    const url = `https://${bucketName}.s3.${process.env.MY_AWS_BUCKET_REGION}.amazonaws.com/${key}`;
     return NextResponse.json({ url });
   } else {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });

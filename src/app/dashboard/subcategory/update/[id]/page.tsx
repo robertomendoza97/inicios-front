@@ -5,10 +5,9 @@ interface Props {
 }
 
 const getSubcategory = async (id: string): Promise<SubCategory> => {
-  const resp = await fetch(
-    `${process.env.PROJECT_PROTOCOL}://${process.env.PROJECT_HOST}/subcategory/${id}`,
-    { cache: "no-cache" }
-  );
+  const resp = await fetch(`${process.env.MY_DFS_HOST}/subcategory/${id}`, {
+    cache: "no-cache"
+  });
 
   const data = (await resp.json()) as SubCategory;
 
