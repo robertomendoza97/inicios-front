@@ -1,3 +1,5 @@
+"use client";
+
 import { FormEvent, useState } from "react";
 import { validateCreateCategoryData } from "../utils/validateCreateCategoryData";
 import { SingleCategory } from "../interfaces/category.interface";

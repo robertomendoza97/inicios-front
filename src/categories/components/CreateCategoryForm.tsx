@@ -2,7 +2,7 @@
 
 import { CustomInput, Divider } from "@/src/components";
 import { CREATE_CATEGORY_LABELS } from "../utils/const";
-import { useCreateCategoryFormHook } from "../hooks/useCreateCategoryFormHook";
+import { useCreateCategoryFormHook } from "../";
 import { Button, Spinner } from "flowbite-react";
 import { validateCreateCategoryData } from "../utils/validateCreateCategoryData";
 import { GENERAL_LABELS } from "@/src/utils";

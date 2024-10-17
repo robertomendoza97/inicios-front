@@ -2,74 +2,24 @@
 
 import { CustomInput } from "@/src/components";
 import { SingleCategory } from "../interfaces/category.interface";
-import { FormEvent, useEffect, useState } from "react";
-import { updateCategoryAction } from "../actions/serverActions";
-import { GENERAL_LABELS, useNotificationStore } from "@/src/utils";
+import { GENERAL_LABELS } from "@/src/utils";
 import { Button, Spinner } from "flowbite-react";
-import { useRouter } from "next/navigation";
 import { CREATE_CATEGORY_LABELS } from "../utils/const";
+import { useUpdateCategoryHook } from "../";
 
 interface Props {
   categoryToUpdate: SingleCategory;
 }
 
 export const UpdateCategoryForm = ({ categoryToUpdate }: Props) => {
-  const [formValues, setFormValues] = useState({ name: categoryToUpdate.name });
-  const [showErrors, setShowErrors] = useState(false);
-  const [modified, setModified] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const showNotification = useNotificationStore(
-    state => state.showNotification
-  );
-  const router = useRouter();
-
-  const handleChange = (_name: string, value: string) => {
-    setFormValues({ name: value });
-  };
-
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    if (formValues.name === "") {
-      setShowErrors(true);
-      return;
-    }
-
-    try {
-      await updateCategoryAction(categoryToUpdate.id!, formValues.name);
-      showNotification({
-        text: "Categoria actualizada con exito",
-        type: "success"
-      });
-    } catch (error) {
-      showNotification({
-        text: "Ocurrio un error al actualizar la categoria",
-        type: "error"
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    if (modified) {
-      onSubmit(e);
-      router.refresh();
-    }
-  };
-
-  useEffect(() => {
-    if (
-      categoryToUpdate.name !== formValues.name.trim() &&
-      formValues.name.trim() !== ""
-    ) {
-      setModified(true);
-    } else {
-      setModified(false);
-    }
-  }, [categoryToUpdate, formValues]);
+  const {
+    handleSubmit,
+    formValues,
+    handleChange,
+    loading,
+    showErrors,
+    modified
+  } = useUpdateCategoryHook(categoryToUpdate);
 
   return (
     <form

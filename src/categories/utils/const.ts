@@ -14,10 +14,22 @@ export const CREATE_CATEGORY_LABELS = {
     NAME: "Tecnologia"
   },
   SUBCATEGORY: "Subcategorias",
-  ADD_SUBCATEGORY: "Agregar Subcategoria"
+  ADD_SUBCATEGORY: "Agregar Subcategoria",
+  SUCCESS: {
+    UPDATE: "Categoria actualizada correctamente",
+    CREATE: "Categoria creada correctamente"
+  },
+  ERROR: {
+    UPDATE: "Ocurrio un error al actualizar la categoria",
+    CREATE: "Ocurrio un error al crear la categoria"
+  }
 };
 
 export const CREATE_SUBCATEGORY_LABELS = {
   TITLE: "Crear subcategoria",
-  UPDATE: "Actualizar subcategoria"
+  UPDATE: "Actualizar subcategoria",
+  ERROR: {
+    UPDATE: "Ocurrio un error al actualizar la subcategoria",
+    CREATE: "Ocurrio un error al crear la subcategoria"
+  }
 };
