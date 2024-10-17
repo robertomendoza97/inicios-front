@@ -53,11 +53,11 @@ export const UpdateProductForm = ({
     details.images
   );
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (modified) {
-      onSubmit(e);
+      await onSubmit(e);
       router.refresh();
     }
   };

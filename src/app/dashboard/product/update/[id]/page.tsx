@@ -15,7 +15,7 @@ const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
       cache: "no-cache"
     });
 
-    const data = await resp.json();
+    const { data } = await resp.json();
 
     return { data, error: false, success: true };
   } catch (error) {
@@ -27,9 +27,10 @@ const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
 const getProductInformation = async (
   id: string
 ): Promise<OneProductDetails> => {
-  const data = await fetch(`${process.env.MY_DFS_HOST}/product/${id}`).then(
-    resp => resp.json()
-  );
+  const resp = await fetch(`${process.env.MY_DFS_HOST}/product/${id}`, {
+    cache: "no-cache"
+  });
+  const data = await resp.json();
 
   return data as OneProductDetails;
 };

@@ -18,7 +18,6 @@ import {
   useNotificationStore,
   getFromLocalStorage
 } from "@/src/utils/";
-import { UpdateProductDTO } from "../DTO/updateProductDTO";
 
 const INITIAL_STATE = {
   name: "",
@@ -84,11 +83,8 @@ export const useCreateProductFormHook = (
 
     if (type === "create") {
       await (action as CreateActionInterface)(objToSend);
-
-      setFormValues(initialFormValues);
-      setProperties(initialProperties);
     } else if (type === "update" && id) {
-      const newProduct = await (action as UpdateActionInterface)(id, objToSend);
+      await (action as UpdateActionInterface)(id, objToSend);
 
       for (const imageToDelete of imagesToDeleteWhenUpdate) {
         const key = imageToDelete.split(".com/")[1];
@@ -104,10 +100,6 @@ export const useCreateProductFormHook = (
           });
         }
       }
-
-      const formattedNewProduct = new UpdateProductDTO(newProduct);
-      setFormValues(formattedNewProduct);
-      setProperties(newProduct.properties);
     }
 
     setShowErrors(false);

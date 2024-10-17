@@ -9,7 +9,7 @@ const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
       cache: "no-cache"
     });
 
-    const data = await resp.json();
+    const { data } = await resp.json();
 
     return { data, error: false, success: true };
   } catch (error) {
