@@ -20,8 +20,6 @@ const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
 const Categories = async () => {
   const { data: categories, error } = await getCategories();
 
-  console.log(categories);
-
   if (error) return <ErrorResponsePage />;
 
   return <SubAndCategoriesTable categories={categories} />;

@@ -1,4 +1,3 @@
-export { getFromLocalStorage } from "./get-from-local-storage";
 export { useNotificationStore } from "../store/notification-store";
 export { useUIStore } from "../store/ui-store";
 export { stringThousandToNumber } from "./string-thousand-to-number";

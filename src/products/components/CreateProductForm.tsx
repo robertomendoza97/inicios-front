@@ -3,7 +3,9 @@
 import {
   CREATE_PRODUCT_LABELS,
   createProductAction,
+  CreateProductFormValues,
   ImagesSection,
+  ProductProperty,
   PropertiesSection,
   useCreateProductFormHook,
   validateData
@@ -15,11 +17,19 @@ import { Divider } from "@/src/components";
 
 import { Button, Spinner } from "flowbite-react";
 
-export const CreateProductForm = ({
-  categories
-}: {
+interface Props {
+  initialValues: CreateProductFormValues | undefined;
+  initialProperties: ProductProperty[] | undefined;
+  initialImages: string[] | undefined;
   categories: SingleCategory[];
-}) => {
+}
+
+export const CreateProductForm = ({
+  categories,
+  initialImages,
+  initialProperties,
+  initialValues
+}: Props) => {
   const {
     formValues,
     handleReset,
@@ -35,9 +45,12 @@ export const CreateProductForm = ({
     loadingImages
   } = useCreateProductFormHook(
     createProductAction,
-    undefined,
+    initialValues,
     CREATE_PRODUCT_LABELS.NOTIFICATIONS.CREATED,
-    "create"
+    "create",
+    undefined,
+    initialProperties,
+    initialImages
   );
 
   return (

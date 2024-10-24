@@ -13,11 +13,8 @@ import {
   PRODUCT_IMAGES_PREVIEW,
   CREATE_PRODUCT_LABELS
 } from "..";
-import {
-  stringThousandToNumber,
-  useNotificationStore,
-  getFromLocalStorage
-} from "@/src/utils/";
+import { stringThousandToNumber, useNotificationStore } from "@/src/utils/";
+import { deleteCookie, setCookie } from "cookies-next";
 
 const INITIAL_STATE = {
   name: "",
@@ -43,7 +40,7 @@ export const useCreateProductFormHook = (
   const [imagesToDeleteWhenUpdate, setImagesToDeleteWhenUpdate] = useState<
     string[]
   >([]);
-  const [firstTime, setFirstTime] = useState(true);
+
   const [loadingImages, setLoadingImages] = useState(false);
   const [images, setImages] = useState<string[]>(initialImages);
   const [formValues, setFormValues] =
@@ -104,8 +101,8 @@ export const useCreateProductFormHook = (
 
     setShowErrors(false);
     if (type === "create") {
-      localStorage.removeItem(CREATE_PRODUCT_PREVIEW);
-      localStorage.removeItem(PRODUCT_PROPERTIES_PREVIEW);
+      deleteCookie(CREATE_PRODUCT_PREVIEW);
+      deleteCookie(PRODUCT_PROPERTIES_PREVIEW);
     }
 
     showNotification({
@@ -122,9 +119,9 @@ export const useCreateProductFormHook = (
     setImages(initialImages);
 
     if (type === "create") {
-      localStorage.removeItem(CREATE_PRODUCT_PREVIEW);
-      localStorage.removeItem(PRODUCT_PROPERTIES_PREVIEW);
-      localStorage.removeItem(PRODUCT_IMAGES_PREVIEW);
+      deleteCookie(CREATE_PRODUCT_PREVIEW);
+      deleteCookie(PRODUCT_PROPERTIES_PREVIEW);
+      deleteCookie(PRODUCT_IMAGES_PREVIEW);
     }
 
     if (images.length > 0) {
@@ -217,47 +214,12 @@ export const useCreateProductFormHook = (
   };
 
   useEffect(() => {
-    if (!firstTime) {
-      if (
-        JSON.stringify(formValues) !== JSON.stringify(INITIAL_STATE) &&
-        type === "create"
-      )
-        localStorage.setItem(
-          CREATE_PRODUCT_PREVIEW,
-          JSON.stringify(formValues)
-        );
-
-      if (type === "create")
-        localStorage.setItem(
-          PRODUCT_PROPERTIES_PREVIEW,
-          JSON.stringify(properties)
-        );
-
-      if (type === "create")
-        localStorage.setItem(PRODUCT_IMAGES_PREVIEW, JSON.stringify(images));
-    }
-  }, [formValues, properties, type, images, firstTime]);
-
-  useEffect(() => {
     if (type === "create") {
-      const productPreview = getFromLocalStorage(
-        CREATE_PRODUCT_PREVIEW,
-        JSON.stringify(INITIAL_STATE)
-      );
-      const propertiesPreview = getFromLocalStorage(
-        PRODUCT_PROPERTIES_PREVIEW,
-        "[]"
-      );
-
-      const imagesPreview = getFromLocalStorage(PRODUCT_IMAGES_PREVIEW, "[]");
-
-      setFormValues(productPreview);
-      setProperties(propertiesPreview);
-      setImages(imagesPreview);
-
-      setFirstTime(false);
+      setCookie(CREATE_PRODUCT_PREVIEW, JSON.stringify(formValues));
+      setCookie(PRODUCT_PROPERTIES_PREVIEW, JSON.stringify(properties));
+      setCookie(PRODUCT_IMAGES_PREVIEW, JSON.stringify(images));
     }
-  }, [type]);
+  }, [formValues, properties, type, images]);
 
   return {
     formValues,
