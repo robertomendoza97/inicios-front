@@ -1,4 +1,4 @@
-import { AllCategoriesResponse, SingleCategory } from "@/src/categories";
+import { AllCategoriesResponse } from "@/src/categories";
 import { ErrorResponsePage } from "@/src/components";
 import {
   CREATE_PRODUCT_PREVIEW,

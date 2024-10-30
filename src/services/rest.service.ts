@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { redirect, RedirectType } from "next/navigation";
+import { redirect } from "next/navigation";
 import { CustomResponse } from "../interfaces/CustomResponse";
 import { authOptions } from "../auth";
 

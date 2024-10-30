@@ -1,5 +1,5 @@
 import { JWTPayload, signInWithCredentials } from "@/src/auth";
-import NextAuth, { NextAuthOptions, RequestInternal, User } from "next-auth";
+import NextAuth, { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import jwt from "jsonwebtoken";
 
@@ -20,8 +20,7 @@ export const authOptions: NextAuthOptions = {
         }
       },
       async authorize(
-        credentials: Record<string, string> | undefined,
-        req: Pick<RequestInternal, "body" | "query" | "headers" | "method">
+        credentials: Record<string, string> | undefined
       ): Promise<User | null> {
         const data = await signInWithCredentials(
           credentials!.email,
