@@ -16,21 +16,9 @@ import {
 import { stringThousandToNumber, useNotificationStore } from "@/src/utils/";
 import { deleteCookie, setCookie } from "cookies-next";
 
-const INITIAL_STATE = {
-  name: "",
-  description: "",
-  state: "",
-  category: "",
-  retailPrice: "",
-  costPrice: "",
-  quantity: "",
-  subCategory: "",
-  barCode: ""
-};
-
 export const useCreateProductFormHook = (
   action: CreateActionInterface | UpdateActionInterface,
-  initialFormValues: CreateProductFormValues = INITIAL_STATE,
+  initialFormValues: CreateProductFormValues,
   successMessage: string,
   type: "create" | "update",
   id?: string,

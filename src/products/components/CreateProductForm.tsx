@@ -18,8 +18,8 @@ import { Divider } from "@/src/components";
 import { Button, Spinner } from "flowbite-react";
 
 interface Props {
-  initialValues: CreateProductFormValues | undefined;
-  initialProperties: ProductProperty[] | undefined;
+  initialValues: CreateProductFormValues;
+  initialProperties: ProductProperty[];
   initialImages: string[] | undefined;
   categories: SingleCategory[];
 }

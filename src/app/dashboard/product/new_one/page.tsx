@@ -1,29 +1,40 @@
-import { SingleCategory } from "@/src/categories";
+import { AllCategoriesResponse, SingleCategory } from "@/src/categories";
 import { ErrorResponsePage } from "@/src/components";
-import { CustomResponse } from "@/src/interfaces/CustomResponse";
 import {
   CREATE_PRODUCT_PREVIEW,
   CreateProductForm,
-  CreateProductFormValues,
   PRODUCT_IMAGES_PREVIEW,
-  PRODUCT_PROPERTIES_PREVIEW,
-  ProductProperty
+  PRODUCT_PROPERTIES_PREVIEW
 } from "@/src/products";
+import { customFetch } from "@/src/services/rest.service";
 import { cookies } from "next/headers";
 
-const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
-  try {
-    const resp = await fetch(`${process.env.MY_DFS_HOST}/category`, {
+const INITIAL_STATE = {
+  name: "",
+  description: "",
+  state: "",
+  category: "",
+  retailPrice: "",
+  costPrice: "",
+  quantity: "",
+  subCategory: "",
+  barCode: ""
+};
+
+const getCategories = async () => {
+  const {
+    data: { data },
+    error,
+    success
+  } = await customFetch<AllCategoriesResponse>(
+    `${process.env.MY_DFS_HOST}/category`,
+    {
       cache: "no-cache"
-    });
+    },
+    { data: [] }
+  );
 
-    const { data } = await resp.json();
-
-    return { data, error: false, success: true };
-  } catch (error) {
-    console.log(error);
-    return { data: [], error: true, success: false };
-  }
+  return { data, error, success };
 };
 
 const page = async () => {
@@ -31,7 +42,8 @@ const page = async () => {
   const cookieStore = cookies();
 
   const initialValues = JSON.parse(
-    cookieStore.get(CREATE_PRODUCT_PREVIEW)?.value ?? "{}"
+    cookieStore.get(CREATE_PRODUCT_PREVIEW)?.value ??
+      JSON.stringify(INITIAL_STATE)
   );
   const initialProperties = JSON.parse(
     cookieStore.get(PRODUCT_PROPERTIES_PREVIEW)?.value ?? "[]"

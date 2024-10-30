@@ -1,20 +1,21 @@
-import { SingleCategory, SubAndCategoriesTable } from "@/src/categories";
+import { AllCategoriesResponse, SubAndCategoriesTable } from "@/src/categories";
 import { ErrorResponsePage } from "@/src/components";
-import { CustomResponse } from "@/src/interfaces/CustomResponse";
+import { customFetch } from "@/src/services/rest.service";
 
-const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
-  try {
-    const resp = await fetch(`${process.env.MY_DFS_HOST}/category`, {
+const getCategories = async () => {
+  const {
+    data: { data },
+    error,
+    success
+  } = await customFetch<AllCategoriesResponse>(
+    `${process.env.MY_DFS_HOST}/category`,
+    {
       cache: "no-cache"
-    });
+    },
+    { data: [] }
+  );
 
-    const { data } = await resp.json();
-
-    return { data, error: false, success: true };
-  } catch (error) {
-    console.log(error);
-    return { data: [], error: true, success: false };
-  }
+  return { data: data, error, success };
 };
 
 const Categories = async () => {

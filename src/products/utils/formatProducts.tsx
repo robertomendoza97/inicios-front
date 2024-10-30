@@ -12,7 +12,7 @@ interface ProductTable extends Record<string, string | number> {
 }
 
 export const formatProducts = (
-  products: SingleProductFromAPI[]
+  products: SingleProductFromAPI[] = []
 ): ProductTable[] => {
   const product = products.map(data => {
     let productName = data.name;

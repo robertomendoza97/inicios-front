@@ -1,24 +1,21 @@
 import { ErrorResponsePage } from "@/src/components";
-import { CustomResponse } from "@/src/interfaces/CustomResponse";
-import {
-  IProductsResponse,
-  ProductTable,
-  SingleProductFromAPI
-} from "@/src/products";
+import { IProductsResponse, ProductTable } from "@/src/products";
+import { customFetch } from "@/src/services/rest.service";
 
-const getProducts = async (): Promise<
-  CustomResponse<SingleProductFromAPI[]>
-> => {
-  try {
-    const { data }: IProductsResponse = await fetch(
-      `${process.env.MY_DFS_HOST}/product`,
-      { cache: "no-cache" }
-    ).then(resp => resp.json());
+const getProducts = async () => {
+  const {
+    data: { data },
+    success,
+    error
+  } = await customFetch<IProductsResponse>(
+    `${process.env.MY_DFS_HOST}/product`,
+    {
+      cache: "no-cache"
+    },
+    { data: [] }
+  );
 
-    return { data, error: false, success: true };
-  } catch (error) {
-    return { data: [], error: true, success: false };
-  }
+  return { data, error, success };
 };
 
 const Products = async () => {
