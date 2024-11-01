@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { CustomResponse } from "../interfaces/CustomResponse";
 import { authOptions } from "../auth";
+import { PATHS } from "../utils";
 
 export const customFetch = async <T>(
   url: string,
@@ -12,7 +13,9 @@ export const customFetch = async <T>(
 
   const headers = config.headers ? config.headers : {};
 
-  const response = await fetch(url, {
+  delete config.headers;
+
+  const response = await fetch(`${process.env.MY_DFS_HOST}/${url}`, {
     ...config,
     headers: {
       Authorization: `Bearer ${session!.user!.token}`,
@@ -22,7 +25,7 @@ export const customFetch = async <T>(
 
   if (!response.ok) {
     if (response.status === 401) {
-      redirect("/api/auth/signin");
+      redirect(PATHS.SIGNIN);
     }
     return {
       data: initialValue ? initialValue : (null as T),
@@ -33,5 +36,5 @@ export const customFetch = async <T>(
 
   const data = await response.json();
 
-  return { data, error: false, success: true };
+  return { data: data as T, error: false, success: true };
 };

@@ -19,7 +19,7 @@ export const SubcategoriesTable = ({ categories }: Props) => {
     {
       key: "subcategory",
       name: "Nombre",
-      idex: true
+      index: true
     },
     {
       key: "category",

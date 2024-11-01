@@ -25,3 +25,5 @@ export { CategoriesTable } from "./components/CategoriesTable";
 export type { AllCategoriesResponse } from "./interfaces/category.interface";
 export type { SingleCategory } from "./interfaces/category.interface";
 export type { SubCategory } from "./interfaces/category.interface";
+export type { ICreateCategoryResponse } from "./interfaces/create-category-response.inaterface";
+export type { ICreateSubcategoryResponse } from "./interfaces/create-subcategory-response.interface";

@@ -38,12 +38,12 @@ export const UpdateSubcategoryForm = ({ subcategoryToUpdate }: Props) => {
       return;
     }
 
-    const resp = await updateSubategoryAction(
+    const { error } = await updateSubategoryAction(
       subcategoryToUpdate.id!,
       formValues.name
     );
 
-    if (resp.error) {
+    if (error) {
       showNotification({
         text: "Ocurrio un error al actualizar la subcategoria",
         type: "error"

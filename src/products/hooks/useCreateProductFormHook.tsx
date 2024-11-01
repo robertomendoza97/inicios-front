@@ -93,6 +93,20 @@ export const useCreateProductFormHook = (
       deleteCookie(PRODUCT_PROPERTIES_PREVIEW);
     }
 
+    setFormValues({
+      name: "",
+      barCode: "",
+      category: "",
+      costPrice: "",
+      description: "",
+      quantity: "",
+      retailPrice: "",
+      state: "",
+      subCategory: ""
+    });
+    setProperties([]);
+    setImages([]);
+
     showNotification({
       text: successMessage,
       type: "success"

@@ -1,4 +1,5 @@
 export const PATHS = {
+  SIGNIN: "/api/auth/signin",
   HOME: "/dashboard/main",
   PRODUCTS: {
     MAIN: "/dashboard/products",
@@ -17,5 +18,8 @@ export const PATHS = {
   },
   CLIENTS: "/dashboard/clients",
   SALES: "/dashboard/sales",
-  LOANS: "/dashboard/loans"
+  LOANS: "/dashboard/loans",
+  USERS: {
+    MAIN: "/dashboard/users"
+  }
 };

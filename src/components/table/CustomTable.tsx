@@ -44,6 +44,8 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
     setSearch(value);
 
     if (Boolean(indexColumns.length)) {
+      console.log(indexColumns);
+
       const newRows = data.filter(d =>
         indexColumns.some(cs =>
           d[cs]?.toString().toLowerCase().includes(value.toLowerCase())

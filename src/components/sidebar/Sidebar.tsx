@@ -1,13 +1,14 @@
 import React from "react";
 import { SidebarMenuItem } from "./SidebarMenuItem";
 import { IoHomeOutline } from "react-icons/io5";
-import CompanyLogoIcon from "@/src/public/svg/logo";
+import { FaUsers } from "react-icons/fa";
 import { LuUsers } from "react-icons/lu";
-import Link from "next/link";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { MdOutlineInventory } from "react-icons/md";
 import { BiCategoryAlt } from "react-icons/bi";
+import CompanyLogoIcon from "@/src/public/svg/logo";
+import Link from "next/link";
 import { PATHS } from "@/src/utils";
 
 const menuOptions = [
@@ -32,6 +33,11 @@ const menuOptions = [
     title: "Categorias",
     path: PATHS.CATEGORIES.MAIN,
     icon: <BiCategoryAlt />
+  },
+  {
+    title: "Usuarios",
+    path: PATHS.USERS.MAIN,
+    icon: <FaUsers />
   }
 ];
 

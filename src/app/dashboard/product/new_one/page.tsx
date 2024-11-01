@@ -27,7 +27,7 @@ const getCategories = async () => {
     error,
     success
   } = await customFetch<AllCategoriesResponse>(
-    `${process.env.MY_DFS_HOST}/category`,
+    "category",
     {
       cache: "no-cache"
     },

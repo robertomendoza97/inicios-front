@@ -8,7 +8,7 @@ const getProducts = async () => {
     success,
     error
   } = await customFetch<IProductsResponse>(
-    `${process.env.MY_DFS_HOST}/product`,
+    "product",
     {
       cache: "no-cache"
     },

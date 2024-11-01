@@ -1,19 +1,23 @@
 "use server";
 
-import { SingleCategory, SubCategory } from "../";
+import { customFetch } from "@/src/services/rest.service";
+import {
+  ICreateCategoryResponse,
+  ICreateSubcategoryResponse,
+  SingleCategory,
+  SubCategory
+} from "../";
 
 export const createCategoryAction = async (category: SingleCategory) => {
   const body = { name: category.name };
 
-  const response = await fetch(`${process.env.MY_DFS_HOST}/category`, {
+  const { data } = await customFetch<ICreateCategoryResponse>(`category`, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json"
     }
   });
-
-  const data = await response.json();
 
   return data;
 };
@@ -27,41 +31,35 @@ export const createSubcategoryAction = async (
     name: sc.name
   }));
 
-  try {
-    const subcategoriesFetch = subcategoriesWithFK.map(sc => {
-      return fetch(`${process.env.MY_DFS_HOST}/subcategory`, {
-        method: "POST",
-        body: JSON.stringify(sc),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+  const subcategoriesFetch = subcategoriesWithFK.map(sc => {
+    return customFetch<ICreateSubcategoryResponse>(`subcategory`, {
+      method: "POST",
+      body: JSON.stringify(sc),
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
+  });
 
-    await Promise.all(subcategoriesFetch);
+  await Promise.all(subcategoriesFetch);
 
-    return { success: true, error: false };
-  } catch (error) {
-    return { success: false, error: true };
-  }
+  return { success: true, error: false };
 };
 
 export const updateCategoryAction = async (id: number, name: string) => {
-  const response = await fetch(`${process.env.MY_DFS_HOST}/category/${id}`, {
+  const { data } = await customFetch(`category/${id}`, {
     method: "PATCH",
     body: JSON.stringify({ name }),
     headers: {
       "Content-Type": "application/json"
     }
   });
-
-  const data = await response.json();
 
   return data;
 };
 
 export const updateSubategoryAction = async (id: number, name: string) => {
-  const response = await fetch(`${process.env.MY_DFS_HOST}/subcategory/${id}`, {
+  const { data, error } = await customFetch<SubCategory>(`subcategory/${id}`, {
     method: "PATCH",
     body: JSON.stringify({ name }),
     headers: {
@@ -69,7 +67,5 @@ export const updateSubategoryAction = async (id: number, name: string) => {
     }
   });
 
-  const data = await response.json();
-
-  return data;
+  return { data, error };
 };
