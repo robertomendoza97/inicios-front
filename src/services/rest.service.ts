@@ -24,6 +24,8 @@ export const customFetch = async <T>(
   });
 
   if (!response.ok) {
+    console.log(await response.json());
+
     if (response.status === 401) {
       redirect(PATHS.SIGNIN);
     }

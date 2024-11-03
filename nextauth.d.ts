@@ -1,5 +1,5 @@
 // nextauth.d.ts
-import { DefaultSession, DefaultUser } from "next-auth";
+import { DefaultUser } from "next-auth";
 
 interface IUser extends DefaultUser {
   name: string;

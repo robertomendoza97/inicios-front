@@ -20,6 +20,7 @@ export const PATHS = {
   SALES: "/dashboard/sales",
   LOANS: "/dashboard/loans",
   USERS: {
-    MAIN: "/dashboard/users"
+    MAIN: "/dashboard/users",
+    UPDATE: "/dashboard/user/update/"
   }
 };

@@ -6,6 +6,7 @@ import { COMPONENTS_LABELS, TABLE_COUNT_OPTIONS, TableHeadCell } from "../";
 import Link from "next/link";
 import { Button, Pagination, Select, Table, TextInput } from "flowbite-react";
 import "./styles.css";
+
 export interface Column {
   key: string;
   name: string;
