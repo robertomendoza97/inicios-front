@@ -34,20 +34,7 @@ export const CREATE_PRODUCT_LABELS = {
     }
   },
   PROPERTIES: "Caracteristicas:",
-  IMAGES: {
-    TITLE: "Imagenes",
-    UPLOADING: "Subiendo archivos...",
-    ACCEPT: "jpg, jpeg (5MB MAX)"
-  },
   ADD_PROPERTY_BUTTON: "Agregar",
-  ERROR: {
-    CATEGORY: "Debe seleccionar una categoria",
-    SUBCATEGORY: "Debe seleccionar una subcategoria",
-    DELETE_IMAGE: "Ocurrio un error al eliminar la imagen.",
-    UPLOAD_IMAGE: "Ocurrio un error al subir la imagen",
-    SIZE: "El tamaño del archivo no debe exceder 5 MB.",
-    TYPE: "Tipo de archivo no permitido. Solo se aceptan JPG y JPEG."
-  },
   NOTIFICATIONS: {
     CREATED: "Producto creado correctamente",
     UPDATED: "Producto actualizado correctamente"
@@ -56,6 +43,10 @@ export const CREATE_PRODUCT_LABELS = {
     DETAILS: "Ver detalles",
     UPDATE: "Actualizar",
     DELETE: "Eliminar"
+  },
+  ERROR: {
+    CATEGORY: "Debe seleccionar una categoria",
+    SUBCATEGORY: "Debe seleccionar una subcategoria"
   }
 };
 

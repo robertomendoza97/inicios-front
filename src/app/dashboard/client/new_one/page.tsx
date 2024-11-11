@@ -1,7 +1,7 @@
-import { customFetch } from "@/src/services/rest.service";
-import { ClientTable } from "../../../clients/components/ClientTable";
-import { IAllClients } from "@/src/clients";
+import { CreateClientForm, IAllClients } from "@/src/clients";
 import { ErrorResponsePage } from "@/src/components";
+import { customFetch } from "@/src/services/rest.service";
+import React from "react";
 
 const getClients = async () => {
   const {
@@ -18,12 +18,16 @@ const getClients = async () => {
   return { data, error };
 };
 
-const ClientsPage = async () => {
+const NewClientPage = async () => {
   const { data, error } = await getClients();
 
   if (error) return <ErrorResponsePage />;
 
-  return <ClientTable clients={data} />;
+  return (
+    <div className="flex items-center justify-center w-full h-full">
+      <CreateClientForm clients={data} />
+    </div>
+  );
 };
 
-export default ClientsPage;
+export default NewClientPage;

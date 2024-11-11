@@ -16,7 +16,10 @@ export const PATHS = {
     UPDATE: "/dashboard/subcategory/update/",
     CREATE: "/dashboard/subcategory/new_one"
   },
-  CLIENTS: "/dashboard/clients",
+  CLIENTS: {
+    MAIN: "/dashboard/clients",
+    NEW_ONE: "/dashboard/client/new_one"
+  },
   SALES: "/dashboard/sales",
   LOANS: "/dashboard/loans",
   USERS: {

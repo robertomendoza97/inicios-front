@@ -9,13 +9,15 @@ interface Props {
   image: string;
   handleDeleteImages: (url: string) => Promise<void>;
 }
-export const ProductImage = ({ image, handleDeleteImages }: Props) => {
+
+export const CustomImage = ({ image, handleDeleteImages }: Props) => {
   const [loaded, setLoaded] = useState(false);
 
   const handleDelete = () => {
     setLoaded(false);
     handleDeleteImages(image);
   };
+
   return (
     <div className="border relative aspect-[3/4] w-24 rounded bg-slate-600">
       <Image

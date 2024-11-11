@@ -10,10 +10,14 @@ import {
   PRODUCT_PROPERTIES_PREVIEW,
   CreateActionInterface,
   UpdateActionInterface,
-  PRODUCT_IMAGES_PREVIEW,
-  CREATE_PRODUCT_LABELS
+  PRODUCT_IMAGES_PREVIEW
 } from "..";
-import { stringThousandToNumber, useNotificationStore } from "@/src/utils/";
+import {
+  GENERAL_LABELS,
+  stringThousandToNumber,
+  useNotificationStore,
+  uploadImages
+} from "@/src/utils/";
 import { deleteCookie, setCookie } from "cookies-next";
 
 export const useCreateProductFormHook = (
@@ -81,7 +85,7 @@ export const useCreateProductFormHook = (
         } catch (error) {
           showNotification({
             type: "error",
-            text: CREATE_PRODUCT_LABELS.ERROR.DELETE_IMAGE
+            text: GENERAL_LABELS.IMAGES.ERROR.DELETE_IMAGE
           });
         }
       }
@@ -91,21 +95,20 @@ export const useCreateProductFormHook = (
     if (type === "create") {
       deleteCookie(CREATE_PRODUCT_PREVIEW);
       deleteCookie(PRODUCT_PROPERTIES_PREVIEW);
+      setFormValues({
+        name: "",
+        barCode: "",
+        category: "",
+        costPrice: "",
+        description: "",
+        quantity: "",
+        retailPrice: "",
+        state: "",
+        subCategory: ""
+      });
+      setProperties([]);
+      setImages([]);
     }
-
-    setFormValues({
-      name: "",
-      barCode: "",
-      category: "",
-      costPrice: "",
-      description: "",
-      quantity: "",
-      retailPrice: "",
-      state: "",
-      subCategory: ""
-    });
-    setProperties([]);
-    setImages([]);
 
     showNotification({
       text: successMessage,
@@ -139,7 +142,7 @@ export const useCreateProductFormHook = (
         } catch (error) {
           showNotification({
             type: "error",
-            text: CREATE_PRODUCT_LABELS.ERROR.DELETE_IMAGE
+            text: GENERAL_LABELS.IMAGES.ERROR.DELETE_IMAGE
           });
         }
       }
@@ -162,7 +165,7 @@ export const useCreateProductFormHook = (
       } catch (error) {
         showNotification({
           type: "error",
-          text: CREATE_PRODUCT_LABELS.ERROR.DELETE_IMAGE
+          text: GENERAL_LABELS.IMAGES.ERROR.DELETE_IMAGE
         });
       }
     } else if (type === "update") {
@@ -175,44 +178,14 @@ export const useCreateProductFormHook = (
     target: { files }
   }: ChangeEvent<HTMLInputElement>) => {
     setLoadingImages(true);
-    if (files) {
-      const urls = [];
-      for (const file of Array.from(files)) {
-        if (!file.type.match(/image\/jpeg/)) {
-          showNotification({
-            type: "error",
-            text: CREATE_PRODUCT_LABELS.ERROR.TYPE
-          });
-          continue;
-        }
 
-        if (file.size > 5 * 1024 * 1024) {
-          showNotification({
-            type: "error",
-            text: CREATE_PRODUCT_LABELS.ERROR.SIZE
-          });
-          continue;
-        }
+    const urls = await uploadImages(files, showNotification);
 
-        try {
-          const formData = new FormData();
-          formData.append("file", file);
-          const response = await fetch("/api/uploadImage", {
-            method: "POST",
-            body: formData
-          });
-          const { url } = await response.json();
-          urls.push(url);
-        } catch (error) {
-          showNotification({
-            type: "error",
-            text: CREATE_PRODUCT_LABELS.ERROR.UPLOAD_IMAGE
-          });
-        }
-      }
-      setLoadingImages(false);
-      setImages([...images, ...urls]);
-    }
+    if (urls.length === 0) return;
+
+    setLoadingImages(false);
+
+    setImages([...images, ...urls]);
   };
 
   useEffect(() => {

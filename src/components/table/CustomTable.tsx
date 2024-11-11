@@ -45,8 +45,6 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
     setSearch(value);
 
     if (Boolean(indexColumns.length)) {
-      console.log(indexColumns);
-
       const newRows = data.filter(d =>
         indexColumns.some(cs =>
           d[cs]?.toString().toLowerCase().includes(value.toLowerCase())
@@ -121,6 +119,11 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
                       ))}
                     </Table.Row>
                   ))}
+                  {data.length === 0 && (
+                    <Table.Row className="flex justify-center p-5 text-base">
+                      <Table.Cell>No existen registros para mostrar</Table.Cell>
+                    </Table.Row>
+                  )}
                 </Table.Body>
               </Table>
               <div className="flex justify-between w-full mt-2 items-center px-5 pb-5">

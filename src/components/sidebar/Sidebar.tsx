@@ -13,7 +13,7 @@ import { PATHS } from "@/src/utils";
 
 const menuOptions = [
   { title: "Home", path: PATHS.HOME, icon: <IoHomeOutline /> },
-  { title: "Clientes", path: PATHS.CLIENTS, icon: <LuUsers /> },
+  { title: "Clientes", path: PATHS.CLIENTS.MAIN, icon: <LuUsers /> },
   {
     title: "Productos",
     path: PATHS.PRODUCTS.MAIN,

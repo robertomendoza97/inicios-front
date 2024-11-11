@@ -15,8 +15,8 @@ interface Props {
   label: string;
   options: { key: string; value: string }[];
   onChange: (name: string, value: string) => void;
-  errorMessage: string;
-  showErrorMessage: boolean;
+  errorMessage?: string;
+  showErrorMessage?: boolean;
   value: string;
 }
 
@@ -62,7 +62,7 @@ export const CustomSelect = ({
           </option>
         ))}
       </Select>
-      {!isValid && <CustomError message={errorMessage} />}
+      {!isValid && <CustomError message={errorMessage || ""} />}
     </div>
   );
 };

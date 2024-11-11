@@ -1,3 +1,4 @@
+export { CustomImage } from "./CustomImage";
 export { TABLE_COUNT_OPTIONS } from "./const";
 export { COMPONENTS_LABELS } from "./const";
 export { DetailCell } from "./DetailCell";

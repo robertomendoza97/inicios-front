@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface NotificationInfo {
+export interface NotificationInfo {
   text: string;
   type: "info" | "success" | "warning" | "error";
 }
