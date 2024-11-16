@@ -10,6 +10,7 @@ import { BiCategoryAlt } from "react-icons/bi";
 import CompanyLogoIcon from "@/src/public/svg/logo";
 import Link from "next/link";
 import { PATHS } from "@/src/utils";
+import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
 
 const menuOptions = [
   { title: "Home", path: PATHS.HOME, icon: <IoHomeOutline /> },
@@ -38,6 +39,11 @@ const menuOptions = [
     title: "Usuarios",
     path: PATHS.USERS.MAIN,
     icon: <FaUsers />
+  },
+  {
+    title: "Pedidos",
+    path: PATHS.ORDERS.MAIN,
+    icon: <VscGitPullRequestGoToChanges />
   }
 ];
 

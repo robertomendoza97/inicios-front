@@ -14,9 +14,9 @@ export interface OneProductDetails {
   retailPrice: number;
   properties: ProductProperty[];
   quantity: number;
-  created_at: Date;
-  update_at: Date;
-  deletedAt: null;
+  created_at: string;
+  update_at: string | null;
+  deletedAt: string | null;
   subCategory: SubCategory;
   images: string[];
   category: string;
