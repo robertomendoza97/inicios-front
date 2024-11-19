@@ -1,3 +1,4 @@
+import { sanitizeString } from "@/src/utils";
 import {
   PutObjectCommand,
   PutObjectCommandInput,
@@ -23,9 +24,10 @@ export async function POST(request: Request) {
   if (file && typeof file === "object" && file.name) {
     const Body = (await file.arrayBuffer()) as Buffer;
 
-    const key = `${process.env.MY_AWS_BUCKET_FOLDER}/${randomUUID()}_${
-      file.name
-    }`;
+    const key = `${
+      process.env.MY_AWS_BUCKET_FOLDER
+    }/${randomUUID()}_${sanitizeString(file.name)}`;
+
     const uploadParams: PutObjectCommandInput = {
       Bucket: bucketName,
       Key: key,
