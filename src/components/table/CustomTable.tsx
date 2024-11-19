@@ -6,6 +6,7 @@ import { COMPONENTS_LABELS, TABLE_COUNT_OPTIONS, TableHeadCell } from "../";
 import Link from "next/link";
 import { Button, Pagination, Select, Table, TextInput } from "flowbite-react";
 import "./styles.css";
+import { GENERAL_LABELS } from "@/src/utils";
 
 export interface Column {
   key: string;
@@ -120,8 +121,10 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
                     </Table.Row>
                   ))}
                   {data.length === 0 && (
-                    <Table.Row className="flex justify-center p-5 text-base">
-                      <Table.Cell>No existen registros para mostrar</Table.Cell>
+                    <Table.Row className="p-5 text-base text-center w-full">
+                      <Table.Cell colSpan={6}>
+                        {GENERAL_LABELS.TABLES.NO_DATA}
+                      </Table.Cell>
                     </Table.Row>
                   )}
                 </Table.Body>

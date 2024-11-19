@@ -1,7 +1,7 @@
 "use client";
 
 import { allowOnlyNumbers, formatNumberToPrice } from "@/src/utils";
-import {
+import React, {
   ChangeEvent,
   useCallback,
   useEffect,
@@ -27,7 +27,7 @@ interface Props {
   autoFocus?: boolean;
 }
 
-export function CustomInput({
+const MyInput = ({
   placeholder = "",
   value,
   type = "text",
@@ -40,7 +40,7 @@ export function CustomInput({
   textArea,
   allowDecimals,
   autoFocus
-}: Props) {
+}: Props) => {
   const [isValid, setIsValid] = useState(true);
   const id = useId();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -68,7 +68,7 @@ export function CustomInput({
   }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (thousandFormat) {
       value = target.value;
-      target.value = value === "," ? "0," : value;
+      target.value = value === "," ? "0," : valueFormat(value);
 
       if (value.split(",").length > 2) return;
     }
@@ -140,4 +140,6 @@ export function CustomInput({
       )}
     </div>
   );
-}
+};
+
+export const CustomInput = React.memo(MyInput);

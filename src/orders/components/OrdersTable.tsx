@@ -1,6 +1,5 @@
 import { Column, CustomTable } from "@/src/components";
 import { PATHS } from "@/src/utils";
-import React from "react";
 import { ORDER_LABELS } from "../utils/const";
 import { OrderFromAPI } from "../interfaces/all-orders.interface";
 import { formarOrdersForTable } from "../";
@@ -31,8 +30,8 @@ const columns: Column[] = [
     name: "estado"
   },
   {
-    key: "cantida de prod.",
-    name: "products"
+    key: "products",
+    name: "cantida de prod"
   }
 ];
 

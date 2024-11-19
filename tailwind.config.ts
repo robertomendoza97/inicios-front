@@ -8,6 +8,7 @@ const config: Config = {
     "./src/clients/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/products/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/categories/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/orders/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/public/**/*.html",
     flowbite.content()
   ],

@@ -1,4 +1,5 @@
 export const GENERAL_LABELS = {
+  RESET: "Reset",
   VALIDATE_INPUTS: {
     NOT_EMPTY: "Este campo no debe estar vacio.",
     SELECT_ERROR: "Debe marcar alguna opcion",
@@ -22,5 +23,8 @@ export const GENERAL_LABELS = {
       SIZE: "El tamaño del archivo no debe exceder 5 MB.",
       TYPE: "Tipo de archivo no permitido. Solo se aceptan JPG y JPEG."
     }
+  },
+  TABLES: {
+    NO_DATA: "No existen registros para mostrar"
   }
 };
