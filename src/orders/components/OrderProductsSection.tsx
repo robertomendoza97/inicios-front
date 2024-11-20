@@ -53,7 +53,11 @@ export const OrderProductsSection = ({
                 className="cursor-pointer py-1 px-3 hover:bg-gray-200"
                 key={product.id}
               >
-                {product.systemCode} - {product.name}
+                {product.systemCode} - {product.name}{" "}
+                {product.properties
+                  .filter(prop => prop.index)
+                  .map(prop => prop.value)
+                  .join(" | ")}
               </p>
             ))}
             {filteredProducts.length === 0 && (

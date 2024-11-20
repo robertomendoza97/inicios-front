@@ -47,10 +47,15 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
 
     if (Boolean(indexColumns.length)) {
       const newRows = data.filter(d =>
-        indexColumns.some(cs =>
-          d[cs]?.toString().toLowerCase().includes(value.toLowerCase())
-        )
+        value
+          .split(" ")
+          .every(w =>
+            indexColumns.some(cs =>
+              d[cs]?.toString().toLowerCase().includes(w.toLowerCase())
+            )
+          )
       );
+
       setAllRows(newRows);
 
       setRowsPerPage(newRows.slice(0, count));
