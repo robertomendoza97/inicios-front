@@ -2,6 +2,8 @@ import { getServerSession } from "next-auth";
 import { Header, Modal, Notifications, Sidebar } from "../../components";
 import { redirect } from "next/navigation";
 import { authOptions, Provider } from "@/src/auth";
+import { Suspense } from "react";
+import GlobalLoading from "./loading";
 
 export default async function DashboardLayout({
   children
@@ -22,7 +24,7 @@ export default async function DashboardLayout({
             <Header />
             <div className="flex-grow overflow-y-scroll relative overflow-x-hidden">
               <Notifications />
-              {children}
+              <Suspense fallback={<GlobalLoading />}>{children}</Suspense>
             </div>
           </div>
         </div>

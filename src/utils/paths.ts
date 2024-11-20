@@ -29,6 +29,8 @@ export const PATHS = {
   ORDERS: {
     MAIN: "/dashboard/orders",
     NEW_ONE: "/dashboard/order/new_one",
-    UPDATE: "/dashboard/order/update/"
+    UPDATE: "/dashboard/order/update/",
+    DETAILS: "/dashboard/order/",
+    RECEIVE: "/dashboard/order/receive/"
   }
 };

@@ -1,4 +1,5 @@
 export const GENERAL_LABELS = {
+  LOADING: "Cargando informacion...",
   RESET: "Reset",
   VALIDATE_INPUTS: {
     NOT_EMPTY: "Este campo no debe estar vacio.",
@@ -9,7 +10,8 @@ export const GENERAL_LABELS = {
   ACTIONS: {
     DELETE: "Eliminar",
     UPDATE: "Actualizar",
-    SEE_DETAILS: "Ver detalles"
+    SEE_DETAILS: "Ver detalles",
+    RECEIVE: "Recibir pedido"
   },
   SEND: "Enviar",
   SAVE: "Guardar",

@@ -1,6 +1,17 @@
 import { DetailCell } from "@/src/components";
-import { PATHS } from "@/src/utils";
+import { GENERAL_LABELS, PATHS } from "@/src/utils";
 
 export const userTableActions = (id: string | number) => {
-  return <DetailCell id={id} update deletePath={PATHS.USERS.UPDATE} />;
+  return (
+    <DetailCell
+      id={id}
+      options={[
+        {
+          icon: "update",
+          path: PATHS.USERS.UPDATE,
+          tooltip: GENERAL_LABELS.ACTIONS.UPDATE
+        }
+      ]}
+    />
+  );
 };

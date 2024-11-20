@@ -1,8 +1,10 @@
+"use client";
+
 import { Column, CustomTable } from "@/src/components";
 import { PATHS } from "@/src/utils";
 import { ORDER_LABELS } from "../utils/const";
 import { OrderFromAPI } from "../interfaces/all-orders.interface";
-import { formarOrdersForTable } from "../";
+import { formarOrdersForTable, orderActions } from "../";
 
 interface Props {
   orders: OrderFromAPI[];
@@ -32,6 +34,11 @@ const columns: Column[] = [
   {
     key: "products",
     name: "cantida de prod"
+  },
+  {
+    key: "actions",
+    name: "acciones",
+    component: orderActions
   }
 ];
 

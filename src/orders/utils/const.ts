@@ -4,7 +4,8 @@ export const ORDER_LABELS = {
   },
   NEW_ONE: {
     TITLE: "Crear pedido",
-    ADD_PRODUCTS: "Sin productos agregados"
+    ADD_PRODUCTS: "Sin productos agregados",
+    ORDER_CREATED: "Pedido creado con exito con el id:"
   }
 };
 

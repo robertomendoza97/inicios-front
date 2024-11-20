@@ -1,5 +1,5 @@
 export { productActionsFunction } from "./utils/productActions";
-export { formatProducts } from "./utils/formatProducts";
+export { formatProducts } from "./utils/format-products";
 export { ImagesSection } from "./components/ImagesSection";
 export { MainSection } from "./components/MainSection";
 export { useCreateProductFormHook } from "./hooks/useCreateProductFormHook";

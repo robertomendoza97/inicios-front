@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import {
   createOrderAction,
   ICreateOrderFormValues,
+  ORDER_LABELS,
   validateOrderFormData
 } from "../";
 
@@ -100,7 +101,10 @@ export const useCreateOrder = (initialFormValues: ICreateOrderFormValues) => {
     }
 
     setLoading(false);
-    showNotification({ text: data.orderId.toString(), type: "success" });
+    showNotification({
+      text: `${ORDER_LABELS.NEW_ONE.ORDER_CREATED} ${data}`,
+      type: "success"
+    });
     handleReset();
   };
 
