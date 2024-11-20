@@ -104,9 +104,9 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
                   {column.map(col => (
                     <TableHeadCell
                       key={col.key}
-                      rows={rowsPerPage}
+                      rows={allRows}
                       col={col}
-                      setRows={setRowsPerPage}
+                      setAllRows={setAllRows}
                     />
                   ))}
                 </Table.Head>

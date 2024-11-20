@@ -7,11 +7,11 @@ import { IoIosArrowDown } from "react-icons/io";
 
 interface Props {
   col: Column;
-  setRows: Dispatch<SetStateAction<Record<string, string | number>[]>>;
+  setAllRows: Dispatch<SetStateAction<Record<string, string | number>[]>>;
   rows: Record<string, string | number>[];
 }
 
-export const TableHeadCell = ({ col, setRows, rows }: Props) => {
+export const TableHeadCell = ({ col, setAllRows, rows }: Props) => {
   const [sorted, setSorted] = useState<boolean>(true);
 
   const handleSort = (key: string) => {
@@ -30,7 +30,7 @@ export const TableHeadCell = ({ col, setRows, rows }: Props) => {
           });
     });
 
-    setRows([...newRows]);
+    setAllRows([...newRows]);
 
     setSorted(!sorted);
   };
