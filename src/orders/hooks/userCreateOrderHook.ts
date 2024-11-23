@@ -102,7 +102,7 @@ export const useCreateOrder = (initialFormValues: ICreateOrderFormValues) => {
 
     setLoading(false);
     showNotification({
-      text: `${ORDER_LABELS.NEW_ONE.ORDER_CREATED} ${data}`,
+      text: `${ORDER_LABELS.NEW_ONE.ORDER_CREATED} ${data.orderId}`,
       type: "success"
     });
     handleReset();

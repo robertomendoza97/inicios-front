@@ -25,6 +25,7 @@ interface Props {
   onChange: (name: string, value: string) => void;
   allowDecimals?: boolean;
   autoFocus?: boolean;
+  max?: string;
 }
 
 const MyInput = ({
@@ -39,7 +40,8 @@ const MyInput = ({
   onChange,
   textArea,
   allowDecimals,
-  autoFocus
+  autoFocus,
+  max
 }: Props) => {
   const [isValid, setIsValid] = useState(true);
   const id = useId();
@@ -124,6 +126,7 @@ const MyInput = ({
       ) : (
         <TextInput
           ref={inputRef}
+          max={max}
           autoComplete="off"
           name={name}
           type={type === "number" ? "text" : type}

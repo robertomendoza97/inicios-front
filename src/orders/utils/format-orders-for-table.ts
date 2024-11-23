@@ -8,6 +8,6 @@ export const formarOrdersForTable = (orders: OrderFromAPI[]) => {
     receiptDate: order.receiptDate ? order.receiptDate : "-",
     state: order.state,
     products: order.products,
-    actions: order.id
+    actions: `${order.id}%${order.state}`
   }));
 };

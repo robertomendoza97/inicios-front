@@ -28,5 +28,8 @@ export const GENERAL_LABELS = {
   },
   TABLES: {
     NO_DATA: "No existen registros para mostrar"
+  },
+  ERRORS: {
+    NOTIFICATION_ERROR: "Ocurrio un error al aplicar los cambios."
   }
 };

@@ -18,6 +18,7 @@ interface Options {
   icon: keyof OptionsKeys;
   tooltip: string;
   withId?: boolean;
+  disabled?: boolean;
 }
 
 interface Props {
@@ -55,11 +56,19 @@ const optionsIcons: OptionsKeys = {
 export const DetailCell = ({ id, options }: Props) => {
   return (
     <div className="flex justify-center gap-5 h-full relative">
-      {options.map(option => (
-        <Tooltip key={option.path} content={option.tooltip}>
-          <Link href={`${option.path}${id}`}>{optionsIcons[option.icon]}</Link>
-        </Tooltip>
-      ))}
+      {options.map(option =>
+        option.disabled ? (
+          <p className="opacity-60 cursor-not-allowed" key={option.path}>
+            {optionsIcons[option.icon]}
+          </p>
+        ) : (
+          <Tooltip key={option.path} content={option.tooltip}>
+            <Link href={`${option.path}${id}`}>
+              {optionsIcons[option.icon]}
+            </Link>
+          </Tooltip>
+        )
+      )}
     </div>
   );
 };
