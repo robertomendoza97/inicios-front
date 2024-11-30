@@ -7,6 +7,7 @@ import { ICreateOrderFormValues } from "../interfaces/create-order-form-values.i
 import { BsTrash } from "react-icons/bs";
 import { VscEmptyWindow } from "react-icons/vsc";
 import { ORDER_LABELS } from "../utils/const";
+import { GENERAL_LABELS } from "@/src/utils";
 
 interface Props {
   products: SingleProductFromAPI[];
@@ -27,9 +28,14 @@ export const OrderProductsSection = ({
 }: Props) => {
   const [productToSearch, setProductToSearch] = useState("");
 
-  const filteredProducts = products.filter(product =>
-    product.name.includes(productToSearch)
-  );
+  const filteredProducts = products.filter(product => {
+    const name = `${product.systemCode} - ${product.name} ${product.properties
+      .filter(prop => prop.index)
+      .map(prop => prop.value)
+      .join(" | ")}`;
+
+    return productToSearch.split(" ").every(word => name.includes(word));
+  });
 
   return (
     <div className="h-full flex flex-col gap-4 overflow-hidden">
@@ -61,7 +67,9 @@ export const OrderProductsSection = ({
               </p>
             ))}
             {filteredProducts.length === 0 && (
-              <p className="py-2 text-center ">No hay coincidencias :(</p>
+              <p className="py-2 text-center ">
+                {GENERAL_LABELS.NO_COINCIDENCE}
+              </p>
             )}
           </div>
         )}
@@ -75,7 +83,7 @@ export const OrderProductsSection = ({
             <div className="flex items-start gap-5">
               <CustomInput
                 value={product.quantity.toString()}
-                label={"Cantidad"}
+                label={ORDER_LABELS.NEW_ONE.QUANTITY}
                 name={"quantity"}
                 type="number"
                 thousandFormat
@@ -87,7 +95,7 @@ export const OrderProductsSection = ({
               />
               <CustomInput
                 value={product.costPrice.toString()}
-                label={"Precio de costo"}
+                label={ORDER_LABELS.NEW_ONE.COST_PRICE}
                 name={"costPrice"}
                 thousandFormat
                 type="number"

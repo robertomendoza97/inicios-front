@@ -31,5 +31,7 @@ export const GENERAL_LABELS = {
   },
   ERRORS: {
     NOTIFICATION_ERROR: "Ocurrio un error al aplicar los cambios."
-  }
+  },
+  C_U: "C/U",
+  NO_COINCIDENCE: "No hay coincidencias."
 };

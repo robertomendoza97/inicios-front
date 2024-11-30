@@ -1,3 +1,4 @@
+export { OrderDetails } from "./components/OrderDetails";
 export type { IReceiveOrderForm } from "./interfaces/receive-order-form";
 export { useReceiveOrderHook } from "./hooks/useReceiveOrderHook";
 export { ReceiveOrderProduct } from "./components/ReceiveOrderProduct";

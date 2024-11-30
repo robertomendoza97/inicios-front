@@ -30,7 +30,7 @@ export const PATHS = {
     MAIN: "/dashboard/orders",
     NEW_ONE: "/dashboard/order/new_one",
     UPDATE: "/dashboard/order/update/",
-    DETAILS: "/dashboard/order/",
+    DETAILS: "/dashboard/order/details/",
     RECEIVE: "/dashboard/order/receive/"
   }
 };

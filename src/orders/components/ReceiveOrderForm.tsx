@@ -34,7 +34,9 @@ export const ReceiveOrderForm = ({ order }: Props) => {
               <p>{order.provider}</p>
             </div>
             <div className="h-full flex justify-between">
-              <p className="font-semibold">{ORDER_LABELS.RECEIVE.ORDER_DATE}</p>
+              <h5 className="font-semibold">
+                {ORDER_LABELS.RECEIVE.ORDER_DATE}
+              </h5>
               <p>{`${orderDate.getDate()}-${
                 orderDate.getMonth() + 1
               }-${orderDate.getFullYear()}`}</p>
