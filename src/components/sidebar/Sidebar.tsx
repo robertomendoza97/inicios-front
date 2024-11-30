@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import { SidebarMenuItem } from "./SidebarMenuItem";
 import { IoHomeOutline } from "react-icons/io5";
 import { FaUsers } from "react-icons/fa";
@@ -11,6 +12,8 @@ import CompanyLogoIcon from "@/src/public/svg/logo";
 import Link from "next/link";
 import { PATHS } from "@/src/utils";
 import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
+import { useState } from "react";
+import { IoIosArrowUp } from "react-icons/io";
 
 const menuOptions = [
   { title: "Home", path: PATHS.HOME, icon: <IoHomeOutline /> },
@@ -48,24 +51,35 @@ const menuOptions = [
 ];
 
 export const Sidebar = () => {
+  const [open, setOpen] = useState(true);
+
   return (
     <div
       id="menu"
-      style={{ width: "270px" }}
-      className="bg-paletteColor3 min-h-screen z-10 text-slate-300 left-0 h-screen w-min"
+      className={`bg-paletteColor3 min-h-screen z-10 relative text-slate-300 h-screen transition-[width] ${
+        open ? "w-[250px]" : "w-0"
+      }`}
     >
-      <div
-        id="logo"
-        className="my-4 px-6 h-16 flex items-center justify-center"
-      >
-        <Link href={PATHS.HOME} className="h-full">
-          <CompanyLogoIcon color="#FFF" className="h-full" />
-        </Link>
+      <div className="w-full overflow-hidden">
+        <div
+          id="logo"
+          className="my-4 px-6 h-16 flex items-center justify-center"
+        >
+          <Link href={PATHS.HOME} className="h-full">
+            <CompanyLogoIcon color="#FFF" className="h-full" />
+          </Link>
+        </div>
+        <div id="nav" className="px-6 text-xl">
+          {menuOptions.map(mo => (
+            <SidebarMenuItem {...mo} key={mo.path} />
+          ))}
+        </div>
       </div>
-      <div id="nav" className="px-6 text-xl">
-        {menuOptions.map(mo => (
-          <SidebarMenuItem {...mo} key={mo.path} />
-        ))}
+      <div
+        onClick={() => setOpen(!open)}
+        className="absolute bottom-0 bg-paletteColor4 left-[100%] z-20 cursor-pointer h-14 flex items-center justify-center rounded-tr "
+      >
+        <IoIosArrowUp className={`${open ? "-rotate-90" : "rotate-90"}`} />
       </div>
     </div>
   );

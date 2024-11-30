@@ -83,7 +83,7 @@ const MyInput = ({
   };
 
   const valueFormat = (value: string) => {
-    if (thousandFormat && value.toString().length > 3) {
+    if (thousandFormat && value.toString().length > 1) {
       value = formatNumberToPrice(value);
     }
 

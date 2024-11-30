@@ -4,7 +4,7 @@ import { customFetch } from "@/src/services/rest.service";
 import { OneProductDetails, ProductToCreate } from "..";
 
 export const createProductAction = async (body: ProductToCreate) => {
-  const { data } = await customFetch(
+  const { data, error } = await customFetch(
     "product",
     {
       method: "POST",
@@ -16,7 +16,7 @@ export const createProductAction = async (body: ProductToCreate) => {
     {} as Response
   );
 
-  return data;
+  return { data, error };
 };
 
 export const updateProductAction = async (

@@ -20,6 +20,9 @@ export const validateData = ({
     retailPrice === "" ||
     state === "" ||
     category === "" ||
-    subCategory === ""
+    subCategory === "" ||
+    costPrice === "0" ||
+    retailPrice === "0" ||
+    quantity === "0"
   );
 };

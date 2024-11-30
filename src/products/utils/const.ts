@@ -37,7 +37,8 @@ export const CREATE_PRODUCT_LABELS = {
   ADD_PROPERTY_BUTTON: "Agregar",
   NOTIFICATIONS: {
     CREATED: "Producto creado correctamente",
-    UPDATED: "Producto actualizado correctamente"
+    UPDATED: "Producto actualizado correctamente",
+    ERROR_CREATE: "Ocurrio un error al crear el producto"
   },
   ACTIONS: {
     DETAILS: "Ver detalles",

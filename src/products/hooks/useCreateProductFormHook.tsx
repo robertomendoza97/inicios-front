@@ -10,7 +10,8 @@ import {
   PRODUCT_PROPERTIES_PREVIEW,
   CreateActionInterface,
   UpdateActionInterface,
-  PRODUCT_IMAGES_PREVIEW
+  PRODUCT_IMAGES_PREVIEW,
+  CREATE_PRODUCT_LABELS
 } from "..";
 import {
   GENERAL_LABELS,
@@ -71,7 +72,15 @@ export const useCreateProductFormHook = (
     };
 
     if (type === "create") {
-      await (action as CreateActionInterface)(objToSend);
+      const { error } = await (action as CreateActionInterface)(objToSend);
+
+      if (error) {
+        setLoading(false);
+        return showNotification({
+          type: "error",
+          text: CREATE_PRODUCT_LABELS.NOTIFICATIONS.ERROR_CREATE
+        });
+      }
     } else if (type === "update" && id) {
       await (action as UpdateActionInterface)(id, objToSend);
 

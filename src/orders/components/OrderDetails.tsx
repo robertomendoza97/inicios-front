@@ -1,4 +1,3 @@
-import React from "react";
 import { IOneOrder } from "../interfaces/get-one-order.interface";
 import { ORDER_LABELS } from "../utils/const";
 import { Divider } from "@/src/components";
@@ -62,7 +61,8 @@ export const OrderDetails = ({ orderDetails }: Props) => {
                   {ORDER_LABELS.NEW_ONE.COST_PRICE}:
                 </span>
                 <span>
-                  {formatNumberToPrice(od.costPrice, "$")} {GENERAL_LABELS.C_U}
+                  {formatNumberToPrice(od.costPrice, "$", true)}{" "}
+                  {GENERAL_LABELS.C_U}
                 </span>
               </p>
               <div className="flex gap-5">

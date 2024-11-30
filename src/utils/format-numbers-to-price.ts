@@ -12,7 +12,7 @@ export const formatNumberToPrice = (
 
   // Separamos la parte entera y decimal
   const parts = numberStr.split(".");
-  const entirePart = parts[0];
+  const entirePart = Number(parts[0]).toString();
 
   const decimalPart = parts.length > 1 ? "," + parts[1] : "";
 

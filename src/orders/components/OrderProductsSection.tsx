@@ -103,6 +103,9 @@ export const OrderProductsSection = ({
                 onChange={(name: string, value: string) => {
                   handleChangeProduct(product.id, name, value);
                 }}
+                placeholder={products
+                  .find(p => p.id === product.id)
+                  ?.costPrice.toString()}
                 showErrorMessage={showErrors}
                 errorMessaje="Debe ser mayor a 0"
               />
