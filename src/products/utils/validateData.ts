@@ -22,7 +22,6 @@ export const validateData = ({
     category === "" ||
     subCategory === "" ||
     costPrice === "0" ||
-    retailPrice === "0" ||
-    quantity === "0"
+    retailPrice === "0"
   );
 };
