@@ -2,7 +2,12 @@
 
 import { FormEvent, useState } from "react";
 import { IOneOrder, ORDER_LABELS, receiveOrderAction } from "..";
-import { GENERAL_LABELS, PATHS, useNotificationStore } from "@/src/utils";
+import {
+  GENERAL_LABELS,
+  PATHS,
+  stringThousandToNumber,
+  useNotificationStore
+} from "@/src/utils";
 import { useRouter } from "next/navigation";
 
 export const useReceiveOrderHook = (order: IOneOrder) => {
@@ -27,8 +32,14 @@ export const useReceiveOrderHook = (order: IOneOrder) => {
   };
 
   const handleProduct = (id: number, name: string, value: string) => {
+    const productToChange = order.orderDetail.find(od => od.id === id)!;
+
+    if (stringThousandToNumber(value) > productToChange.quantity) return;
+
     const newDetails = formValues.orderDetails.map(od =>
-      Number(od.id) === Number(id) ? { ...od, [name]: Number(value) } : od
+      Number(od.id) === Number(id)
+        ? { ...od, [name]: stringThousandToNumber(value) }
+        : od
     );
 
     setFormValues({

@@ -16,8 +16,8 @@ export const TableHeadCell = ({ col, setAllRows, rows }: Props) => {
 
   const handleSort = (key: string) => {
     const newRows = rows.sort((a, b) => {
-      const aString = typeof a[key] === "string" ? a[key] : a[key].toString();
-      const bString = typeof b[key] === "string" ? b[key] : b[key].toString();
+      const aString = String(a[key]);
+      const bString = String(b[key]);
 
       return sorted
         ? bString.localeCompare(aString, undefined, {

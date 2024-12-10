@@ -5,9 +5,15 @@ export const ORDER_LABELS = {
   NEW_ONE: {
     TITLE: "Crear pedido",
     ADD_PRODUCTS: "Sin productos agregados",
-    ORDER_CREATED: "Pedido creado con exito con el id:",
+    ORDER_CREATED: "Pedido creado con exito, id:",
     QUANTITY: "Cantidad",
-    COST_PRICE: "Precio de costo"
+    COST_PRICE: "Precio de costo (USD):",
+    ORDER_DATE: "Fecha de pedido:",
+    PROVIDER: "Proveedor:",
+    ERRORS: {
+      MUST_GIVE_DATE: "Debes seleccionar una fecha",
+      MUST_GIVE_PROVIDER: "Debes indicar un proveedor"
+    }
   },
   RECEIVE: {
     TITLE: "Recibir pedido",
@@ -23,6 +29,15 @@ export const ORDER_LABELS = {
     DAMAGED: "Unidades dañadas:",
     REQUESTED: "Se pideron:",
     NAME: "Nombre:"
+  },
+  UPDATED: {
+    TITLE: "Actualizar pedido",
+    SUCCESS: "Pedido actuazado correctamente."
+  },
+  STATES: {
+    PENDING: "Pendiente",
+    RECEIVED: "Recibido",
+    CANCELED: "Cancelado"
   }
 };
 

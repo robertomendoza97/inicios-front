@@ -9,13 +9,12 @@ import {
 } from "../";
 import { CustomInput, Divider } from "@/src/components";
 import { Button, Spinner } from "flowbite-react";
-import { GENERAL_LABELS } from "@/src/utils";
+import { GENERAL_LABELS, getFormattedDate } from "@/src/utils";
 
 interface Props {
   order: IOneOrder;
 }
 export const ReceiveOrderForm = ({ order }: Props) => {
-  const orderDate = new Date(order.orderDate);
   const { formValues, handleChange, handleProduct, loading, onSubmit } =
     useReceiveOrderHook(order);
   const today = new Date().toISOString().split("T")[0];
@@ -37,13 +36,12 @@ export const ReceiveOrderForm = ({ order }: Props) => {
               <h5 className="font-semibold">
                 {ORDER_LABELS.RECEIVE.ORDER_DATE}
               </h5>
-              <p>{`${orderDate.getDate()}-${
-                orderDate.getMonth() + 1
-              }-${orderDate.getFullYear()}`}</p>
+              <p>{order.orderDate}</p>
             </div>
           </div>
           <div className="grow min-w-[30%]">
             <CustomInput
+              min={getFormattedDate(order.orderDate)}
               max={today}
               value={formValues.receiptDate}
               type="date"

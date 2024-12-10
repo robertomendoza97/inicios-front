@@ -62,7 +62,7 @@ export const useCreateProductFormHook = (
       costPrice: stringThousandToNumber(formValues.costPrice),
       retailPrice: stringThousandToNumber(formValues.retailPrice),
       properties,
-      quantity: Number(formValues.quantity),
+      quantity: stringThousandToNumber(formValues.quantity),
       fkSubcategory: Number(formValues.subCategory),
       tags: [],
       images,

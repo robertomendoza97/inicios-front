@@ -27,7 +27,7 @@ export const OrderProductsSection = ({
   showErrors
 }: Props) => {
   const [productToSearch, setProductToSearch] = useState("");
-
+  const [focus, setFocus] = useState(false);
   const filteredProducts = products.filter(product => {
     const name = `${product.systemCode} - ${product.name} ${product.properties
       .filter(prop => prop.index)
@@ -41,6 +41,9 @@ export const OrderProductsSection = ({
     <div className="h-full flex flex-col gap-4 overflow-hidden">
       <div className="w-full relative z-20">
         <CustomInput
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          dataId="search-products-update-order"
           value={productToSearch}
           label={"Buscar producto"}
           name={"products"}
@@ -48,10 +51,11 @@ export const OrderProductsSection = ({
             setProductToSearch(value);
           }}
         />
-        {productToSearch.length > 3 && (
-          <div className="absolute bg-white border-paletteColor5 top-[100%] border w-full max-h-64 overflow-auto">
+        {productToSearch.length > 3 && focus && (
+          <div className="absolute bg-gray-50 border-paletteColor5 top-[100%] border w-full max-h-64 overflow-auto">
             {filteredProducts.map(product => (
               <p
+                onMouseDown={e => e.preventDefault()}
                 onClick={() => {
                   setProductToSearch("");
                   handleAddProduct(product.id);

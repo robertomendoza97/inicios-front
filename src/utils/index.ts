@@ -1,4 +1,4 @@
-export { getFormattedDay } from "./getFormattedDate";
+export { getFormattedDate } from "./getFormattedDate";
 export { sanitizeString } from "./sanitize-string";
 export { uploadImages } from "./imagesHandler";
 export { useNotificationStore } from "../store/notification-store";

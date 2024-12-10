@@ -2,6 +2,7 @@ export interface IOrderProducts {
   quantity: string;
   costPrice: string;
   id: string;
+  detailId?: number;
 }
 
 export interface ICreateOrderFormValues {
