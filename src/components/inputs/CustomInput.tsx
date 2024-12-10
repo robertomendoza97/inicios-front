@@ -3,6 +3,7 @@
 import { allowOnlyNumbers, formatNumberToPrice } from "@/src/utils";
 import React, {
   ChangeEvent,
+  Reference,
   useCallback,
   useEffect,
   useId,
@@ -26,6 +27,11 @@ interface Props {
   allowDecimals?: boolean;
   autoFocus?: boolean;
   max?: string;
+  min?: string;
+  disabled?: boolean;
+  dataId?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 const MyInput = ({
@@ -41,10 +47,15 @@ const MyInput = ({
   textArea,
   allowDecimals,
   autoFocus,
-  max
+  max,
+  disabled,
+  dataId,
+  onFocus,
+  onBlur,
+  min
 }: Props) => {
   const [isValid, setIsValid] = useState(true);
-  const id = useId();
+  const id = useId().replace(/^[a-zA-Z]/, "");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const validateValue = useCallback(() => {
@@ -115,16 +126,25 @@ const MyInput = ({
       <Label htmlFor={id}>{label}</Label>
       {textArea ? (
         <Textarea
+          onBlur={onBlur}
+          data-id={dataId}
           id={id}
+          onFocus={onFocus}
           placeholder={placeholder}
           name={name}
           onChange={middlewareOnChange}
           value={valueFormat(value)}
           className="max-h-32 min-h-14"
           helperText={!isValid && <CustomError message={errorMessaje || ""} />}
+          disabled={disabled}
         />
       ) : (
         <TextInput
+          min={min}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          data-id={dataId}
+          disabled={disabled}
           ref={inputRef}
           max={max}
           autoComplete="off"

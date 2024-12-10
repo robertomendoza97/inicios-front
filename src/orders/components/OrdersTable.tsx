@@ -13,15 +13,19 @@ interface Props {
 const columns: Column[] = [
   {
     key: "id",
-    name: "id"
+    name: "id",
+    index: true
   },
   {
     key: "provider",
-    name: "proveedor"
+    name: "proveedor",
+    index: true,
+    sort: true
   },
   {
     key: "orderDate",
-    name: "Fecha del pedido"
+    name: "Fecha del pedido",
+    sort: true
   },
   {
     key: "receiptDate",

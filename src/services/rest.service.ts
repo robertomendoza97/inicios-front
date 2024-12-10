@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { CustomResponse } from "../interfaces/CustomResponse";
 import { authOptions } from "../auth";
 import { PATHS } from "../utils";
+import { permanentRedirect } from "next/navigation";
 
 export const customFetch = async <T>(
   url: string,
@@ -11,32 +12,55 @@ export const customFetch = async <T>(
 ): Promise<CustomResponse<T>> => {
   const session = await getServerSession(authOptions);
 
-  const headers = config.headers ? config.headers : {};
-
-  delete config.headers;
-
-  const response = await fetch(`${process.env.MY_DFS_HOST}/${url}`, {
-    ...config,
-    headers: {
-      Authorization: `Bearer ${session!.user!.token}`,
-      ...headers
-    }
-  });
-
-  if (!response.ok) {
-    console.log(await response.json());
-
-    if (response.status === 401) {
-      redirect(PATHS.SIGNIN);
-    }
+  if (!session || !session.user?.token) {
     return {
-      data: initialValue ? initialValue : (null as T),
+      data: initialValue as T,
       error: true,
-      success: true
+      success: false
     };
   }
 
-  const data = await response.json();
+  const mergedHeaders = {
+    Authorization: `Bearer ${session.user.token}`,
+    ...(config.headers || {})
+  };
 
-  return { data: data as T, error: false, success: true };
+  const requestConfig: RequestInit = {
+    ...config,
+    headers: mergedHeaders
+  };
+
+  let mustRedirect = false;
+  try {
+    const response = await fetch(
+      `${process.env.MY_DFS_HOST}/${url}`,
+      requestConfig
+    );
+
+    if (!response.ok) {
+      console.log(await response.json());
+
+      if (response.status === 401) {
+        mustRedirect = true;
+      }
+
+      return {
+        data: initialValue as T,
+        error: true,
+        success: true
+      };
+    }
+
+    const data = await response.json();
+
+    return { data: data as T, error: false, success: true };
+  } catch (error) {
+    console.log(error);
+
+    return { data: initialValue as T, error: true, success: false };
+  } finally {
+    if (mustRedirect) {
+      redirect(PATHS.SIGNIN);
+    }
+  }
 };

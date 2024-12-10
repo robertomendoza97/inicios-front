@@ -1,11 +1,15 @@
 export interface IOneOrder {
   id: number;
-  orderDate: Date;
+  orderDate: string;
   receiptDate: string | null;
   provider: string;
   state: string;
-  createdAt: Date;
+  createdAt: string;
   orderDetail: IOrderDetail[];
+  receivedBy?: {
+    name: string;
+    last_name: string;
+  };
 }
 
 export interface IOrderDetail {
@@ -13,9 +17,10 @@ export interface IOrderDetail {
   quantity: number;
   costPrice: number;
   damagedUnits: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   productId: {
+    id: string;
     name: string;
   };
 }

@@ -4,16 +4,15 @@ import { Divider } from "@/src/components";
 import {
   formatNumberToPrice,
   GENERAL_LABELS,
-  getFormattedDay
+  getFormattedDate
 } from "@/src/utils";
 
 interface Props {
   orderDetails: IOneOrder;
 }
 export const OrderDetails = ({ orderDetails }: Props) => {
-  const orderDate = new Date(orderDetails.orderDate);
   const receiveDate = orderDetails.receiptDate
-    ? getFormattedDay(new Date(orderDetails.orderDate))
+    ? orderDetails.receiptDate
     : ORDER_LABELS.DETAILS.NO_RECEIVED;
 
   return (
@@ -30,16 +29,22 @@ export const OrderDetails = ({ orderDetails }: Props) => {
               <h5 className="font-semibold">
                 {ORDER_LABELS.RECEIVE.ORDER_DATE}
               </h5>
-              <p>{`${orderDate.getDate()}-${
-                orderDate.getMonth() + 1
-              }-${orderDate.getFullYear()}`}</p>
+              <p>{orderDetails.orderDate}</p>
             </div>
           </div>
           <div className="grow min-w-[30%] shadow bg-gray-50 p-3">
-            <h5 className="font-semibold">
-              {ORDER_LABELS.DETAILS.RECEIVE_DATE}
-            </h5>
-            <p>{receiveDate}</p>
+            <div className="">
+              <h5 className="font-semibold">
+                {ORDER_LABELS.DETAILS.RECEIVE_DATE}
+              </h5>
+              <p>{receiveDate}</p>
+            </div>
+            <div>
+              <h5 className="font-semibold">
+                {ORDER_LABELS.DETAILS.RECEIVE_DATE}
+              </h5>
+              <p>{orderDetails.receivedBy?.name}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -55,10 +60,10 @@ export const OrderDetails = ({ orderDetails }: Props) => {
               <span className="font-bold">{ORDER_LABELS.DETAILS.NAME}</span>
               <h6>{od.productId.name}</h6>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-5">
               <p className="flex gap-3">
                 <span className="font-bold">
-                  {ORDER_LABELS.NEW_ONE.COST_PRICE}:
+                  {ORDER_LABELS.NEW_ONE.COST_PRICE}
                 </span>
                 <span>
                   {formatNumberToPrice(od.costPrice, "$", true)}{" "}

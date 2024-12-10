@@ -1,3 +1,6 @@
+export type { UpdateOrderDto } from "./interfaces/update-order.interface";
+export { useUpdateOrder } from "./hooks/userUpdateOrderHook";
+export { UpdateOrderForm } from "./components/UpdateOrderForm";
 export { OrderDetails } from "./components/OrderDetails";
 export type { IReceiveOrderForm } from "./interfaces/receive-order-form";
 export { useReceiveOrderHook } from "./hooks/useReceiveOrderHook";
@@ -10,9 +13,13 @@ export { ReceiveOrderForm } from "./components/ReceiveOrderForm";
 export { orderActions } from "./utils/orderActions";
 export {
   createOrderAction,
-  receiveOrderAction
+  receiveOrderAction,
+  updateOrderAction
 } from "./actions/server-actions";
-export { validateOrderFormData } from "./utils/validateOrderFormData";
+export {
+  validateOrderFormData,
+  validateUpdateOrderFormData
+} from "./utils/validateOrderFormData";
 export { useCreateOrder } from "./hooks/userCreateOrderHook";
 export type {
   ICreateOrderFormValues,

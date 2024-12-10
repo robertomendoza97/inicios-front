@@ -25,7 +25,7 @@ export const ReceiveOrderProduct = ({
         <p className="font-semibold">Nombre:</p>
         <p className="font-semibold">Unidades dañadas</p>
       </div>
-      <div className="w-full grow overflow-auto">
+      <div className="w-full grow overflow-auto flex flex-col gap-3">
         {orderDetail.map(orderDetail => (
           <div key={orderDetail.id} className="flex items-center gap-5">
             <div className="flex w-full border rounded p-3 relative">
