@@ -25,7 +25,7 @@ const menuOptions = [
   },
   {
     title: "Ventas",
-    path: PATHS.SALES,
+    path: PATHS.SALES.MAIN,
     icon: <FaRegMoneyBillAlt />
   },
   {
