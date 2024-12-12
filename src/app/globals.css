@@ -58,3 +58,7 @@ input[type="number"] {
   -moz-appearance: textfield;
   appearance: none;
 }
+
+.rdp-today button {
+  background-color: #9dedf4;
+}

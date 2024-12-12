@@ -2,7 +2,7 @@ import { WidgetsSection } from "./WidgetsSection";
 
 export const Dashboard = () => {
   return (
-    <div className="w-full h-full flex flex-col gap-5">
+    <div className="w-full h-full flex flex-col gap-5 overflow-y-auto pb-28">
       <div className="bg-white w-full flex justify-center py-5">
         <div className="w-[80%]">
           <p>crear una venta</p>

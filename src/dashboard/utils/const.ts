@@ -15,5 +15,11 @@ export const DASHBOARD_LABELS = {
     TITLE: "Cumplimiento",
     SUBTITLE: "porcentaje de cuotas pagadas al dia",
     SUMMARY: "Resumen de cuotas"
+  },
+  LOANS: {
+    TITLE: "Prestamos del dia",
+    SUBTITLE: "Total de prestamos realizados",
+    DETAILS: "Ver prestamos",
+    TOTAL: "Valor total de prestamos"
   }
 };

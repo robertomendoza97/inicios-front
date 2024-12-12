@@ -1,4 +1,10 @@
-import { TodaySales, Compliance, Income } from "..";
+import {
+  TodaySales,
+  Compliance,
+  Income,
+  CalendarWidget,
+  LoansWidget
+} from "..";
 
 export const WidgetsSection = () => {
   return (
@@ -7,11 +13,11 @@ export const WidgetsSection = () => {
         <TodaySales />
         <Compliance />
         <Income />
-        <div className="bg-white shadow-md rounded p-4">4</div>
+        <LoansWidget />
       </div>
       <div className="grid grid-cols-[1fr_1fr] gap-5 w-[80%]">
-        <div className="bg-white shadow-md rounded">1</div>
-        <div className="bg-white shadow-md rounded">2</div>
+        <div className="bg-white shadow-md rounded">shorcuts</div>
+        <CalendarWidget />
       </div>
     </div>
   );
