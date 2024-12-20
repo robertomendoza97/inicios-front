@@ -10,7 +10,7 @@ import { InvoiceFooter } from "./InvoiceFooter";
 
 export const Invoice = () => {
   return (
-    <aside className="w-[40%] bg-white border-l flex flex-col h-full">
+    <aside className="w-[40%] bg-white border-l flex flex-col h-full shrink-0">
       <InvoiceHeader />
       <InvoiceDetails />
       <InvoiceProducts />

@@ -1,6 +1,10 @@
 import { SubCategory } from "../";
 import { ProductProperty } from "../";
 
+interface ProductImage {
+  id: string;
+  url: string;
+}
 export interface SingleProductFromAPI {
   id: string;
   name: string;
@@ -14,7 +18,7 @@ export interface SingleProductFromAPI {
   costPrice: number;
   retailPrice: number;
   properties: ProductProperty[];
-  images: string[];
+  images: ProductImage[];
   quantity: number;
   subCategory: SubCategory;
 }

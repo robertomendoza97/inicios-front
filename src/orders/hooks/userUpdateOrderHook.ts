@@ -21,8 +21,8 @@ export const useUpdateOrder = (order: IOneOrder) => {
     provider: order.provider,
     orderDate: getFormattedDate(order.orderDate),
     products: order.orderDetail.map(od => ({
-      costPrice: formatNumberToPrice(od.costPrice, "", true),
-      quantity: formatNumberToPrice(od.quantity, "", true),
+      costPrice: formatNumberToPrice(od.costPrice),
+      quantity: formatNumberToPrice(od.quantity),
       id: od.productId.id,
       detailId: od.id
     }))
@@ -92,8 +92,8 @@ export const useUpdateOrder = (order: IOneOrder) => {
       provider: order.provider,
       orderDate: getFormattedDate(order.orderDate),
       products: order.orderDetail.map(od => ({
-        costPrice: formatNumberToPrice(od.costPrice, "", true),
-        quantity: formatNumberToPrice(od.quantity, "", true),
+        costPrice: formatNumberToPrice(od.costPrice),
+        quantity: formatNumberToPrice(od.quantity),
         id: od.productId.id,
         detailId: od.id
       }))

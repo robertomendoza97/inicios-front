@@ -20,7 +20,7 @@ const tableColumns = [
     name: "Precio de costo",
     sort: true,
     component: (value: string | number) => (
-      <>{formatNumberToPrice(+value, "$", true)}</>
+      <>{formatNumberToPrice(+value, "$")}</>
     )
   },
   {
@@ -28,7 +28,7 @@ const tableColumns = [
     name: "Precio de venta",
     sort: true,
     component: (value: string | number) => (
-      <>{formatNumberToPrice(+value, "$", true)}</>
+      <>{formatNumberToPrice(+value, "$")}</>
     )
   },
   {

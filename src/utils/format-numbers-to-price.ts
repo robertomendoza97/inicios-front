@@ -1,12 +1,11 @@
 export const formatNumberToPrice = (
   number: string | number,
-  currency = "",
-  fromTypeNumber?: boolean
+  currency = ""
 ): string => {
   // Convertimos el número a una cadena para manipular los caracteres
   let numberStr = number.toString();
 
-  if (!fromTypeNumber) {
+  if (typeof number === "string") {
     numberStr = numberStr.replaceAll(".", "").replace(",", ".");
   }
 

@@ -14,11 +14,11 @@ export class UpdateProductDTO implements CreateProductFormValues {
   barCode: string;
 
   constructor(product: OneProductDetails) {
-    this.costPrice = formatNumberToPrice(product.costPrice, "", true);
+    this.costPrice = formatNumberToPrice(product.costPrice);
     this.description = product.description;
     this.category = String(product.subCategory.fkCategory);
     this.state = product.state;
-    this.retailPrice = formatNumberToPrice(product.retailPrice, "", true);
+    this.retailPrice = formatNumberToPrice(product.retailPrice);
     this.quantity = String(product.quantity);
     this.name = product.name;
     this.barCode = String(product.barCode || "");

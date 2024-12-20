@@ -1,9 +1,31 @@
-import { Invoice, SALES_LABELS } from "@/src/sales";
+import { ErrorResponsePage } from "@/src/components";
+import { IProductsResponse } from "@/src/products";
+import { Invoice, ProductSection, SALES_LABELS } from "@/src/sales";
+import { customFetch } from "@/src/services/rest.service";
 
-const NewSalePage = () => {
+const getProducts = async () => {
+  const {
+    data: { data },
+    success,
+    error
+  } = await customFetch<IProductsResponse>(
+    "product",
+    {
+      cache: "no-cache"
+    },
+    { data: [] }
+  );
+
+  return { data, error, success };
+};
+const NewSalePage = async () => {
+  const { data: products, error } = await getProducts();
+
+  if (error) return <ErrorResponsePage />;
+
   return (
     <div className="w-full h-full flex">
-      <aside className="grow "></aside>
+      <ProductSection products={products} />
       <Invoice />
     </div>
   );
