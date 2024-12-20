@@ -1,5 +1,7 @@
+import { SalesTable } from "@/src/sales";
+
 const Sales = () => {
-  return <div>ventas</div>;
+  return <SalesTable />;
 };
 
 export default Sales;
