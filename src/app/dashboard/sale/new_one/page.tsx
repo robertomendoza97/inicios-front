@@ -1,3 +1,4 @@
+import { IAllClients } from "@/src/clients";
 import { ErrorResponsePage } from "@/src/components";
 import { IProductsResponse } from "@/src/products";
 import { Invoice, ProductSection, SALES_LABELS } from "@/src/sales";
@@ -18,6 +19,7 @@ const getProducts = async () => {
 
   return { data, error, success };
 };
+
 const NewSalePage = async () => {
   const { data: products, error } = await getProducts();
 

@@ -13,6 +13,7 @@ export interface IClient {
   updatedAt: string;
   deletedAt: string;
   countryCode: string;
+  idCard: string;
 }
 
 export interface IAllClients {

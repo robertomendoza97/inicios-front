@@ -2,8 +2,8 @@ import { SingleProductFromAPI } from "@/src/products";
 import { formatNumberToPrice } from "@/src/utils";
 import Image from "next/image";
 import { CiImageOff } from "react-icons/ci";
-import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { SALES_LABELS } from "../../utils/const";
+import { Cart } from "./Cart";
 
 interface Props {
   product: SingleProductFromAPI;
@@ -11,7 +11,7 @@ interface Props {
 
 export const ProductCard = ({ product }: Props) => {
   return (
-    <div className="grow shadow-md bg-white p-5 rounded-lg flex flex-col items-center gap-2 w-[220px] border-paletteColor1 border relative">
+    <div className="shadow-md bg-white p-5 rounded-lg flex flex-col items-center gap-2 border-paletteColor1 border relative">
       <div className="bg-slate-100 flex items-center justify-center aspect-video w-full relative">
         {product.images.length > 0 ? (
           <Image
@@ -35,10 +35,7 @@ export const ProductCard = ({ product }: Props) => {
       <p className="font-bold">
         {formatNumberToPrice(product.retailPrice, "$")}
       </p>
-
-      <div className="cursor-pointer bg-paletteColor1 absolute top-0 right-5 p-1  rounded-bl-lg">
-        <MdOutlineShoppingCartCheckout size={20} className="text-white" />
-      </div>
+      <Cart product={product} />
     </div>
   );
 };

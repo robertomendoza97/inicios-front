@@ -43,9 +43,8 @@ export const OrderProductsSection = ({
         <CustomInput
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
-          dataId="search-products-update-order"
           value={productToSearch}
-          label={"Buscar producto"}
+          label={ORDER_LABELS.NEW_ONE.SEARCH_PRODUCTS}
           name={"products"}
           onChange={function (_, value: string): void {
             setProductToSearch(value);

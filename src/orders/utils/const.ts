@@ -10,6 +10,7 @@ export const ORDER_LABELS = {
     COST_PRICE: "Precio de costo (USD):",
     ORDER_DATE: "Fecha de pedido:",
     PROVIDER: "Proveedor:",
+    SEARCH_PRODUCTS: "Buscar producto",
     ERRORS: {
       MUST_GIVE_DATE: "Debes seleccionar una fecha",
       MUST_GIVE_PROVIDER: "Debes indicar un proveedor"

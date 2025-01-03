@@ -18,6 +18,7 @@ interface Props {
   errorMessage?: string;
   showErrorMessage?: boolean;
   value: string;
+  disabled?: boolean;
 }
 
 export const CustomSelect = ({
@@ -27,7 +28,8 @@ export const CustomSelect = ({
   onChange,
   errorMessage,
   showErrorMessage,
-  value
+  value,
+  disabled
 }: Props) => {
   const [isValid, setIsValid] = useState(true);
 
@@ -54,7 +56,13 @@ export const CustomSelect = ({
   return (
     <div className="flex flex-col gap-1 w-full p-[1px]">
       <Label htmlFor={id}>{label}</Label>
-      <Select name={name} id={id} onChange={handleChange} value={value}>
+      <Select
+        name={name}
+        disabled={disabled}
+        id={id}
+        onChange={handleChange}
+        value={value}
+      >
         <option value="">Seleccione una opcion</option>
         {options.map(op => (
           <option key={op.key} value={op.key}>

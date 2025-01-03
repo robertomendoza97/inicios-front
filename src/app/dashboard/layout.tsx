@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { authOptions, Provider } from "@/src/auth";
 import { Suspense } from "react";
 import GlobalLoading from "./loading";
+import { Flowbite } from "flowbite-react";
+import { customTheme } from "./theme";
 
 export default async function DashboardLayout({
   children
@@ -16,19 +18,21 @@ export default async function DashboardLayout({
 
   return (
     <Provider>
-      <div className="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased relative text-slate-300 selection:bg-blue-600 selection:text-white">
-        <Modal />
-        <div className="flex">
-          <Sidebar />
-          <div className="text-slate-900 w-full relative flex flex-col h-screen overflow-y-scroll">
-            <Header />
-            <div className="flex-grow overflow-y-scroll relative overflow-x-hidden">
-              <Notifications />
-              <Suspense fallback={<GlobalLoading />}>{children}</Suspense>
+      <Flowbite theme={{ theme: customTheme }}>
+        <div className="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased relative text-slate-300 selection:bg-blue-600 selection:text-white">
+          <Modal />
+          <div className="flex">
+            <Sidebar />
+            <div className="text-slate-900 w-full relative flex flex-col h-screen overflow-y-scroll">
+              <Header />
+              <div className="flex-grow overflow-y-scroll relative overflow-x-hidden">
+                <Notifications />
+                <Suspense fallback={<GlobalLoading />}>{children}</Suspense>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </Flowbite>
     </Provider>
   );
 }

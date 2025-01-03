@@ -1,14 +1,16 @@
+"use client";
+
 import { Button } from "flowbite-react";
 import { SALES_LABELS } from "../../utils/const";
+import { useSaleStore } from "@/src/store/sale-store";
 
 export const InvoiceFooter = () => {
+  const products = useSaleStore(state => state.productsToSale);
+
   return (
-    <div className="flex flex-col gap-3 p-5">
-      <Button>{SALES_LABELS.SALE}</Button>
-      <div className="flex justify-between items-center">
-        <p>0 {SALES_LABELS.PRODUCTS}</p>
-        <button>{SALES_LABELS.CANCEL}</button>
-      </div>
+    <div className="flex gap-3 p-5">
+      <Button className="grow">{SALES_LABELS.SALE}</Button>
+      <Button color="failure">{SALES_LABELS.CANCEL}</Button>
     </div>
   );
 };
