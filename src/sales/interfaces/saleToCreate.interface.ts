@@ -4,10 +4,16 @@ export interface QuotaToCreate {
   amount?: number;
 }
 
+export interface ProductsToSale {
+  id: string;
+  quantity: number;
+}
+
 export interface SaleToCreate {
   interestRate: number;
   currency?: string;
   client: string;
   quotas: QuotaToCreate[];
+  products: ProductsToSale[];
   frequency: "weekly" | "biweekly" | "full";
 }

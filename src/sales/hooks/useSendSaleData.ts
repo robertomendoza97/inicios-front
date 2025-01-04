@@ -7,6 +7,7 @@ import { createSaleAction } from "../actions/serverActions";
 import { getSaleQuotesToSend } from "../utils/getSaleQuotes";
 import { useNotificationStore } from "@/src/utils";
 import { SALES_LABELS } from "../utils/const";
+import { useRouter } from "next/navigation";
 
 export const useSendSaleData = () => {
   const client = useSaleStore(state => state.client);
@@ -21,6 +22,8 @@ export const useSendSaleData = () => {
   const showNotification = useNotificationStore(
     state => state.showNotification
   );
+
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -45,7 +48,11 @@ export const useSendSaleData = () => {
         initial: initial,
         quotes: formattedQuotes
       }),
-      currency: "USD"
+      currency: "USD",
+      products: productsToSale.map(p => ({
+        id: p.id,
+        quantity: p.quantityToSale
+      }))
     });
 
     setLoading(false);
@@ -63,6 +70,7 @@ export const useSendSaleData = () => {
     });
 
     reset();
+    router.refresh();
   };
 
   return { handleSubmit, loading };
