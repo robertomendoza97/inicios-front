@@ -4,6 +4,7 @@ import {
   ValidWeeklyQuotes,
   ValidBiweeklyQuotes
 } from "../interfaces/createSaleDetails.interface";
+import { QuotaToCreate } from "../interfaces/saleToCreate.interface";
 
 interface Args {
   startDate: string;
@@ -20,11 +21,11 @@ export const getSaleQuotes = ({
   interest,
   total,
   initial
-}: Args) => {
+}: Args): QuotaToCreate[] => {
   if (numberOfDates && numberOfDates > 0) {
     const interval =
       frequency === "weekly" ? 7 : frequency === "biweekly" ? 14 : 0; // Intervalo en días
-    const paymentDates = [];
+    const paymentDates: QuotaToCreate[] = [];
 
     let currentDate = parse(startDate); // Convierte la fecha inicial
     currentDate.setDate(currentDate.getDate() + interval);
@@ -65,8 +66,9 @@ export const getSaleQuotes = ({
     for (let i = 0; i < numberOfDates; i++) {
       // Formatea y agrega la fecha actual
       paymentDates.push({
-        date: format(currentDate, "DD-MM-YYYY"),
-        amount: quotaAmount
+        date: new Date(currentDate).toISOString(),
+        amount: quotaAmount,
+        type: "quote"
       });
 
       // Suma manualmente el intervalo a la fecha actual
@@ -79,4 +81,45 @@ export const getSaleQuotes = ({
   }
 
   return [];
+};
+
+interface ArgsToSend {
+  initial: number;
+  frequency: "weekly" | "biweekly" | "full";
+  quotes: QuotaToCreate[];
+}
+
+interface QuotesToSend {
+  type: "full" | "quote" | "initial";
+  date: string;
+  amount?: number;
+}
+
+export const getSaleQuotesToSend = ({
+  initial,
+  frequency,
+  quotes
+}: ArgsToSend): QuotesToSend[] => {
+  const quotesToSend: QuotesToSend[] = [];
+
+  if (frequency === "full") {
+    quotesToSend.push({ type: "full", date: new Date().toISOString() });
+  } else {
+    quotesToSend.push({
+      type: "initial",
+      date: new Date().toISOString(),
+      amount: initial
+    });
+
+    for (let i = 0; i < quotes.length; i++) {
+      const element = quotes[i];
+
+      quotesToSend.push({
+        type: "quote",
+        date: element.date
+      });
+    }
+  }
+
+  return quotesToSend;
 };

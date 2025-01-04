@@ -2,13 +2,14 @@
 
 import { IClient } from "@/src/clients";
 import { useSaleStore } from "@/src/store/sale-store";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { CreateSaleDetails } from "../interfaces/createSaleDetails.interface";
 import { formatNumberToPrice, stringThousandToNumber } from "@/src/utils";
 import { getTotalPriceOfSale } from "../utils/getTotalPriceOfSale";
 
 export const useInvoiceDetails = (clients: IClient[]) => {
   const setClient = useSaleStore(state => state.setClient);
+  const formatQuotes = useSaleStore(state => state.formatQuotes);
   const products = useSaleStore(state => state.productsToSale);
   const setStartDate = useSaleStore(state => state.setStartDate);
   const setCreateSaleDetails = useSaleStore(
@@ -75,6 +76,7 @@ export const useInvoiceDetails = (clients: IClient[]) => {
 
   useEffect(() => {
     setCreateSaleDetails(formValues);
+    formatQuotes();
   }, [formValues, setCreateSaleDetails]);
 
   return {

@@ -15,6 +15,12 @@ export const SALES_LABELS = {
   PLACEHOLDERS: {
     SEARCH_PRODUCTS: "Buscar productos",
     CLIENT: "Cliente"
+  },
+  NOTIFICATIONS: {
+    ERRORS: {
+      CREATION: "Ocurrio un error al crear la venta."
+    },
+    CREATION: "Venta creada exitosamente."
   }
 };
 

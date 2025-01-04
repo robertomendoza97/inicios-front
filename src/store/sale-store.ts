@@ -1,7 +1,12 @@
 import { create } from "zustand";
 import { SingleProductFromAPI } from "../products";
 import { IClient } from "../clients";
-import { CreateSaleDetails } from "../sales";
+import {
+  CreateSaleDetails,
+  getSaleQuotes,
+  getTotalPriceOfSale,
+  QuotaToCreate
+} from "../sales";
 import { stringThousandToNumber } from "../utils";
 
 export interface ProductToSale extends SingleProductFromAPI {
@@ -19,6 +24,7 @@ interface SaleState {
   frequency: "weekly" | "biweekly" | "full";
   interest: number;
   startDate: string;
+  formattedQuotes: QuotaToCreate[];
   setProducts: (products: SingleProductFromAPI[]) => void;
   addProduct: (product: SingleProductFromAPI) => void;
   updateProduct: (id: string, action: "sum" | "subtract") => void;
@@ -27,11 +33,14 @@ interface SaleState {
   setClient: (client: IClient) => void;
   setCreateSaleDetails: (createSaleDTO: CreateSaleDetails) => void;
   setStartDate: (startDate: string) => void;
+  formatQuotes: () => void;
+  reset: () => void;
 }
 
 export const useSaleStore = create<SaleState>()(set => ({
   termToSearch: "",
   quotes: 0,
+  formattedQuotes: [],
   startDate: new Date().toISOString(),
   totalPrice: 0,
   initial: 0,
@@ -108,5 +117,33 @@ export const useSaleStore = create<SaleState>()(set => ({
       initial: stringThousandToNumber(createSaleDTO.initial),
       frequency: createSaleDTO.frequency
     })),
-  setStartDate: startDate => set(state => ({ ...state, startDate }))
+  setStartDate: startDate => set(state => ({ ...state, startDate })),
+  formatQuotes: () =>
+    set(state => ({
+      ...state,
+      formattedQuotes: getSaleQuotes({
+        frequency: state.frequency,
+        interest: state.interest,
+        numberOfDates: state.quotes,
+        startDate: state.startDate,
+        total: getTotalPriceOfSale(state.productsToSale),
+        initial: state.initial
+      })
+    })),
+  reset: () =>
+    set(state => ({
+      ...state,
+      termToSearch: "",
+      quotes: 0,
+      formattedQuotes: [],
+      startDate: new Date().toISOString(),
+      totalPrice: 0,
+      initial: 0,
+      frequency: "full",
+      interest: 0,
+      productsToShow: [],
+      productsToSale: [],
+      client: undefined,
+      allProducts: []
+    }))
 }));

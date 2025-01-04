@@ -11,11 +11,7 @@ import { TbMoneybag } from "react-icons/tb";
 
 export const InvoiceProducts = () => {
   const productsToSale = useSaleStore(state => state.productsToSale);
-  const numberOfQuotes = useSaleStore(state => state.quotes);
-  const frequency = useSaleStore(state => state.frequency);
-  const initial = useSaleStore(state => state.initial);
-  const interest = useSaleStore(state => state.interest);
-  const startDate = useSaleStore(state => state.startDate);
+  const quotes = useSaleStore(state => state.formattedQuotes);
 
   let allProductsQuantity = 0;
 
@@ -24,15 +20,6 @@ export const InvoiceProducts = () => {
 
     allProductsQuantity = allProductsQuantity + element.quantityToSale;
   }
-
-  const quotes = getSaleQuotes({
-    frequency,
-    interest,
-    numberOfDates: numberOfQuotes,
-    startDate: startDate,
-    total: getTotalPriceOfSale(productsToSale),
-    initial
-  });
 
   return (
     <div className="bg-gray-100 p-5 border-b grow overflow-hidden">

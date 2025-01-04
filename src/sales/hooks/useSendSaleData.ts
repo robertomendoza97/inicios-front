@@ -1,0 +1,69 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { validateSaleData } from "../utils/validateSaleData";
+import { useSaleStore } from "@/src/store/sale-store";
+import { createSaleAction } from "../actions/serverActions";
+import { getSaleQuotesToSend } from "../utils/getSaleQuotes";
+import { useNotificationStore } from "@/src/utils";
+import { SALES_LABELS } from "../utils/const";
+
+export const useSendSaleData = () => {
+  const client = useSaleStore(state => state.client);
+  const productsToSale = useSaleStore(state => state.productsToSale);
+  const frequency = useSaleStore(state => state.frequency);
+  const quotes = useSaleStore(state => state.quotes);
+  const interest = useSaleStore(state => state.interest);
+  const initial = useSaleStore(state => state.initial);
+  const formattedQuotes = useSaleStore(state => state.formattedQuotes);
+  const reset = useSaleStore(state => state.reset);
+  const [loading, setLoading] = useState(false);
+  const showNotification = useNotificationStore(
+    state => state.showNotification
+  );
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (
+      !validateSaleData({
+        frequency: frequency,
+        productsToSale: productsToSale,
+        quotes: Number(quotes),
+        client: client
+      })
+    )
+      return;
+    setLoading(true);
+
+    const { data, error } = await createSaleAction({
+      client: client!.id,
+      frequency,
+      interestRate: Number(interest),
+      quotas: getSaleQuotesToSend({
+        frequency: frequency,
+        initial: initial,
+        quotes: formattedQuotes
+      }),
+      currency: "USD"
+    });
+
+    setLoading(false);
+
+    if (error) {
+      return showNotification({
+        type: "error",
+        text: SALES_LABELS.NOTIFICATIONS.ERRORS.CREATION
+      });
+    }
+
+    showNotification({
+      type: "success",
+      text: SALES_LABELS.NOTIFICATIONS.CREATION
+    });
+
+    reset();
+  };
+
+  return { handleSubmit, loading };
+};
