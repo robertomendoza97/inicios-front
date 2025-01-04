@@ -1,6 +1,6 @@
 export const SALES_LABELS = {
   INVOICE: "Factura de venta",
-  INTEREST: "Tasa de interes",
+  INTEREST: "Tasa de interes (Mensual)",
   FREQUENCY: "Frecuencia",
   INITIAL: "Inicial",
   CANCEL: "Cancelar",

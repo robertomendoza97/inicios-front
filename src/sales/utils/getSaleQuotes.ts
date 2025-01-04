@@ -21,14 +21,7 @@ export const getSaleQuotes = ({
   total,
   initial
 }: Args) => {
-  if (
-    initial &&
-    initial > 0 &&
-    numberOfDates &&
-    numberOfDates > 0 &&
-    interest &&
-    interest > 0
-  ) {
+  if (numberOfDates && numberOfDates > 0) {
     const interval =
       frequency === "weekly" ? 7 : frequency === "biweekly" ? 14 : 0; // Intervalo en días
     const paymentDates = [];

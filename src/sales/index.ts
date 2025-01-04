@@ -1,3 +1,4 @@
+export { validateSaleData } from "./utils/validateSaleData";
 export { TOTAL_INTEREST } from "./utils/const";
 export { getTotalPriceOfSale } from "./utils/getTotalPriceOfSale";
 export { getSaleQuotes } from "./utils/getSaleQuotes";

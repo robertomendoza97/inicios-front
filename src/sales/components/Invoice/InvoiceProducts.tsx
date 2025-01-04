@@ -15,6 +15,7 @@ export const InvoiceProducts = () => {
   const frequency = useSaleStore(state => state.frequency);
   const initial = useSaleStore(state => state.initial);
   const interest = useSaleStore(state => state.interest);
+  const startDate = useSaleStore(state => state.startDate);
 
   let allProductsQuantity = 0;
 
@@ -28,7 +29,7 @@ export const InvoiceProducts = () => {
     frequency,
     interest,
     numberOfDates: numberOfQuotes,
-    startDate: new Date().toISOString(),
+    startDate: startDate,
     total: getTotalPriceOfSale(productsToSale),
     initial
   });
@@ -50,7 +51,7 @@ export const InvoiceProducts = () => {
             </div>
           )}
         </Tabs.Item>
-        <Tabs.Item title="Cuotas">
+        <Tabs.Item title={SALES_LABELS.QUOTES}>
           {quotes.length > 0 ? (
             <div className="flex flex-col gap-2">
               {quotes.map((q, i) => (

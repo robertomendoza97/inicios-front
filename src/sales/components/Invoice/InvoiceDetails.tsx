@@ -1,7 +1,7 @@
 "use client";
 
 import { CustomInput, CustomSelect } from "@/src/components";
-import { Button, TextInput } from "flowbite-react";
+import { Button, Datepicker, TextInput, Tooltip } from "flowbite-react";
 import { FaUserPlus } from "react-icons/fa6";
 import { QUOTES_MAPPER, SALES_LABELS } from "../../utils/const";
 import { IClient } from "@/src/clients";
@@ -23,8 +23,17 @@ export const InvoiceDetails = ({ clients }: Props) => {
     setFocus,
     handleClient,
     handleFormValues,
-    formValues
+    formValues,
+    handleStartDate
   } = useInvoiceDetails(clients);
+
+  const today = new Date();
+  const maxDate = new Date(today);
+  const minDate = new Date(today);
+  maxDate.setDate(today.getDate() + 3);
+  minDate.setDate(today.getDate() - 2);
+  const maxDateString = maxDate.toISOString().split("T")[0];
+  const minDateString = minDate.toISOString().split("T")[0];
 
   return (
     <div className="p-5 pt-3 flex flex-col gap-4 border-b">
@@ -112,6 +121,16 @@ export const InvoiceDetails = ({ clients }: Props) => {
             </div>
           )}
         </div>
+        <Tooltip content="Fecha a partir de la cual se calcularan las cuotas.">
+          <TextInput
+            type="date"
+            className="w-10"
+            min={minDateString}
+            max={maxDateString}
+            onChange={handleStartDate}
+            disabled={formValues.frequency === "full"}
+          />
+        </Tooltip>
         <Button>
           <FaUserPlus className="mr-1" />
           <Link href={PATHS.CLIENTS.NEW_ONE} target="_blank">

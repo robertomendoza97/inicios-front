@@ -10,6 +10,7 @@ import { getTotalPriceOfSale } from "../utils/getTotalPriceOfSale";
 export const useInvoiceDetails = (clients: IClient[]) => {
   const setClient = useSaleStore(state => state.setClient);
   const products = useSaleStore(state => state.productsToSale);
+  const setStartDate = useSaleStore(state => state.setStartDate);
   const setCreateSaleDetails = useSaleStore(
     state => state.setCreateSaleDetails
   );
@@ -17,7 +18,7 @@ export const useInvoiceDetails = (clients: IClient[]) => {
   const totalPrice = getTotalPriceOfSale(products);
 
   const [formValues, setFormValues] = useState<CreateSaleDetails>({
-    frequency: "weekly",
+    frequency: "full",
     interest: "",
     initial: "",
     quotes: ""
@@ -45,6 +46,12 @@ export const useInvoiceDetails = (clients: IClient[]) => {
       c.lastName.includes(termToSearch) ||
       c.idCard.includes(termToSearch)
   );
+
+  const handleStartDate = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    setStartDate(e.target.value);
+  };
 
   const handleClient = (client: IClient) => {
     setTermToSearch("");
@@ -78,6 +85,7 @@ export const useInvoiceDetails = (clients: IClient[]) => {
     termToSearch,
     handleClient,
     formValues,
-    handleFormValues
+    handleFormValues,
+    handleStartDate
   };
 };

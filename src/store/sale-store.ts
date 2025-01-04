@@ -8,7 +8,7 @@ export interface ProductToSale extends SingleProductFromAPI {
   quantityToSale: number;
 }
 
-interface State {
+interface SaleState {
   termToSearch: string;
   productsToShow: SingleProductFromAPI[];
   productsToSale: ProductToSale[];
@@ -18,6 +18,7 @@ interface State {
   initial: number;
   frequency: "weekly" | "biweekly" | "full";
   interest: number;
+  startDate: string;
   setProducts: (products: SingleProductFromAPI[]) => void;
   addProduct: (product: SingleProductFromAPI) => void;
   updateProduct: (id: string, action: "sum" | "subtract") => void;
@@ -25,11 +26,13 @@ interface State {
   setTermToSearch: (term: string) => void;
   setClient: (client: IClient) => void;
   setCreateSaleDetails: (createSaleDTO: CreateSaleDetails) => void;
+  setStartDate: (startDate: string) => void;
 }
 
-export const useSaleStore = create<State>()(set => ({
+export const useSaleStore = create<SaleState>()(set => ({
   termToSearch: "",
   quotes: 0,
+  startDate: new Date().toISOString(),
   totalPrice: 0,
   initial: 0,
   frequency: "full",
@@ -104,5 +107,6 @@ export const useSaleStore = create<State>()(set => ({
       interest: Number(createSaleDTO.interest),
       initial: stringThousandToNumber(createSaleDTO.initial),
       frequency: createSaleDTO.frequency
-    }))
+    })),
+  setStartDate: startDate => set(state => ({ ...state, startDate }))
 }));

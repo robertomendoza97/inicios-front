@@ -11,7 +11,7 @@ interface Props {
 
 export const ProductCard = ({ product }: Props) => {
   return (
-    <div className="shadow-md bg-white p-5 rounded-lg flex flex-col items-center gap-2 border-paletteColor1 border relative">
+    <div className="shadow-md bg-white p-5 rounded-lg flex flex-col items-center gap-2 border-paletteColor1 border relative h-fit">
       <div className="bg-slate-100 flex items-center justify-center aspect-video w-full relative">
         {product.images.length > 0 ? (
           <Image
