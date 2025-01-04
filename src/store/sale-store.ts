@@ -1,16 +1,15 @@
 import { create } from "zustand";
 import { SingleProductFromAPI } from "../products";
 import { IClient } from "../clients";
-import {
-  CreateSaleDetails,
-  getSaleQuotes,
-  getTotalPriceOfSale,
-  QuotaToCreate
-} from "../sales";
-import { stringThousandToNumber } from "../utils";
+import { getSaleQuotes, getTotalPriceOfSale, QuotaToCreate } from "../sales";
 
 export interface ProductToSale extends SingleProductFromAPI {
   quantityToSale: number;
+}
+
+interface Data {
+  name: string;
+  value: string | number;
 }
 
 interface SaleState {
@@ -22,8 +21,9 @@ interface SaleState {
   quotes: number;
   initial: number;
   frequency: "weekly" | "biweekly" | "full";
-  interest: number;
+  monthlyInterest: number;
   startDate: string;
+  totalInterest: number;
   formattedQuotes: QuotaToCreate[];
   setProducts: (products: SingleProductFromAPI[]) => void;
   addProduct: (product: SingleProductFromAPI) => void;
@@ -31,7 +31,7 @@ interface SaleState {
   deleteProduct: (id: string) => void;
   setTermToSearch: (term: string) => void;
   setClient: (client: IClient) => void;
-  setCreateSaleDetails: (createSaleDTO: CreateSaleDetails) => void;
+  setCreateSaleDetails: (data: Data) => void;
   setStartDate: (startDate: string) => void;
   formatQuotes: () => void;
   reset: () => void;
@@ -40,12 +40,13 @@ interface SaleState {
 export const useSaleStore = create<SaleState>()(set => ({
   termToSearch: "",
   quotes: 0,
+  totalInterest: 0,
   formattedQuotes: [],
   startDate: new Date().toISOString(),
   totalPrice: 0,
   initial: 0,
   frequency: "full",
-  interest: 0,
+  monthlyInterest: 0,
   productsToShow: [],
   productsToSale: [],
   client: undefined,
@@ -109,13 +110,10 @@ export const useSaleStore = create<SaleState>()(set => ({
       };
     }),
   setClient: client => set(state => ({ ...state, client })),
-  setCreateSaleDetails: createSaleDTO =>
+  setCreateSaleDetails: data =>
     set(state => ({
       ...state,
-      quotes: Number(createSaleDTO.quotes),
-      interest: Number(createSaleDTO.interest),
-      initial: stringThousandToNumber(createSaleDTO.initial),
-      frequency: createSaleDTO.frequency
+      [data.name]: data.value
     })),
   setStartDate: startDate => set(state => ({ ...state, startDate })),
   formatQuotes: () =>
@@ -123,7 +121,7 @@ export const useSaleStore = create<SaleState>()(set => ({
       ...state,
       formattedQuotes: getSaleQuotes({
         frequency: state.frequency,
-        interest: state.interest,
+        interest: state.monthlyInterest,
         numberOfDates: state.quotes,
         startDate: state.startDate,
         total: getTotalPriceOfSale(state.productsToSale),
@@ -140,7 +138,7 @@ export const useSaleStore = create<SaleState>()(set => ({
       totalPrice: 0,
       initial: 0,
       frequency: "full",
-      interest: 0,
+      monthlyInterest: 0,
       productsToShow: [],
       productsToSale: [],
       client: undefined,

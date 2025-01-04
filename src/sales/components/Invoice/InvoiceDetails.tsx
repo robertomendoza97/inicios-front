@@ -5,7 +5,7 @@ import { Button, Datepicker, TextInput, Tooltip } from "flowbite-react";
 import { FaUserPlus } from "react-icons/fa6";
 import { QUOTES_MAPPER, SALES_LABELS } from "../../utils/const";
 import { IClient } from "@/src/clients";
-import { GENERAL_LABELS, PATHS } from "@/src/utils";
+import { formatNumberToPrice, GENERAL_LABELS, PATHS } from "@/src/utils";
 import { useInvoiceDetails } from "../../";
 import { useSaleStore } from "@/src/store/sale-store";
 import Link from "next/link";
@@ -15,6 +15,12 @@ interface Props {
 }
 export const InvoiceDetails = ({ clients }: Props) => {
   const client = useSaleStore(state => state.client);
+  const frequency = useSaleStore(state => state.frequency);
+
+  const interest = useSaleStore(state => state.monthlyInterest);
+  const initial = useSaleStore(state => state.initial);
+  const quotes = useSaleStore(state => state.quotes);
+
   const {
     clientsToShow,
     focus,
@@ -23,7 +29,6 @@ export const InvoiceDetails = ({ clients }: Props) => {
     setFocus,
     handleClient,
     handleFormValues,
-    formValues,
     handleStartDate
   } = useInvoiceDetails(clients);
 
@@ -48,10 +53,10 @@ export const InvoiceDetails = ({ clients }: Props) => {
               { key: "full", value: "Contado" }
             ]}
             onChange={handleFormValues}
-            value={formValues.frequency}
+            value={frequency}
           />
           <CustomSelect
-            disabled={formValues.frequency === "full"}
+            disabled={frequency === "full"}
             name={"interest"}
             label={SALES_LABELS.INTEREST}
             options={[
@@ -60,13 +65,13 @@ export const InvoiceDetails = ({ clients }: Props) => {
               { key: "0", value: "0" }
             ]}
             onChange={handleFormValues}
-            value={formValues.interest}
+            value={interest.toString()}
           />
         </div>
         <div className="flex gap-3">
           <CustomInput
-            disabled={formValues.frequency === "full"}
-            value={formValues.initial}
+            disabled={frequency === "full"}
+            value={formatNumberToPrice(initial)}
             label={SALES_LABELS.INITIAL}
             name={"initial"}
             type="number"
@@ -75,14 +80,12 @@ export const InvoiceDetails = ({ clients }: Props) => {
             onChange={handleFormValues}
           />
           <CustomSelect
-            disabled={formValues.frequency === "full"}
+            disabled={frequency === "full"}
             name={"quotes"}
             label={SALES_LABELS.QUOTES}
-            options={
-              QUOTES_MAPPER[formValues.frequency] || [{ key: "0", value: "0" }]
-            }
+            options={QUOTES_MAPPER[frequency] || [{ key: "0", value: "0" }]}
             onChange={handleFormValues}
-            value={formValues.quotes}
+            value={quotes.toString()}
           />
         </div>
       </div>
@@ -128,7 +131,7 @@ export const InvoiceDetails = ({ clients }: Props) => {
             min={minDateString}
             max={maxDateString}
             onChange={handleStartDate}
-            disabled={formValues.frequency === "full"}
+            disabled={frequency === "full"}
           />
         </Tooltip>
         <Button>

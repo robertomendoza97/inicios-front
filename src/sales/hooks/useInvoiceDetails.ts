@@ -11,19 +11,17 @@ export const useInvoiceDetails = (clients: IClient[]) => {
   const setClient = useSaleStore(state => state.setClient);
   const formatQuotes = useSaleStore(state => state.formatQuotes);
   const products = useSaleStore(state => state.productsToSale);
+  const frequency = useSaleStore(state => state.frequency);
+  const quotes = useSaleStore(state => state.quotes);
+  const interest = useSaleStore(state => state.monthlyInterest);
+  const startDate = useSaleStore(state => state.startDate);
+  const initial = useSaleStore(state => state.initial);
   const setStartDate = useSaleStore(state => state.setStartDate);
   const setCreateSaleDetails = useSaleStore(
     state => state.setCreateSaleDetails
   );
 
   const totalPrice = getTotalPriceOfSale(products);
-
-  const [formValues, setFormValues] = useState<CreateSaleDetails>({
-    frequency: "full",
-    interest: "",
-    initial: "",
-    quotes: ""
-  });
 
   const [termToSearch, setTermToSearch] = useState("");
   const [focus, setFocus] = useState(false);
@@ -32,7 +30,7 @@ export const useInvoiceDetails = (clients: IClient[]) => {
     if (name === "initial" && stringThousandToNumber(value) > totalPrice)
       return;
 
-    setFormValues({ ...formValues, [name]: value });
+    setCreateSaleDetails({ name: name, value: value });
   };
 
   const handleChangeTerm = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,24 +58,21 @@ export const useInvoiceDetails = (clients: IClient[]) => {
   };
 
   useEffect(() => {
-    if (formValues.frequency === "full") {
-      setFormValues({
-        frequency: "full",
-        initial: formatNumberToPrice(totalPrice),
-        interest: "0",
-        quotes: "0"
+    if (frequency === "full") {
+      setCreateSaleDetails({
+        name: "initial",
+        value: formatNumberToPrice(totalPrice)
       });
     } else {
-      setFormValues({ ...formValues, initial: "0" });
+      setCreateSaleDetails({ name: "initial", value: 0 });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValues.frequency, products]);
+  }, [frequency, products]);
 
   useEffect(() => {
-    setCreateSaleDetails(formValues);
     formatQuotes();
-  }, [formValues, setCreateSaleDetails]);
+  }, [frequency, quotes, initial, interest, startDate, products]);
 
   return {
     focus,
@@ -86,7 +81,6 @@ export const useInvoiceDetails = (clients: IClient[]) => {
     setFocus,
     termToSearch,
     handleClient,
-    formValues,
     handleFormValues,
     handleStartDate
   };

@@ -3,7 +3,7 @@ import { format, parse } from "@formkit/tempo";
 
 interface Props {
   date: string;
-  amount: number;
+  amount?: number;
   index: number;
 }
 
@@ -21,7 +21,7 @@ export const InvoiceQuota = ({ amount, date, index }: Props) => {
       <p>
         de:
         <span className="font-semibold ml-2">
-          {formatNumberToPrice(Number(amount.toFixed(2)), "$")}
+          {formatNumberToPrice(Number(amount!.toFixed(2)), "$")}
         </span>
       </p>
     </div>

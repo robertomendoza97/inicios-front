@@ -6,6 +6,25 @@ import {
 } from "../interfaces/createSaleDetails.interface";
 import { QuotaToCreate } from "../interfaces/saleToCreate.interface";
 
+interface TotalInterestArgs {
+  frequency: "biweekly" | "weekly" | "full";
+  quotaKey: string;
+}
+
+const getTotalInterestInPorcent = ({
+  frequency,
+  quotaKey
+}: TotalInterestArgs) => {
+  let totalInterest = 0;
+
+  if (frequency === "biweekly" && quotaKey in TOTAL_INTEREST.biweekly) {
+    TOTAL_INTEREST.biweekly[quotaKey as ValidBiweeklyQuotes];
+  } else if (frequency === "weekly" && quotaKey in TOTAL_INTEREST.weekly) {
+    totalInterest = TOTAL_INTEREST.weekly[quotaKey as ValidWeeklyQuotes];
+  }
+
+  return totalInterest;
+};
 interface Args {
   startDate: string;
   frequency: "biweekly" | "weekly" | "full";
@@ -14,6 +33,7 @@ interface Args {
   total: number;
   initial: number;
 }
+
 export const getSaleQuotes = ({
   startDate,
   frequency,

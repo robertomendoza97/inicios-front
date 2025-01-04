@@ -5,7 +5,6 @@ import { SALES_LABELS } from "../../utils/const";
 import { Tabs } from "flowbite-react";
 import { useSaleStore } from "@/src/store/sale-store";
 import { InvoiceSingleProduct } from "./InvoiceSingleProduct";
-import { getSaleQuotes, getTotalPriceOfSale } from "../../";
 import { InvoiceQuota } from "./InvoiceQuota";
 import { TbMoneybag } from "react-icons/tb";
 

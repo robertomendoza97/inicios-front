@@ -14,7 +14,7 @@ export const useSendSaleData = () => {
   const productsToSale = useSaleStore(state => state.productsToSale);
   const frequency = useSaleStore(state => state.frequency);
   const quotes = useSaleStore(state => state.quotes);
-  const interest = useSaleStore(state => state.interest);
+  const interest = useSaleStore(state => state.monthlyInterest);
   const initial = useSaleStore(state => state.initial);
   const formattedQuotes = useSaleStore(state => state.formattedQuotes);
   const reset = useSaleStore(state => state.reset);
@@ -69,8 +69,8 @@ export const useSendSaleData = () => {
       text: SALES_LABELS.NOTIFICATIONS.CREATION
     });
 
-    reset();
-    router.refresh();
+    // reset();
+    // router.refresh();
   };
 
   return { handleSubmit, loading };
