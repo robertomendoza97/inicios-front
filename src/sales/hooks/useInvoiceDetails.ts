@@ -13,7 +13,7 @@ export const useInvoiceDetails = (clients: IClient[]) => {
   const products = useSaleStore(state => state.productsToSale);
   const frequency = useSaleStore(state => state.frequency);
   const quotes = useSaleStore(state => state.quotes);
-  const interest = useSaleStore(state => state.monthlyInterest);
+  const monthlyInterest = useSaleStore(state => state.monthlyInterest);
   const startDate = useSaleStore(state => state.startDate);
   const initial = useSaleStore(state => state.initial);
   const setStartDate = useSaleStore(state => state.setStartDate);
@@ -30,7 +30,10 @@ export const useInvoiceDetails = (clients: IClient[]) => {
     if (name === "initial" && stringThousandToNumber(value) > totalPrice)
       return;
 
-    setCreateSaleDetails({ name: name, value: value });
+    setCreateSaleDetails({
+      name: name,
+      value: name === "frequency" ? value : stringThousandToNumber(value)
+    });
   };
 
   const handleChangeTerm = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +75,7 @@ export const useInvoiceDetails = (clients: IClient[]) => {
 
   useEffect(() => {
     formatQuotes();
-  }, [frequency, quotes, initial, interest, startDate, products]);
+  }, [frequency, quotes, initial, monthlyInterest, startDate, products]);
 
   return {
     focus,

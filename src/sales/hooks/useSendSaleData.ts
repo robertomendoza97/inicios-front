@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import { validateSaleData } from "../utils/validateSaleData";
 import { useSaleStore } from "@/src/store/sale-store";
 import { createSaleAction } from "../actions/serverActions";
-import { getSaleQuotesToSend } from "../utils/getSaleQuotes";
+import { getSaleQuotesToSend, getTotalInterest } from "../utils/getSaleQuotes";
 import { useNotificationStore } from "@/src/utils";
 import { SALES_LABELS } from "../utils/const";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ export const useSendSaleData = () => {
   const productsToSale = useSaleStore(state => state.productsToSale);
   const frequency = useSaleStore(state => state.frequency);
   const quotes = useSaleStore(state => state.quotes);
-  const interest = useSaleStore(state => state.monthlyInterest);
+  const monthlyInterest = useSaleStore(state => state.monthlyInterest);
   const initial = useSaleStore(state => state.initial);
   const formattedQuotes = useSaleStore(state => state.formattedQuotes);
   const reset = useSaleStore(state => state.reset);
@@ -42,7 +42,11 @@ export const useSendSaleData = () => {
     const { data, error } = await createSaleAction({
       client: client!.id,
       frequency,
-      interestRate: Number(interest),
+      interestRate: getTotalInterest({
+        frequency,
+        quotaKey: quotes.toString(),
+        interest: monthlyInterest
+      }),
       quotas: getSaleQuotesToSend({
         frequency: frequency,
         initial: initial,
@@ -69,8 +73,8 @@ export const useSendSaleData = () => {
       text: SALES_LABELS.NOTIFICATIONS.CREATION
     });
 
-    // reset();
-    // router.refresh();
+    reset();
+    router.refresh();
   };
 
   return { handleSubmit, loading };

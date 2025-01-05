@@ -1,3 +1,4 @@
+export { getTotalInterest } from "./utils/getSaleQuotes";
 export { useSendSaleData } from "./hooks/useSendSaleData";
 export { createSaleAction } from "./actions/serverActions";
 export type {

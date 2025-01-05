@@ -9,11 +9,13 @@ import { QuotaToCreate } from "../interfaces/saleToCreate.interface";
 interface TotalInterestArgs {
   frequency: "biweekly" | "weekly" | "full";
   quotaKey: string;
+  interest: number;
 }
 
-const getTotalInterestInPorcent = ({
+export const getTotalInterest = ({
   frequency,
-  quotaKey
+  quotaKey,
+  interest
 }: TotalInterestArgs) => {
   let totalInterest = 0;
 
@@ -23,8 +25,9 @@ const getTotalInterestInPorcent = ({
     totalInterest = TOTAL_INTEREST.weekly[quotaKey as ValidWeeklyQuotes];
   }
 
-  return totalInterest;
+  return interest * totalInterest;
 };
+
 interface Args {
   startDate: string;
   frequency: "biweekly" | "weekly" | "full";
@@ -59,24 +62,25 @@ export const getSaleQuotes = ({
 
       const quotaKey = numberOfDates.toString();
 
-      let totalInterest = 0;
+      let totalInterest =
+        (restOfPay * getTotalInterest({ frequency, quotaKey, interest })) / 100;
 
-      if (frequency === "biweekly" && quotaKey in TOTAL_INTEREST.biweekly) {
-        totalInterest =
-          (restOfPay *
-            Number(
-              interest *
-                TOTAL_INTEREST.biweekly[quotaKey as ValidBiweeklyQuotes]
-            )) /
-          100;
-      } else if (frequency === "weekly" && quotaKey in TOTAL_INTEREST.weekly) {
-        totalInterest =
-          (restOfPay *
-            Number(
-              interest * TOTAL_INTEREST.weekly[quotaKey as ValidWeeklyQuotes]
-            )) /
-          100;
-      }
+      // if (frequency === "biweekly" && quotaKey in TOTAL_INTEREST.biweekly) {
+      //   totalInterest =
+      //     (restOfPay *
+      //       Number(
+      //         interest *
+      //           TOTAL_INTEREST.biweekly[quotaKey as ValidBiweeklyQuotes]
+      //       )) /
+      //     100;
+      // } else if (frequency === "weekly" && quotaKey in TOTAL_INTEREST.weekly) {
+      //   totalInterest =
+      //     (restOfPay *
+      //       Number(
+      //         interest * TOTAL_INTEREST.weekly[quotaKey as ValidWeeklyQuotes]
+      //       )) /
+      //     100;
+      // }
 
       quotaAmount =
         Number(restOfPay / numberOfDates) +

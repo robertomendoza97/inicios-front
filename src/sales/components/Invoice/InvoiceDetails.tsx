@@ -57,7 +57,7 @@ export const InvoiceDetails = ({ clients }: Props) => {
           />
           <CustomSelect
             disabled={frequency === "full"}
-            name={"interest"}
+            name={"monthlyInterest"}
             label={SALES_LABELS.INTEREST}
             options={[
               { key: "10", value: "10%" },
