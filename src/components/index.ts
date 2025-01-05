@@ -1,3 +1,4 @@
+export { ReloadButton } from "./header/ReloadButton";
 export { Loading } from "./loading";
 export { CustomImage } from "./CustomImage";
 export { TABLE_COUNT_OPTIONS } from "./const";
@@ -14,6 +15,6 @@ export { CustomInput } from "./inputs/CustomInput";
 export { TableHeadCell } from "./table/TableHeadCell";
 export { Sidebar } from "./sidebar/Sidebar";
 export { SidebarMenuItem } from "./sidebar/SidebarMenuItem";
-export { Header } from "./Header";
+export { Header } from "./header";
 export { CustomTable } from "./table/CustomTable";
 export type { Column } from "./table/CustomTable";

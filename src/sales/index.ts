@@ -1,3 +1,9 @@
+export { formatAllSalesForTable } from "./utils/formatAllSalesForTable";
+
+export type {
+  AllSalesFromAPI,
+  SaleFromAPI
+} from "./interfaces/allSales.interface";
 export { getTotalInterest } from "./utils/getSaleQuotes";
 export { useSendSaleData } from "./hooks/useSendSaleData";
 export { createSaleAction } from "./actions/serverActions";
