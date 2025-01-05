@@ -1,7 +1,7 @@
 "use client";
 
 import { CustomInput, CustomSelect } from "@/src/components";
-import { Button, Datepicker, TextInput, Tooltip } from "flowbite-react";
+import { Button, TextInput, Tooltip } from "flowbite-react";
 import { FaUserPlus } from "react-icons/fa6";
 import { QUOTES_MAPPER, SALES_LABELS } from "../../utils/const";
 import { IClient } from "@/src/clients";

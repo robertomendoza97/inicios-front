@@ -2,8 +2,7 @@
 
 import { IClient } from "@/src/clients";
 import { useSaleStore } from "@/src/store/sale-store";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { CreateSaleDetails } from "../interfaces/createSaleDetails.interface";
+import { ChangeEvent, useEffect, useState } from "react";
 import { formatNumberToPrice, stringThousandToNumber } from "@/src/utils";
 import { getTotalPriceOfSale } from "../utils/getTotalPriceOfSale";
 
@@ -75,7 +74,15 @@ export const useInvoiceDetails = (clients: IClient[]) => {
 
   useEffect(() => {
     formatQuotes();
-  }, [frequency, quotes, initial, monthlyInterest, startDate, products]);
+  }, [
+    frequency,
+    quotes,
+    initial,
+    monthlyInterest,
+    startDate,
+    products,
+    formatQuotes
+  ]);
 
   return {
     focus,
