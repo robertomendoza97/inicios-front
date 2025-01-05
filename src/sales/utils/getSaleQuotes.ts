@@ -1,4 +1,4 @@
-import { parse, format } from "@formkit/tempo";
+import { parse } from "@formkit/tempo";
 import { TOTAL_INTEREST } from "./const";
 import {
   ValidWeeklyQuotes,
@@ -62,25 +62,8 @@ export const getSaleQuotes = ({
 
       const quotaKey = numberOfDates.toString();
 
-      let totalInterest =
+      const totalInterest =
         (restOfPay * getTotalInterest({ frequency, quotaKey, interest })) / 100;
-
-      // if (frequency === "biweekly" && quotaKey in TOTAL_INTEREST.biweekly) {
-      //   totalInterest =
-      //     (restOfPay *
-      //       Number(
-      //         interest *
-      //           TOTAL_INTEREST.biweekly[quotaKey as ValidBiweeklyQuotes]
-      //       )) /
-      //     100;
-      // } else if (frequency === "weekly" && quotaKey in TOTAL_INTEREST.weekly) {
-      //   totalInterest =
-      //     (restOfPay *
-      //       Number(
-      //         interest * TOTAL_INTEREST.weekly[quotaKey as ValidWeeklyQuotes]
-      //       )) /
-      //     100;
-      // }
 
       quotaAmount =
         Number(restOfPay / numberOfDates) +

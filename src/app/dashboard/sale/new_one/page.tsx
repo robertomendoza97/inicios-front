@@ -1,7 +1,6 @@
-import { IAllClients } from "@/src/clients";
 import { ErrorResponsePage } from "@/src/components";
 import { IProductsResponse } from "@/src/products";
-import { Invoice, ProductSection, SALES_LABELS } from "@/src/sales";
+import { Invoice, ProductSection } from "@/src/sales";
 import { customFetch } from "@/src/services/rest.service";
 
 const getProducts = async () => {

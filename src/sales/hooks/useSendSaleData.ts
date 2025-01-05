@@ -39,7 +39,7 @@ export const useSendSaleData = () => {
       return;
     setLoading(true);
 
-    const { data, error } = await createSaleAction({
+    const { error } = await createSaleAction({
       client: client!.id,
       frequency,
       interestRate: getTotalInterest({

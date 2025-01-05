@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth";
 import { LogoutButton } from "../LogoutButton";
-import { TfiReload } from "react-icons/tfi";
 import { ReloadButton } from "./ReloadButton";
 
 export const Header = async () => {

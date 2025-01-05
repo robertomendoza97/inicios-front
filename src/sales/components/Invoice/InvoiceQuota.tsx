@@ -1,5 +1,5 @@
 import { formatNumberToPrice } from "@/src/utils";
-import { format, parse } from "@formkit/tempo";
+import { format } from "@formkit/tempo";
 
 interface Props {
   date: string;
