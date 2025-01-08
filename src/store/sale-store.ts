@@ -9,7 +9,7 @@ export interface ProductToSale extends SingleProductFromAPI {
 
 interface Data {
   name: string;
-  value: string | number;
+  value: string | number | [];
 }
 
 interface SaleState {
@@ -23,7 +23,6 @@ interface SaleState {
   frequency: "weekly" | "biweekly" | "full";
   monthlyInterest: number;
   startDate: string;
-  totalInterest: number;
   formattedQuotes: QuotaToCreate[];
   setProducts: (products: SingleProductFromAPI[]) => void;
   addProduct: (product: SingleProductFromAPI) => void;
@@ -40,7 +39,6 @@ interface SaleState {
 export const useSaleStore = create<SaleState>()(set => ({
   termToSearch: "",
   quotes: 0,
-  totalInterest: 0,
   formattedQuotes: [],
   startDate: new Date().toISOString(),
   totalPrice: 0,

@@ -11,6 +11,7 @@ export interface ProductsToSale {
 
 export interface SaleToCreate {
   interestRate: number;
+  monthlyInterest: number;
   currency?: string;
   client: string;
   quotas: QuotaToCreate[];

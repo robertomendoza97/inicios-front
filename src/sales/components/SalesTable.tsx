@@ -32,6 +32,10 @@ const COLUMNS: Column[] = [
     name: "interes"
   },
   {
+    key: "rest",
+    name: "Restante"
+  },
+  {
     key: "saledBy",
     name: "vendido por",
     index: true
