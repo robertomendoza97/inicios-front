@@ -1,8 +1,5 @@
-import {
-  AllCategoriesResponse,
-  SingleCategory,
-  UpdateCategoryForm
-} from "@/src/categories";
+import { AllCategoriesResponse, UpdateCategoryForm } from "@/src/categories";
+import { customFetch } from "@/src/services/rest.service";
 
 interface Props {
   params: {
@@ -10,16 +7,20 @@ interface Props {
   };
 }
 
-const getCategory = async (id: number): Promise<SingleCategory> => {
-  const { data } = (await fetch(`${process.env.MY_DFS_HOST}/category`, {
+const getCategory = async (id: number) => {
+  const {
+    data: { data },
+    error,
+    success
+  } = await customFetch<AllCategoriesResponse>(`category`, {
     cache: "no-cache"
-  }).then(resp => resp.json())) as AllCategoriesResponse;
+  });
 
-  return data.filter(c => c.id === id)[0];
+  return { data: data.filter(c => c.id === id)[0], error, success };
 };
 
 const UpdateCategoryPage = async ({ params: { id } }: Props) => {
-  const categoryToUpdate = await getCategory(+id);
+  const { data: categoryToUpdate } = await getCategory(+id);
 
   return (
     <div className="w-full flex flex-col h-full items-center justify-center">

@@ -1,21 +1,20 @@
 import { CreateSubcategoryForm, SingleCategory } from "@/src/categories";
 import { ErrorResponsePage } from "@/src/components";
-import { CustomResponse } from "@/src/interfaces/CustomResponse";
+import { customFetch } from "@/src/services/rest.service";
 import React from "react";
 
-const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
-  try {
-    const resp = await fetch(`${process.env.MY_DFS_HOST}/category`, {
-      cache: "no-cache"
-    });
+const getCategories = async () => {
+  const {
+    data: { data },
+    error,
+    success
+  } = await customFetch<{
+    data: SingleCategory[];
+  }>("category", {
+    cache: "no-cache"
+  });
 
-    const { data } = await resp.json();
-
-    return { data, error: false, success: true };
-  } catch (error) {
-    console.log(error);
-    return { data: [], error: true, success: false };
-  }
+  return { data, error, success };
 };
 
 const SubcategoryPage = async () => {
