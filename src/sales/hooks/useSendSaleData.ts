@@ -42,14 +42,15 @@ export const useSendSaleData = () => {
     const { error } = await createSaleAction({
       client: client!.id,
       frequency,
+      monthlyInterest,
       interestRate: getTotalInterest({
         frequency,
         quotaKey: quotes.toString(),
         interest: monthlyInterest
       }),
       quotas: getSaleQuotesToSend({
-        frequency: frequency,
-        initial: initial,
+        frequency,
+        initial,
         quotes: formattedQuotes
       }),
       currency: "USD",

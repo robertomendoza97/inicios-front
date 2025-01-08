@@ -65,8 +65,24 @@ export const useInvoiceDetails = (clients: IClient[]) => {
         name: "initial",
         value: formatNumberToPrice(totalPrice)
       });
+      setCreateSaleDetails({
+        name: "quotes",
+        value: 0
+      });
+      setCreateSaleDetails({
+        name: "formattedQuotes",
+        value: []
+      });
+      setCreateSaleDetails({
+        name: "interest",
+        value: 0
+      });
     } else {
       setCreateSaleDetails({ name: "initial", value: 0 });
+      setCreateSaleDetails({
+        name: "quotes",
+        value: 0
+      });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

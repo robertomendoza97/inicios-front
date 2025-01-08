@@ -20,7 +20,7 @@ export const getTotalInterest = ({
   let totalInterest = 0;
 
   if (frequency === "biweekly" && quotaKey in TOTAL_INTEREST.biweekly) {
-    TOTAL_INTEREST.biweekly[quotaKey as ValidBiweeklyQuotes];
+    totalInterest = TOTAL_INTEREST.biweekly[quotaKey as ValidBiweeklyQuotes];
   } else if (frequency === "weekly" && quotaKey in TOTAL_INTEREST.weekly) {
     totalInterest = TOTAL_INTEREST.weekly[quotaKey as ValidWeeklyQuotes];
   }
