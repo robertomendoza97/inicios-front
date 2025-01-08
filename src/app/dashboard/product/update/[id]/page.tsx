@@ -1,45 +1,46 @@
 import { SingleCategory } from "@/src/categories";
 import { ErrorResponsePage } from "@/src/components";
-import { CustomResponse } from "@/src/interfaces/CustomResponse";
 import { OneProductDetails } from "@/src/products";
 import { UpdateProductForm } from "@/src/products/components/UpdateProductForm";
+import { customFetch } from "@/src/services/rest.service";
 
 interface Props {
   params: {
     id: string;
   };
 }
-const getCategories = async (): Promise<CustomResponse<SingleCategory[]>> => {
-  try {
-    const resp = await fetch(`${process.env.MY_DFS_HOST}/category`, {
-      cache: "no-cache"
-    });
-
-    const { data } = await resp.json();
-
-    return { data, error: false, success: true };
-  } catch (error) {
-    console.log(error);
-    return { data: [], error: true, success: false };
-  }
-};
-
-const getProductInformation = async (
-  id: string
-): Promise<OneProductDetails> => {
-  const resp = await fetch(`${process.env.MY_DFS_HOST}/product/${id}`, {
+const getCategories = async () => {
+  const {
+    data: { data },
+    error,
+    success
+  } = await customFetch<{
+    data: SingleCategory[];
+  }>("category", {
     cache: "no-cache"
   });
-  const data = await resp.json();
 
-  return data as OneProductDetails;
+  return { data, error, success };
+};
+
+const getProductInformation = async (id: string) => {
+  const { data, error, success } = await customFetch<OneProductDetails>(
+    `product/${id}`,
+    {
+      cache: "no-cache"
+    }
+  );
+
+  return { data, error, success };
 };
 
 const UpdateProductPage = async ({ params }: Props) => {
   const { data, error } = await getCategories();
-  const details = await getProductInformation(params.id);
+  const { data: details, error: productError } = await getProductInformation(
+    params.id
+  );
 
-  if (error) return <ErrorResponsePage />;
+  if (error || productError) return <ErrorResponsePage />;
 
   return (
     <div className="w-full flex flex-col h-full items-center justify-center">

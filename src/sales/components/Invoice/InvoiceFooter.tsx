@@ -27,7 +27,9 @@ export const InvoiceFooter = () => {
       >
         {SALES_LABELS.SALE}
       </Button>
-      <Button color="failure">{SALES_LABELS.CANCEL}</Button>
+      <Button color="failure" onClick={() => window.print()}>
+        {SALES_LABELS.CANCEL}
+      </Button>
     </form>
   );
 };

@@ -26,6 +26,7 @@ export const UpdateProductForm = ({
 }) => {
   const [modified, setModified] = useState(false);
   const router = useRouter();
+
   const updateProductData = useMemo(() => {
     return new UpdateProductDTO(details);
   }, [details]);
