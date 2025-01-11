@@ -5,40 +5,59 @@ import {
   uploadImages,
   useNotificationStore
 } from "@/src/utils";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { validateCreateClientData } from "../utils/validateCreateClientData";
+import { createClientAction } from "../actions/clientActions";
+import { setCookie } from "cookies-next";
+import { CLIENT_LABELS, COOKIE_CLIENT_IMAGES } from "../utils/const";
+import { ImagesToCreate } from "../interfaces/client-to-create.interface";
 
 const INITIAL_STATE = {
   name: "",
   lastName: "",
-  phone: "",
+  phoneNumber: "",
   countryCode: "",
   email: "",
   guarantor: "",
   workDirection: "",
-  referencePoint: ""
+  referencePoint: "",
+  profession: "",
+  idCard: ""
 };
 
-export const useCreateClientHook = () => {
+interface Props {
+  initialImages: ImagesToCreate[];
+}
+export const useCreateClientHook = ({ initialImages = [] }: Props) => {
   const [formValues, setFormValues] = useState(INITIAL_STATE);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<ImagesToCreate[]>(initialImages);
   const showNotification = useNotificationStore(
     state => state.showNotification
   );
+  const [loading, setLoading] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
 
   const [loadingImages, setLoadingImages] = useState(false);
 
   const handleAddImages = async ({
-    target: { files }
+    target: { files, name }
   }: ChangeEvent<HTMLInputElement>) => {
+    if (loadingImages) return;
+
     setLoadingImages(true);
 
-    const urls = await uploadImages(files, showNotification);
+    const urls = await uploadImages(files, showNotification, true, () =>
+      setLoadingImages(false)
+    );
 
     if (urls.length === 0) return;
 
     setLoadingImages(false);
 
-    setImages([...images, ...urls]);
+    setImages([
+      ...images,
+      ...urls.map(url => ({ url: url.url, type: name, name: url.name }))
+    ]);
   };
 
   const handleDeleteImages = async (url: string) => {
@@ -50,7 +69,7 @@ export const useCreateClientHook = () => {
       });
       await response.json();
 
-      const newImages = images.filter(image => image !== url);
+      const newImages = images.filter(image => image.url !== url);
 
       setImages(newImages);
     } catch (error) {
@@ -62,20 +81,65 @@ export const useCreateClientHook = () => {
   };
 
   const handleChange = (name: string, value: string) => {
+    if (name === "email") {
+      value = value.trim();
+    } else if (name === "countryCode") {
+      value = Number(value) ? value.slice(0, 3) : "";
+    }
+
     setFormValues({
       ...formValues,
       [name]: value
     });
   };
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!validateCreateClientData(formValues) || images.length < 2) {
+      setShowErrors(true);
+      return;
+    }
+
+    setLoading(true);
+
+    const { data, error, success } = await createClientAction({
+      ...formValues,
+      images
+    });
+
+    if (error) {
+      showNotification({
+        text: GENERAL_LABELS.ERRORS.NOTIFICATION_ERROR,
+        type: "error"
+      });
+    } else if (success && data) {
+      showNotification({
+        text: CLIENT_LABELS.NOTIFICATIONS.CLIENT_CREATED,
+        type: "success"
+      });
+      setFormValues(INITIAL_STATE);
+    }
+
+    setImages([]);
+    setLoading(false);
+    setShowErrors(false);
+  };
+
+  useEffect(() => {
+    setCookie(COOKIE_CLIENT_IMAGES, JSON.stringify(images));
+  }, [images]);
+
   return {
+    showErrors,
     formValues,
     images,
-    setFormValues,
     setImages,
     loadingImages,
     handleAddImages,
     handleDeleteImages,
-    handleChange
+    handleChange,
+    handleSubmit,
+    loading
   };
 };

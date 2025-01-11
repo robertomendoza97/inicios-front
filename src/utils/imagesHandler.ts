@@ -3,8 +3,10 @@ import { GENERAL_LABELS } from "./const";
 
 export const uploadImages = async (
   files: FileList | null,
-  showNotification: (notiInfo: NotificationInfo) => void
-): Promise<string[]> => {
+  showNotification: (notiInfo: NotificationInfo) => void,
+  withName?: boolean,
+  callback?: () => void
+) => {
   const urls = [];
   if (files) {
     for (const file of Array.from(files)) {
@@ -32,12 +34,14 @@ export const uploadImages = async (
           body: formData
         });
         const { url } = await response.json();
-        urls.push(url);
+
+        withName ? urls.push({ name: file.name, url }) : urls.push(url);
       } catch (error) {
         showNotification({
           type: "error",
           text: GENERAL_LABELS.IMAGES.ERROR.UPLOAD_IMAGE
         });
+        callback && callback();
       }
     }
   }
