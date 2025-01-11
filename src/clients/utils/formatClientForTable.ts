@@ -7,6 +7,6 @@ export const formatUserForTable = (clients: IClient[]) =>
     id: client.id,
     idCard: client.idCard,
     email: client.email,
-    phone: `+${client.countryCode} ${client.phoneNumber}`,
+    phone: `+${client.countryCode1} ${client.phoneNumber1}`,
     profession: client.profession
   }));

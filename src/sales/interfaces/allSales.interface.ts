@@ -21,10 +21,12 @@ export interface Client {
   id: string;
   name: string;
   lastName: string;
-  phoneNumber: string;
-  countryCode: string;
+  phoneNumber2: string;
+  phoneNumber1: string;
+  countryCode1: string;
+  countryCode2: string;
   email: string;
-  referencePoint: string;
+  homeDirection: string;
   profession: string;
   workDirection: string;
   idCard: string;

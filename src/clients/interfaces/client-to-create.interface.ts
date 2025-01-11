@@ -7,12 +7,14 @@ export interface ImagesToCreate {
 export interface IClientToCreate {
   name: string;
   lastName: string;
-  phoneNumber: string;
-  countryCode: string;
+  phoneNumber1: string;
+  countryCode1: string;
+  phoneNumber2: string;
+  countryCode2: string;
   email: string;
   guarantor: string;
   workDirection: string;
-  referencePoint: string;
+  homeDirection: string;
   profession: string;
   idCard: string;
 }

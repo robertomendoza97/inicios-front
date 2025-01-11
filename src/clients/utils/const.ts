@@ -1,13 +1,14 @@
 export const CLIENT_LABELS = {
   TITLE: "Clientes",
   NEW_CLIENT: "Nuevo cliente",
+  UPDATE_CLIENT: "Actualizar cliente",
   COLUMNS: {
     NAME: "Nombres",
     LAST_NAME: "Apellidos",
     GUARANTOR: "Aval",
     NUMBER: "# telefono",
     COUNTRY_CODE: "Codigo pais",
-    REFERENCE_POINT: "Punto de referencia",
+    HOME_DIRECTION: "Direccion de habitacion",
     PROFESSION: "Profesion",
     WORK_DIRECTION: "Direccion de trabajo",
     EMAIL: "Email",
