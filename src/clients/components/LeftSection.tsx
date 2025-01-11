@@ -7,8 +7,10 @@ interface Props {
   name: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
-  countryCode: string;
+  phoneNumber1: string;
+  countryCode1: string;
+  phoneNumber2: string;
+  countryCode2: string;
   profession: string;
   idCard: string;
   showErrors: boolean;
@@ -17,11 +19,13 @@ interface Props {
 
 export const LeftSection = ({
   name,
-  countryCode,
+  countryCode1,
+  countryCode2,
   email,
   lastName,
   handleChange,
-  phoneNumber,
+  phoneNumber1,
+  phoneNumber2,
   idCard,
   profession,
   showErrors
@@ -42,21 +46,24 @@ export const LeftSection = ({
         placeholder="yamal"
         onChange={handleChange}
       />
-      <CustomInput
-        value={idCard}
-        label={CLIENT_LABELS.COLUMNS.ID_CARD}
-        name={"idCard"}
-        type="number"
-        placeholder="21121121"
-        onChange={handleChange}
-      />
-      <CustomInput
-        value={profession}
-        label={CLIENT_LABELS.COLUMNS.PROFESSION}
-        name={"profession"}
-        placeholder="futbolista"
-        onChange={handleChange}
-      />
+
+      <div className="flex gap-4">
+        <CustomInput
+          value={idCard}
+          label={CLIENT_LABELS.COLUMNS.ID_CARD}
+          name={"idCard"}
+          type="number"
+          placeholder="21121121"
+          onChange={handleChange}
+        />
+        <CustomInput
+          value={profession}
+          label={CLIENT_LABELS.COLUMNS.PROFESSION}
+          name={"profession"}
+          placeholder="futbolista"
+          onChange={handleChange}
+        />
+      </div>
       <CustomInput
         value={email}
         label={CLIENT_LABELS.COLUMNS.EMAIL}
@@ -70,17 +77,37 @@ export const LeftSection = ({
       <div className="flex gap-4">
         <CustomInput
           type="number"
-          value={countryCode}
-          label={CLIENT_LABELS.COLUMNS.COUNTRY_CODE}
-          name={"countryCode"}
+          value={countryCode1}
+          label={`(1) ${CLIENT_LABELS.COLUMNS.COUNTRY_CODE}`}
+          name={"countryCode1"}
           placeholder="58"
           onChange={handleChange}
         />
         <CustomInput
           type="number"
-          value={phoneNumber}
+          value={phoneNumber1}
           label={CLIENT_LABELS.COLUMNS.NUMBER}
-          name={"phoneNumber"}
+          name={"phoneNumber1"}
+          min="7"
+          showErrorMessage={showErrors}
+          errorMessaje="Debe tener minimo 7 numeros."
+          onChange={handleChange}
+        />
+      </div>
+      <div className="flex gap-4">
+        <CustomInput
+          type="number"
+          value={countryCode2}
+          label={`(2) ${CLIENT_LABELS.COLUMNS.COUNTRY_CODE}`}
+          name={"countryCode2"}
+          placeholder="58"
+          onChange={handleChange}
+        />
+        <CustomInput
+          type="number"
+          value={phoneNumber2}
+          label={CLIENT_LABELS.COLUMNS.NUMBER}
+          name={"phoneNumber2"}
           min="7"
           showErrorMessage={showErrors}
           errorMessaje="Debe tener minimo 7 numeros."

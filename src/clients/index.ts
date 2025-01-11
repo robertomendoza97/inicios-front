@@ -1,3 +1,4 @@
+export { UpdateClientForm } from "./components/UpdateClientForm";
 export { createClientAction } from "./actions/clientActions";
 export { validateCreateClientData } from "./utils/validateCreateClientData";
 export type {

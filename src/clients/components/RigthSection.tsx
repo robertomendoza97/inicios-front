@@ -16,7 +16,7 @@ interface Props {
   handleChange: (name: string, value: string) => void;
   guarantor: string;
   workDirection: string;
-  referencePoint: string;
+  homeDirection: string;
 }
 
 export const RigthSection = ({
@@ -28,7 +28,7 @@ export const RigthSection = ({
   handleChange,
   guarantor,
   workDirection,
-  referencePoint
+  homeDirection
 }: Props) => {
   const idCardImages = images.filter(i => i.type === "idCard");
   const clientImages = images.filter(i => i.type === "client");
@@ -54,14 +54,13 @@ export const RigthSection = ({
         rows={2}
       />
       <CustomInput
-        label={CLIENT_LABELS.COLUMNS.REFERENCE_POINT}
-        name="referencePoint"
+        label={CLIENT_LABELS.COLUMNS.HOME_DIRECTION}
+        name="homeDirection"
         onChange={handleChange}
-        value={referencePoint}
+        value={homeDirection}
         textArea
         rows={2}
       />
-
       <div className="grow flex flex-col">
         <div className="font-medium text-sm">{CLIENT_LABELS.CLIENT_PHOTO}</div>
         <div className="flex flex-wrap items-center gap-5 overflow-y-auto relative grow mb-2">

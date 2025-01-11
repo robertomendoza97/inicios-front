@@ -15,12 +15,14 @@ import { ImagesToCreate } from "../interfaces/client-to-create.interface";
 const INITIAL_STATE = {
   name: "",
   lastName: "",
-  phoneNumber: "",
-  countryCode: "",
+  phoneNumber1: "",
+  countryCode1: "",
+  phoneNumber2: "",
+  countryCode2: "",
   email: "",
   guarantor: "",
   workDirection: "",
-  referencePoint: "",
+  homeDirection: "",
   profession: "",
   idCard: ""
 };
@@ -83,7 +85,7 @@ export const useCreateClientHook = ({ initialImages = [] }: Props) => {
   const handleChange = (name: string, value: string) => {
     if (name === "email") {
       value = value.trim();
-    } else if (name === "countryCode") {
+    } else if (name.includes("countryCode")) {
       value = Number(value) ? value.slice(0, 3) : "";
     }
 
@@ -96,12 +98,14 @@ export const useCreateClientHook = ({ initialImages = [] }: Props) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!validateCreateClientData(formValues) || images.length < 2) {
+    if (!validateCreateClientData(formValues)) {
       setShowErrors(true);
       return;
     }
 
     setLoading(true);
+
+    console.log(formValues);
 
     const { data, error, success } = await createClientAction({
       ...formValues,

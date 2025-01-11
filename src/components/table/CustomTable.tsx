@@ -127,7 +127,7 @@ export const CustomTable = ({ column, data, title, path }: Props) => {
                   ))}
                   {data.length === 0 && (
                     <Table.Row className="p-5 text-base text-center w-full">
-                      <Table.Cell colSpan={6}>
+                      <Table.Cell colSpan={column.length}>
                         {GENERAL_LABELS.TABLES.NO_DATA}
                       </Table.Cell>
                     </Table.Row>

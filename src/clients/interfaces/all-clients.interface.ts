@@ -2,9 +2,10 @@ export interface IClient {
   id: string;
   name: string;
   lastName: string;
-  phoneNumber: string;
+  phoneNumber1: string;
+  phoneNumber2: string;
   email: string;
-  referencePoint: string;
+  homeDirection: string;
   profession: string;
   workDirection: string;
   guarantor: string;
@@ -12,7 +13,8 @@ export interface IClient {
   createdAt: string;
   updatedAt: string;
   deletedAt: string;
-  countryCode: string;
+  countryCode1: string;
+  countryCode2: string;
   idCard: string;
 }
 

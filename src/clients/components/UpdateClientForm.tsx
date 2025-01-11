@@ -15,9 +15,10 @@ import { GENERAL_LABELS } from "@/src/utils";
 interface Props {
   clients: IClient[];
   initialImages: ImagesToCreate[];
+  client: IClient;
 }
 
-export const CreateClientForm = ({ clients, initialImages }: Props) => {
+export const UpdateClientForm = ({ clients, initialImages }: Props) => {
   const {
     formValues,
     handleAddImages,
@@ -35,7 +36,7 @@ export const CreateClientForm = ({ clients, initialImages }: Props) => {
       onSubmit={handleSubmit}
       className="shadow-lg rounded-sm border border-gray-200 max-w-[90%] p-6 bg-white flex gap-3 flex-col overflow-auto items-center grow max-h-[90%]"
     >
-      <h2 className="text-3xl font-semibold">{CLIENT_LABELS.NEW_CLIENT}</h2>
+      <h2 className="text-3xl font-semibold">{CLIENT_LABELS.UPDATE_CLIENT}</h2>
       <div className="flex w-full gap-4 mb-4">
         <LeftSection
           handleChange={handleChange}
@@ -65,7 +66,7 @@ export const CreateClientForm = ({ clients, initialImages }: Props) => {
       </div>
       <Button
         className={`w-full ${
-          loading || !validateCreateClientData(formValues)
+          loading || !validateCreateClientData(formValues) || images.length < 2
             ? "opacity-50 cursor-not-allowed"
             : ""
         }`}
