@@ -19,13 +19,13 @@ export default async function DashboardLayout({
   return (
     <Provider>
       <Flowbite theme={{ theme: customTheme }}>
-        <div className="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased relative text-slate-300 selection:bg-blue-600 selection:text-white">
+        <div className="bg-slate-100 overflow-y-auto w-screen h-screen antialiased relative text-slate-300 selection:bg-blue-600 selection:text-white">
           <Modal />
           <div className="flex">
             <Sidebar />
-            <div className="text-slate-900 w-full relative flex flex-col h-screen overflow-y-scroll">
+            <div className="text-slate-900 w-full relative flex flex-col h-screen overflow-y-auto">
               <Header />
-              <div className="flex-grow overflow-y-scroll relative overflow-x-hidden">
+              <div className="flex-grow overflow-y-auto relative overflow-x-hidden">
                 <Notifications />
                 <Suspense fallback={<GlobalLoading />}>{children}</Suspense>
               </div>

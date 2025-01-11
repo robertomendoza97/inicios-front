@@ -29,11 +29,14 @@ interface Props {
   min?: string;
   disabled?: boolean;
   dataId?: string;
+  rows?: number;
+  isEmail?: boolean;
   onFocus?: () => void;
   onBlur?: () => void;
 }
 
 const MyInput = ({
+  rows,
   placeholder = "",
   value,
   type = "text",
@@ -49,6 +52,7 @@ const MyInput = ({
   max,
   disabled,
   dataId,
+  isEmail,
   onFocus,
   onBlur,
   min
@@ -65,15 +69,26 @@ const MyInput = ({
         !textArea
       ) {
         setIsValid(false);
+      } else if (
+        isEmail &&
+        !value.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+      ) {
+        setIsValid(false);
       } else if (textArea && value.trim().split(" ").length < 5) {
         setIsValid(false);
       } else if (thousandFormat && type === "number" && value === "") {
+        setIsValid(false);
+      } else if (
+        min &&
+        type === "number" &&
+        Number(value.length) < Number(min)
+      ) {
         setIsValid(false);
       } else {
         setIsValid(true);
       }
     }
-  }, [showErrorMessage, textArea, thousandFormat, type, value]);
+  }, [showErrorMessage, textArea, thousandFormat, type, value, isEmail, min]);
 
   const middlewareOnChange = ({
     target
@@ -125,6 +140,7 @@ const MyInput = ({
       <Label htmlFor={id}>{label}</Label>
       {textArea ? (
         <Textarea
+          rows={rows}
           onBlur={onBlur}
           data-id={dataId}
           id={id}
@@ -133,7 +149,7 @@ const MyInput = ({
           name={name}
           onChange={middlewareOnChange}
           value={valueFormat(value)}
-          className="max-h-32 min-h-14"
+          className="max-h-32 min-h-14 resize-none"
           helperText={!isValid && <CustomError message={errorMessaje || ""} />}
           disabled={disabled}
         />

@@ -1,16 +1,18 @@
 import { CustomInput } from "@/src/components";
-import React, { Dispatch, SetStateAction } from "react";
-import { CLIENTS_TABLE_LABELS } from "../utils/const";
-import { IClientToCreate } from "../";
+import React from "react";
+import { CLIENT_LABELS } from "../utils/const";
+import { GENERAL_LABELS } from "@/src/utils";
 
 interface Props {
   name: string;
   lastName: string;
   email: string;
-  phone: string;
+  phoneNumber: string;
   countryCode: string;
+  profession: string;
+  idCard: string;
+  showErrors: boolean;
   handleChange: (name: string, value: string) => void;
-  setFormValues: Dispatch<SetStateAction<IClientToCreate>>;
 }
 
 export const LeftSection = ({
@@ -19,45 +21,72 @@ export const LeftSection = ({
   email,
   lastName,
   handleChange,
-  phone
+  phoneNumber,
+  idCard,
+  profession,
+  showErrors
 }: Props) => {
   return (
-    <div className="grow flex flex-col gap-5 w-1/2">
+    <div className="grow flex flex-col gap-4 w-1/2">
       <CustomInput
         value={name}
-        label={CLIENTS_TABLE_LABELS.COLUMNS.NAME}
+        label={CLIENT_LABELS.COLUMNS.NAME}
         name={"name"}
         placeholder="lamine"
         onChange={handleChange}
       />
       <CustomInput
         value={lastName}
-        label={CLIENTS_TABLE_LABELS.COLUMNS.LAST_NAME}
+        label={CLIENT_LABELS.COLUMNS.LAST_NAME}
         name={"lastName"}
         placeholder="yamal"
         onChange={handleChange}
       />
       <CustomInput
+        value={idCard}
+        label={CLIENT_LABELS.COLUMNS.ID_CARD}
+        name={"idCard"}
+        type="number"
+        placeholder="21121121"
+        onChange={handleChange}
+      />
+      <CustomInput
+        value={profession}
+        label={CLIENT_LABELS.COLUMNS.PROFESSION}
+        name={"profession"}
+        placeholder="futbolista"
+        onChange={handleChange}
+      />
+      <CustomInput
         value={email}
-        label={CLIENTS_TABLE_LABELS.COLUMNS.EMAIL}
+        label={CLIENT_LABELS.COLUMNS.EMAIL}
         name={"email"}
+        isEmail
+        showErrorMessage={showErrors}
+        errorMessaje={GENERAL_LABELS.ERRORS.EMAIL_ERROR}
         placeholder="correo@correo.com"
         onChange={handleChange}
       />
-      <CustomInput
-        value={countryCode}
-        label={CLIENTS_TABLE_LABELS.COLUMNS.COUNTRY_CODE}
-        name={"countryCode"}
-        placeholder="58"
-        onChange={handleChange}
-      />
-      <CustomInput
-        type="number"
-        value={phone}
-        label={CLIENTS_TABLE_LABELS.COLUMNS.NUMBER}
-        name={"phone"}
-        onChange={handleChange}
-      />
+      <div className="flex gap-4">
+        <CustomInput
+          type="number"
+          value={countryCode}
+          label={CLIENT_LABELS.COLUMNS.COUNTRY_CODE}
+          name={"countryCode"}
+          placeholder="58"
+          onChange={handleChange}
+        />
+        <CustomInput
+          type="number"
+          value={phoneNumber}
+          label={CLIENT_LABELS.COLUMNS.NUMBER}
+          name={"phoneNumber"}
+          min="7"
+          showErrorMessage={showErrors}
+          errorMessaje="Debe tener minimo 7 numeros."
+          onChange={handleChange}
+        />
+      </div>
     </div>
   );
 };

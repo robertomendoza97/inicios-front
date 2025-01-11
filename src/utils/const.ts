@@ -30,7 +30,8 @@ export const GENERAL_LABELS = {
     NO_DATA: "No existen registros para mostrar"
   },
   ERRORS: {
-    NOTIFICATION_ERROR: "Ocurrio un error al aplicar los cambios."
+    NOTIFICATION_ERROR: "Ocurrio un error al aplicar los cambios.",
+    EMAIL_ERROR: "Debes agregar un correo valido."
   },
   C_U: "C/U",
   NO_COINCIDENCE: "No hay coincidencias."
