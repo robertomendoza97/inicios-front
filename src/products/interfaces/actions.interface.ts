@@ -5,5 +5,8 @@ export interface CreateActionInterface {
 }
 
 export interface UpdateActionInterface {
-  (id: string, data: ProductToCreate): Promise<OneProductDetails>;
+  (id: string, data: ProductToCreate): Promise<{
+    data: OneProductDetails;
+    error: boolean;
+  }>;
 }

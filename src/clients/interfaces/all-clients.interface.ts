@@ -1,3 +1,5 @@
+import { ImagesToCreate } from "./client-to-create.interface";
+
 export interface IClient {
   id: string;
   name: string;
@@ -9,13 +11,14 @@ export interface IClient {
   profession: string;
   workDirection: string;
   guarantor: string;
-  avalados: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
+  avalados?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string;
   countryCode1: string;
   countryCode2: string;
   idCard: string;
+  images: ImagesToCreate[];
 }
 
 export interface IAllClients {

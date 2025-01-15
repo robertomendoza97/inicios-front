@@ -18,7 +18,8 @@ export const PATHS = {
   },
   CLIENTS: {
     MAIN: "/dashboard/clients",
-    NEW_ONE: "/dashboard/client/new_one"
+    NEW_ONE: "/dashboard/client/new_one",
+    UPDATE: "/dashboard/client/update/"
   },
   SALES: {
     MAIN: "/dashboard/sales",

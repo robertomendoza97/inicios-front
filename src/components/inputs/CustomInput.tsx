@@ -63,7 +63,9 @@ const MyInput = ({
 
   const validateValue = useCallback(() => {
     if (showErrorMessage) {
-      if (
+      if (!value) {
+        setIsValid(false);
+      } else if (
         !thousandFormat &&
         (value.trim() === "" || value.trim().length < 4) &&
         !textArea
@@ -71,7 +73,9 @@ const MyInput = ({
         setIsValid(false);
       } else if (
         isEmail &&
-        !value.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+        !value.match(
+          /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/
+        )
       ) {
         setIsValid(false);
       } else if (textArea && value.trim().split(" ").length < 5) {
@@ -108,12 +112,14 @@ const MyInput = ({
   };
 
   const valueFormat = (value: string) => {
-    if (thousandFormat && value.toString().length > 1) {
-      value = formatNumberToPrice(value);
-    }
+    if (!!value) {
+      if (thousandFormat && value.toString().length > 1) {
+        value = formatNumberToPrice(value);
+      }
 
-    if (type === "number" && !allowDecimals) {
-      value = value.split(",")[0];
+      if (type === "number" && !allowDecimals) {
+        value = value.split(",")[0];
+      }
     }
 
     return value;

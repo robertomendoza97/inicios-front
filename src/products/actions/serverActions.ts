@@ -23,7 +23,7 @@ export const updateProductAction = async (
   id: string,
   body: ProductToCreate
 ) => {
-  const { data } = await customFetch<OneProductDetails>(
+  const { data, error } = await customFetch<OneProductDetails>(
     `product/${id}`,
     {
       method: "PATCH",
@@ -35,5 +35,5 @@ export const updateProductAction = async (
     {} as OneProductDetails
   );
 
-  return data;
+  return { data, error };
 };
