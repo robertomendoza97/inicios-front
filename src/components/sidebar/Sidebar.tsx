@@ -12,7 +12,7 @@ import CompanyLogoIcon from "@/src/public/svg/logo";
 import Link from "next/link";
 import { PATHS } from "@/src/utils";
 import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 
 const menuOptions = [
@@ -52,6 +52,17 @@ const menuOptions = [
 
 export const Sidebar = () => {
   const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const data = await fetch(`/api/getOS`);
+      const data2 = await data.json();
+
+      if (data2.name !== "Mac OS") {
+        document.body.classList.add("scroll-custom");
+      }
+    })();
+  }, []);
 
   return (
     <div
