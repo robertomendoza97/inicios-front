@@ -33,7 +33,6 @@ export const useCreateProductFormHook = (
   const [imagesToDeleteWhenUpdate, setImagesToDeleteWhenUpdate] = useState<
     string[]
   >([]);
-
   const [loadingImages, setLoadingImages] = useState(false);
   const [images, setImages] = useState<string[]>(initialImages);
   const [formValues, setFormValues] =
@@ -82,7 +81,16 @@ export const useCreateProductFormHook = (
         });
       }
     } else if (type === "update" && id) {
-      await (action as UpdateActionInterface)(id, objToSend);
+      const { error } = await (action as UpdateActionInterface)(id, objToSend);
+
+      if (error) {
+        showNotification({
+          text: GENERAL_LABELS.ERRORS.NOTIFICATION_ERROR,
+          type: "error"
+        });
+        setLoading(false);
+        return;
+      }
 
       for (const imageToDelete of imagesToDeleteWhenUpdate) {
         const key = imageToDelete.split(".com/")[1];

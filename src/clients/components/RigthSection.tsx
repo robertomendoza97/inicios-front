@@ -63,7 +63,7 @@ export const RigthSection = ({
       />
       <div className="grow flex flex-col">
         <div className="font-medium text-sm">{CLIENT_LABELS.CLIENT_PHOTO}</div>
-        <div className="flex flex-wrap items-center gap-5 overflow-y-auto relative grow mb-2">
+        <div className="flex flex-nowrap items-center gap-5 overflow-x-auto relative grow mb-2">
           {loadingImages && (
             <div className="absolute top-0 left-0 w-full h-full bg-paletteColor5 opacity-50 rounded flex justify-center items-center z-20">
               {GENERAL_LABELS.IMAGES.UPLOADING}
@@ -74,7 +74,7 @@ export const RigthSection = ({
           )}
           {clientImages.map(image => (
             <div
-              className="border border-paletteColor1 rounded-full px-3 flex items-center gap-2 overflow-x-auto flex-nowrap"
+              className="border flex-shrink-0 border-paletteColor1 rounded-full px-3 flex items-center gap-2 overflow-x-auto flex-nowrap"
               key={image.url}
             >
               <span className="whitespace-nowrap text-sm">{image.name}</span>
@@ -101,7 +101,7 @@ export const RigthSection = ({
       </div>
       <div className="grow flex flex-col">
         <div className="font-medium text-sm">{CLIENT_LABELS.ID_PHOTO}</div>
-        <div className="flex flex-wrap gap-5 overflow-y-auto relative grow mb-2">
+        <div className="flex flex-nowrap gap-5 overflow-y-auto relative grow mb-2">
           {loadingImages && (
             <div className="absolute top-0 left-0 w-full h-full bg-paletteColor5 opacity-50 rounded flex justify-center items-center z-20">
               {GENERAL_LABELS.IMAGES.UPLOADING}
@@ -112,7 +112,7 @@ export const RigthSection = ({
           )}
           {idCardImages.map(image => (
             <div
-              className="border border-paletteColor1 rounded-full px-3 flex items-center gap-2 overflow-x-auto flex-nowrap"
+              className="border flex-shrink-0 border-paletteColor1 rounded-full px-3 flex items-center gap-2 overflow-x-auto flex-nowrap"
               key={image.url}
             >
               <span className="whitespace-nowrap">{image.name}</span>

@@ -5,7 +5,7 @@ export const CLIENT_LABELS = {
   COLUMNS: {
     NAME: "Nombres",
     LAST_NAME: "Apellidos",
-    GUARANTOR: "Aval",
+    GUARANTOR: "Fiador",
     NUMBER: "# telefono",
     COUNTRY_CODE: "Codigo pais",
     HOME_DIRECTION: "Direccion de habitacion",
@@ -18,8 +18,13 @@ export const CLIENT_LABELS = {
   ID_PHOTO: "Fotos de cedula:",
   NO_PHOTO: "Sin fotos.",
   NOTIFICATIONS: {
-    CLIENT_CREATED: "Cliente creado con exito."
+    CLIENT_CREATED: "Cliente creado con exito.",
+    CLIENT_UPDATED: "Cliente actualizado con exito."
   }
 };
 
 export const COOKIE_CLIENT_IMAGES = "clientImagesCookie";
+
+export const COOKIE_UPDATE_CLIENT_IMAGES = "updateClientImagesCookie";
+export const COOKIE_UPDATE_CLIENT_DELETE_IMAGES =
+  "updateClientDeleteImagesCookie";

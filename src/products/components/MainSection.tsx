@@ -147,10 +147,9 @@ export const MainSection = ({
         />
         <CustomInput
           showErrorMessage={showErrors}
-          type="number"
           placeholder={CREATE_PRODUCT_LABELS.PLACEHOLDER.BAR_CODE}
           label={CREATE_PRODUCT_LABELS.BAR_CODE}
-          value={formValues.barCode}
+          value={formValues.barCode.toUpperCase()}
           name="barCode"
           onChange={handleChange}
         />

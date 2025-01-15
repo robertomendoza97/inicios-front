@@ -69,7 +69,6 @@ export const CreateProductForm = ({
           categories={categories}
         />
         <Divider vertical />
-
         <div className="flex flex-col max-h-full overflow-y-auto">
           <PropertiesSection
             properties={properties}

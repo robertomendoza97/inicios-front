@@ -1,12 +1,13 @@
 "use client";
 
-import { Button } from "flowbite-react";
+import { Button, Spinner } from "flowbite-react";
 import {
   IClient,
   CLIENT_LABELS,
   useCreateClientHook,
   validateCreateClientData,
-  ImagesToCreate
+  ImagesToCreate,
+  createClientAction
 } from "../";
 import { LeftSection } from "./LeftSection";
 import { RigthSection } from "./RigthSection";
@@ -28,7 +29,11 @@ export const CreateClientForm = ({ clients, initialImages }: Props) => {
     handleSubmit,
     loading,
     showErrors
-  } = useCreateClientHook({ initialImages });
+  } = useCreateClientHook({
+    initialImages,
+    action: createClientAction,
+    type: "create"
+  });
 
   return (
     <form
@@ -71,7 +76,7 @@ export const CreateClientForm = ({ clients, initialImages }: Props) => {
         }`}
         type="submit"
       >
-        {GENERAL_LABELS.SEND}
+        {loading ? <Spinner /> : GENERAL_LABELS.SEND}
       </Button>
     </form>
   );

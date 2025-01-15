@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { CustomResponse } from "../interfaces/CustomResponse";
+import { CustomResponse, ErrorCustom } from "../interfaces/CustomResponse";
 import { authOptions } from "../auth";
 import { PATHS } from "../utils";
 
@@ -37,7 +37,8 @@ export const customFetch = async <T>(
     );
 
     if (!response.ok) {
-      console.log(await response.json());
+      const resp = await response.json();
+      console.log(resp);
 
       if (response.status === 401) {
         mustRedirect = true;
@@ -46,7 +47,8 @@ export const customFetch = async <T>(
       return {
         data: initialValue as T,
         error: true,
-        success: true
+        success: true,
+        message: (resp as ErrorCustom).message
       };
     }
 
@@ -56,7 +58,12 @@ export const customFetch = async <T>(
   } catch (error) {
     console.log(error);
 
-    return { data: initialValue as T, error: true, success: false };
+    return {
+      data: initialValue as T,
+      error: true,
+      success: false,
+      message: (error as ErrorCustom).message
+    };
   } finally {
     if (mustRedirect) {
       redirect(PATHS.SIGNIN);
