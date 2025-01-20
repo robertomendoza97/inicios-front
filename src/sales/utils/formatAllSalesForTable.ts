@@ -16,12 +16,14 @@ export const formatAllSalesForTable = (sales: SaleFromAPI[]) => {
 
   return sales.map(s => ({
     id: s.id,
+    quotes: s.quotes,
     frequency: FREQUENCYS[s.frequency],
     date: format(s.createdAt, "DD/MM/YYYY"),
     saleTo: getSimpleName(s.client.name, s.client.lastName),
     state: STATES[s.state],
     totalAmount: formatNumberToPrice(s.total_amount, "$"),
-    interestRate: s.interestRate,
+    initial: formatNumberToPrice(s.initial, "$") || 0,
+    rest: formatNumberToPrice(s.rest, "$") || 0,
     saledBy: getSimpleName(s.createdBy.name, s.createdBy.last_name)
   }));
 };

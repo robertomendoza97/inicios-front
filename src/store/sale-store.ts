@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { SingleProductFromAPI } from "../products";
 import { IClient } from "../clients";
 import { getSaleQuotes, getTotalPriceOfSale, QuotaToCreate } from "../sales";
+import { stringThousandToNumber } from "../utils";
 
 export interface ProductToSale extends SingleProductFromAPI {
   quantityToSale: number;
@@ -19,7 +20,7 @@ interface SaleState {
   allProducts: SingleProductFromAPI[];
   client?: IClient;
   quotes: number;
-  initial: number;
+  initial: string;
   frequency: "weekly" | "biweekly" | "full";
   monthlyInterest: number;
   startDate: string;
@@ -42,7 +43,7 @@ export const useSaleStore = create<SaleState>()(set => ({
   formattedQuotes: [],
   startDate: new Date().toISOString(),
   totalPrice: 0,
-  initial: 0,
+  initial: "0",
   frequency: "full",
   monthlyInterest: 0,
   productsToShow: [],
@@ -123,7 +124,7 @@ export const useSaleStore = create<SaleState>()(set => ({
         numberOfDates: state.quotes,
         startDate: state.startDate,
         total: getTotalPriceOfSale(state.productsToSale),
-        initial: state.initial
+        initial: stringThousandToNumber(state.initial)
       })
     })),
   reset: () =>
@@ -134,7 +135,7 @@ export const useSaleStore = create<SaleState>()(set => ({
       formattedQuotes: [],
       startDate: new Date().toISOString(),
       totalPrice: 0,
-      initial: 0,
+      initial: "0",
       frequency: "full",
       monthlyInterest: 0,
       productsToShow: [],

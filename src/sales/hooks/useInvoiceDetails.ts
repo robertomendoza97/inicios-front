@@ -31,7 +31,10 @@ export const useInvoiceDetails = (clients: IClient[]) => {
 
     setCreateSaleDetails({
       name: name,
-      value: name === "frequency" ? value : stringThousandToNumber(value)
+      value:
+        name === "frequency" || name === "initial"
+          ? value
+          : stringThousandToNumber(value)
     });
   };
 
@@ -78,7 +81,7 @@ export const useInvoiceDetails = (clients: IClient[]) => {
         value: 0
       });
     } else {
-      setCreateSaleDetails({ name: "initial", value: 0 });
+      setCreateSaleDetails({ name: "initial", value: "0" });
       setCreateSaleDetails({
         name: "quotes",
         value: 0
