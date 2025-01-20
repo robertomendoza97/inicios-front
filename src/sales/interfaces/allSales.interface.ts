@@ -6,15 +6,15 @@ export interface SaleFromAPI {
   id: string;
   total_amount: number;
   state: string;
-  interestRate: number;
-  currency: Currency;
   frequency: string;
   createdAt: Date;
+  initial: number;
+  quotes: number;
   updateAt: Date;
-  deletedAt: null;
   client: Client;
   saleCollections: SaleCollection[];
   createdBy: CreatedBy;
+  rest: number;
 }
 
 export interface Client {

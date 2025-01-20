@@ -5,7 +5,7 @@ import { validateSaleData } from "../utils/validateSaleData";
 import { useSaleStore } from "@/src/store/sale-store";
 import { createSaleAction } from "../actions/serverActions";
 import { getSaleQuotesToSend, getTotalInterest } from "../utils/getSaleQuotes";
-import { useNotificationStore } from "@/src/utils";
+import { stringThousandToNumber, useNotificationStore } from "@/src/utils";
 import { SALES_LABELS } from "../utils/const";
 import { useRouter } from "next/navigation";
 
@@ -50,7 +50,7 @@ export const useSendSaleData = () => {
       }),
       quotas: getSaleQuotesToSend({
         frequency,
-        initial,
+        initial: stringThousandToNumber(initial),
         quotes: formattedQuotes
       }),
       currency: "USD",

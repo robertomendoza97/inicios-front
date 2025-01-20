@@ -5,6 +5,7 @@ import { FileInput } from "flowbite-react";
 import { GENERAL_LABELS } from "@/src/utils";
 import { ChangeEvent } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import Link from "next/link";
 
 interface Props {
   clients: IClient[];
@@ -73,18 +74,24 @@ export const RigthSection = ({
             <div className="text-sm">{CLIENT_LABELS.NO_PHOTO}</div>
           )}
           {clientImages.map(image => (
-            <div
-              className="border flex-shrink-0 border-paletteColor1 rounded-full px-3 flex items-center gap-2 flex-nowrap"
+            <Link
+              href={image.url}
+              target="_blank"
+              className="border flex-shrink-0 border-paletteColor1 cursor-pointer rounded-full px-3 flex items-center gap-2 flex-nowrap"
               key={image.url}
             >
               <span className="whitespace-nowrap text-sm">{image.name}</span>
               <span
                 className="cursor-pointer"
-                onClick={() => handleDeleteImages(image.url)}
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleDeleteImages(image.url);
+                }}
               >
                 <IoCloseCircleOutline />
               </span>
-            </div>
+            </Link>
           ))}
         </div>
         <div>
@@ -111,18 +118,24 @@ export const RigthSection = ({
             <div className="text-sm">{CLIENT_LABELS.NO_PHOTO}</div>
           )}
           {idCardImages.map(image => (
-            <div
-              className="border flex-shrink-0 border-paletteColor1 rounded-full px-3 flex items-center gap-2 flex-nowrap"
+            <Link
+              href={image.url}
+              target="_blank"
+              className="border flex-shrink-0 border-paletteColor1 cursor-pointer rounded-full px-3 flex items-center gap-2 flex-nowrap"
               key={image.url}
             >
               <span className="whitespace-nowrap text-sm">{image.name}</span>
               <span
                 className="cursor-pointer"
-                onClick={() => handleDeleteImages(image.url)}
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleDeleteImages(image.url);
+                }}
               >
                 <IoCloseCircleOutline />
               </span>
-            </div>
+            </Link>
           ))}
         </div>
         <div>

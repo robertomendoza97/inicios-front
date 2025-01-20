@@ -4,18 +4,8 @@ import { formatAllSalesForTable, SaleFromAPI } from "../";
 
 const COLUMNS: Column[] = [
   {
-    key: "frequency",
-    name: "frecuencia"
-  },
-  {
     key: "date",
     name: "fecha de venta",
-    index: true,
-    sort: true
-  },
-  {
-    key: "saleTo",
-    name: "vendido a",
     index: true,
     sort: true
   },
@@ -25,15 +15,29 @@ const COLUMNS: Column[] = [
   },
   {
     key: "totalAmount",
-    name: "monto total"
+    name: "monto total (S/I)"
   },
   {
-    key: "interestRate",
-    name: "interes"
+    key: "quotes",
+    name: "cuotas"
+  },
+  {
+    key: "frequency",
+    name: "frecuencia"
+  },
+  {
+    key: "initial",
+    name: "inicial"
   },
   {
     key: "rest",
-    name: "Restante"
+    name: "Restante total (C/i)"
+  },
+  {
+    key: "saleTo",
+    name: "vendido a",
+    index: true,
+    sort: true
   },
   {
     key: "saledBy",
